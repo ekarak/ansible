@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Class: Object</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>knx/EIBConnection.rb
+    <li>knx/knx_transceiver.rb
+    <li>knx/knx_tools.rb
+    <li>knx/knx_protocol.rb
+    <li>zwave/ozw-headers.rb
+    <li>zwave/zwave_transceiver.rb
+    <li>test1.rb
+    <li>test2.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">Socket::Constants</span>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-addr2str">#addr2str</a>
+    
+    <li><a href="#method-i-parse_ozw_headers">#parse_ozw_headers</a>
+    
+    <li><a href="#method-i-str2addr">#str2addr</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README.html">README</a>
+  
+    <li class="file"><a href="./license/LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="./license/gpl_txt.html">gpl</a>
+  
+    <li class="file"><a href="./license/lgpl_txt.html">lgpl</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Ansible.html">Ansible</a>
+  
+    <li><a href="./Ansible/KNXValue.html">Ansible::KNXValue</a>
+  
+    <li><a href="./Ansible/KNX_Transceiver.html">Ansible::KNX_Transceiver</a>
+  
+    <li><a href="./Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+  
+    <li><a href="./OpenZWave.html">OpenZWave</a>
+  
+    <li><a href="./OpenZWave/ValueID.html">OpenZWave::ValueID</a>
+  
+    <li><a href="./AnsibleCallback.html">AnsibleCallback</a>
+  
+    <li><a href="./AnsibleValue.html">AnsibleValue</a>
+  
+    <li><a href="./EIBAddr.html">EIBAddr</a>
+  
+    <li><a href="./EIBBuffer.html">EIBBuffer</a>
+  
+    <li><a href="./EIBConnection.html">EIBConnection</a>
+  
+    <li><a href="./EIBInt16.html">EIBInt16</a>
+  
+    <li><a href="./EIBInt32.html">EIBInt32</a>
+  
+    <li><a href="./EIBInt8.html">EIBInt8</a>
+  
+    <li><a href="./KNX_L_DATA_Frame.html">KNX_L_DATA_Frame</a>
+  
+    <li><a href="./KNX_TP_ControlField.html">KNX_TP_ControlField</a>
+  
+    <li><a href="./OZW_EventID_id.html">OZW_EventID_id</a>
+  
+    <li><a href="./OZW_EventID_id1.html">OZW_EventID_id1</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OrbiterProxy.html">OrbiterProxy</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Transceiver.html">Transceiver</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="APCICODES">APCICODES
+        
+        <dd class="description">
+        
+      
+        <dt id="Dimmer">Dimmer
+        
+        <dd class="description">
+        
+      
+        <dt id="ENUM_RE">ENUM_RE
+        
+        <dd class="description"><p>Project <a href="Ansible.html">Ansible</a>  - An extensible home automation
+scripting framework</p>
+        
+      
+        <dt id="ENUM_RE_LINE">ENUM_RE_LINE
+        
+        <dd class="description"><p>and the secondary regexp to parse enumeration items e.g.                   
+Type_ValueChanged,               &lt; A node value has been updated from
+the Z-Wave network.</p>
+        
+      
+        <dt id="KNX">KNX
+        
+        <dd class="description">
+        
+      
+        <dt id="KNX_COMMAND_TOPIC">KNX_COMMAND_TOPIC
+        
+        <dd class="description"><p><a href="Object.html#KNX">KNX</a> COMMAND_TOPIC</p>
+
+<pre class="ruby"><span class="ruby-identifier">header</span> <span class="ruby-string">&quot;dest_addr&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">KNX</span> <span class="ruby-identifier">destination</span> <span class="ruby-identifier">address</span> (<span class="ruby-identifier">group</span><span class="ruby-operator">/</span><span class="ruby-identifier">phys</span>) <span class="ruby-keyword">in</span> <span class="ruby-value">16</span><span class="ruby-operator">-</span><span class="ruby-identifier">bit</span> <span class="ruby-identifier">unsigned</span> <span class="ruby-identifier">integer</span> <span class="ruby-identifier">format</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">e</span>. <span class="ruby-string">&quot;1024&quot;</span> <span class="ruby-identifier">meaning</span> <span class="ruby-string">&quot;1/0/0&quot;</span> <span class="ruby-keyword">in</span> <span class="ruby-value">3</span><span class="ruby-operator">-</span><span class="ruby-identifier">level</span> <span class="ruby-identifier">fmt</span>
+<span class="ruby-identifier">body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">the</span> <span class="ruby-identifier">raw</span> <span class="ruby-constant">APDU</span> <span class="ruby-keyword">for</span> <span class="ruby-identifier">transmission</span> (<span class="ruby-identifier">command</span> <span class="ruby-identifier">flags</span><span class="ruby-operator">+</span><span class="ruby-identifier">data</span>) <span class="ruby-keyword">in</span> <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-constant">CGI</span>.<span class="ruby-identifier">escape</span>()) <span class="ruby-identifier">format</span>
+</pre>
+        
+      
+        <dt id="KNX_MONITOR_TOPIC">KNX_MONITOR_TOPIC
+        
+        <dd class="description"><p><a href="Object.html#KNX">KNX</a> MONITOR TOPIC:</p>
+
+<pre>passes all KNX activity to STOMP
+KNX frame headers as defined in knx_protocol.rb</pre>
+        
+      
+        <dt id="PRIOCLASSES">PRIOCLASSES
+        
+        <dd class="description">
+        
+      
+        <dt id="TPDUCODES">TPDUCODES
+        
+        <dd class="description">
+        
+      
+        <dt id="Tree">Tree
+        
+        <dd class="description">
+        
+      
+        <dt id="ZWAVE_MONITOR_TOPIC">ZWAVE_MONITOR_TOPIC
+        
+        <dd class="description"><p>ZWAVE MONITOR TOPIC:</p>
+
+<pre>passes all ZWave activity to STOMP
+ZWave frame headers as defined in zwave-protocol.rb</pre>
+        
+      
+        <dt id="ZWT">ZWT
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-addr2str" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">addr2str</span><span
+            class="method-args">(a, ga=false)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>addr2str: Convert an integer to an EIB address string, in the form
+“1/2/3” or “1.2.3”</p>
+          
+
+          
+          <div class="method-source-code" id="addr2str-source">
+            <pre><span class="ruby-comment"># File knx/knx_tools.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">addr2str</span>(<span class="ruby-identifier">a</span>, <span class="ruby-identifier">ga</span>=<span class="ruby-keyword">false</span>)
+    <span class="ruby-identifier">str</span>=<span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-comment">#~ a = a[0]*256+a[1]</span>
+        <span class="ruby-identifier">a</span> = <span class="ruby-identifier">a</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-string">'c*'</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'n'</span>)[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">ga</span>)
+        <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#{(a &gt;&gt; 11) &amp; 0xf}/#{(a &gt;&gt; 8) &amp; 0x7}/#{a &amp; 0xff}&quot;</span>
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">str</span> = <span class="ruby-node">&quot;#{a &gt;&gt; 12}.#{(a &gt;&gt; 8) &amp; 0xf}.#{a &amp; 0xff}&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span>(<span class="ruby-identifier">str</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- addr2str-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- addr2str-method -->
+
+    
+      <div id="method-i-parse_ozw_headers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_ozw_headers</span><span
+            class="method-args">(cpp_src)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <pre>md[1]      md[2]    md[3]                  md[4]</pre>
+
+<p>item name     =   default_index     textual_description</p>
+          
+
+          
+          <div class="method-source-code" id="parse_ozw_headers-source">
+            <pre><span class="ruby-comment"># File zwave/ozw-headers.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse_ozw_headers</span>(<span class="ruby-identifier">cpp_src</span>)
+    <span class="ruby-identifier">notificationtypes</span>, <span class="ruby-identifier">valuegenres</span>, <span class="ruby-identifier">valuetypes</span> = [], [], []
+    [   
+        [<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">cpp_src</span>, <span class="ruby-string">&quot;Notification.h&quot;</span>), <span class="ruby-string">&quot;NotificationType&quot;</span>, <span class="ruby-identifier">notificationtypes</span>],
+        [<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">cpp_src</span>, <span class="ruby-string">&quot;value_classes&quot;</span>, <span class="ruby-string">&quot;ValueID.h&quot;</span>), <span class="ruby-string">&quot;ValueGenre&quot;</span>, <span class="ruby-identifier">valuegenres</span>],
+        [<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">cpp_src</span>, <span class="ruby-string">&quot;value_classes&quot;</span>, <span class="ruby-string">&quot;ValueID.h&quot;</span>), <span class="ruby-string">&quot;ValueType&quot;</span>, <span class="ruby-identifier">valuetypes</span>]
+    ].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span> <span class="ruby-identifier">headerfile</span>, <span class="ruby-identifier">enum_name</span>, <span class="ruby-identifier">enum_array</span> <span class="ruby-operator">|</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Parsing #{headerfile} for enum #{enum_name}...&quot;</span>
+        <span class="ruby-comment">#~ puts enum_re % enum_name</span>
+        <span class="ruby-identifier">foo</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">headerfile</span>).<span class="ruby-identifier">read</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">enum</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">ENUM_RE</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">enum_name</span>,  <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">EXTENDED</span> <span class="ruby-operator">|</span> <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">IGNORECASE</span> <span class="ruby-operator">|</span> <span class="ruby-constant">Regexp</span><span class="ruby-operator">::</span><span class="ruby-constant">MULTILINE</span>).<span class="ruby-identifier">match</span>(<span class="ruby-identifier">foo</span>) <span class="ruby-keyword">then</span>
+            <span class="ruby-identifier">index</span> = <span class="ruby-value">0</span>
+            <span class="ruby-comment">#~ puts enum[1].inspect</span>
+            <span class="ruby-comment">#~ puts '-----------------'</span>
+            <span class="ruby-identifier">enum</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+                <span class="ruby-keyword">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-constant">ENUM_RE_LINE</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">line</span>) <span class="ruby-keyword">then</span>
+                    <span class="ruby-comment">#puts md[1..-1].inspect</span>
+                    <span class="ruby-identifier">index</span> =  (<span class="ruby-identifier">md</span>[<span class="ruby-value">2</span>] <span class="ruby-keyword">and</span> <span class="ruby-identifier">md</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">md</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">index</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>
+                    <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">md</span>[<span class="ruby-value">4</span>]
+                    <span class="ruby-identifier">enum_array</span>[<span class="ruby-identifier">index</span>] = [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
+                        <span class="ruby-comment">#~ puts &quot;#{enum_name}[#{index}] = [#{key}, #{value}]&quot;</span>
+                <span class="ruby-keyword">end</span>
+            }
+        <span class="ruby-keyword">end</span>
+    }
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">notificationtypes</span>, <span class="ruby-identifier">valuegenres</span>, <span class="ruby-identifier">valuetypes</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse_ozw_headers-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse_ozw_headers-method -->
+
+    
+      <div id="method-i-str2addr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">str2addr</span><span
+            class="method-args">(s)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>str2addr: Parse an address string into an unsigned 16-bit integer</p>
+          
+
+          
+          <div class="method-source-code" id="str2addr-source">
+            <pre><span class="ruby-comment"># File knx/knx_tools.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">str2addr</span>(<span class="ruby-identifier">s</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(\d*)\/(\d*)\/(\d*)/</span>)
+        <span class="ruby-identifier">a</span>, <span class="ruby-identifier">b</span>, <span class="ruby-identifier">c</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">m</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-keyword">return</span> ((<span class="ruby-identifier">a</span> &amp; <span class="ruby-value">0x01f</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">11</span>) <span class="ruby-operator">|</span> ((<span class="ruby-identifier">b</span> &amp; <span class="ruby-value">0x07</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">8</span>) <span class="ruby-operator">|</span> ((<span class="ruby-identifier">c</span> &amp; <span class="ruby-value">0xff</span>))
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">m</span> = <span class="ruby-identifier">s</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(\d*)\/(\d*)/</span>)
+        <span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span> = <span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">m</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+        <span class="ruby-keyword">return</span> ((<span class="ruby-identifier">a</span> &amp; <span class="ruby-value">0x01f</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value">11</span>) <span class="ruby-operator">|</span> ((<span class="ruby-identifier">b</span> &amp; <span class="ruby-value">0x7FF</span>))
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">start_with?</span>(<span class="ruby-string">&quot;0x&quot;</span>)
+        <span class="ruby-keyword">return</span> (<span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> &amp; <span class="ruby-value">0xffff</span>)
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- str2addr-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- str2addr-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

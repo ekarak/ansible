@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Class: OpenZWave::ValueID</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>zwave/zwave_value.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">RemoteValueID
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><a class="include" href="../AnsibleValue.html">AnsibleValue</a>
+  
+  
+  
+    <li><a class="include" href="../AnsibleCallback.html">AnsibleCallback</a>
+  
+  
+  </ul>
+</nav>
+
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-new">::new</a>
+    
+    <li><a href="#method-i-3D-3D">#==</a>
+    
+    <li><a href="#method-i-get">#get</a>
+    
+    <li><a href="#method-i-set">#set</a>
+    
+    <li><a href="#method-i-trigger_change_monitor">#trigger_change_monitor</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../license/LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../license/gpl_txt.html">gpl</a>
+  
+    <li class="file"><a href="../license/lgpl_txt.html">lgpl</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Ansible.html">Ansible</a>
+  
+    <li><a href="../Ansible/KNXValue.html">Ansible::KNXValue</a>
+  
+    <li><a href="../Ansible/KNX_Transceiver.html">Ansible::KNX_Transceiver</a>
+  
+    <li><a href="../Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+  
+    <li><a href="../OpenZWave.html">OpenZWave</a>
+  
+    <li><a href="../OpenZWave/ValueID.html">OpenZWave::ValueID</a>
+  
+    <li><a href="../AnsibleCallback.html">AnsibleCallback</a>
+  
+    <li><a href="../AnsibleValue.html">AnsibleValue</a>
+  
+    <li><a href="../EIBAddr.html">EIBAddr</a>
+  
+    <li><a href="../EIBBuffer.html">EIBBuffer</a>
+  
+    <li><a href="../EIBConnection.html">EIBConnection</a>
+  
+    <li><a href="../EIBInt16.html">EIBInt16</a>
+  
+    <li><a href="../EIBInt32.html">EIBInt32</a>
+  
+    <li><a href="../EIBInt8.html">EIBInt8</a>
+  
+    <li><a href="../KNX_L_DATA_Frame.html">KNX_L_DATA_Frame</a>
+  
+    <li><a href="../KNX_TP_ControlField.html">KNX_TP_ControlField</a>
+  
+    <li><a href="../OZW_EventID_id.html">OZW_EventID_id</a>
+  
+    <li><a href="../OZW_EventID_id1.html">OZW_EventID_id1</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OrbiterProxy.html">OrbiterProxy</a>
+  
+    <li><a href="../Test.html">Test</a>
+  
+    <li><a href="../Transceiver.html">Transceiver</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class OpenZWave::ValueID</h1>
+
+  <div id="description" class="description">
+    
+<p>extend the Thrift <a href="ValueID.html">ValueID</a> interface with some
+interesting stuff</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-poll_delayed" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">poll_delayed</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>—– INSTANCE VARIABLES &amp; METHODS</p>
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-value_id" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">value_id</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        <p>—– INSTANCE VARIABLES &amp; METHODS</p>
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(transceiver, homeid, valueid)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>initialize <a href="ValueID.html">ValueID</a> by home and value id (both
+hex strings)</p>
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 71</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">transceiver</span>, <span class="ruby-identifier">homeid</span>, <span class="ruby-identifier">valueid</span>)
+    <span class="ruby-ivar">@transceiver</span> = <span class="ruby-identifier">transceiver</span>
+    
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'both arguments must be strings'</span> <span class="ruby-keyword">unless</span> ((<span class="ruby-identifier">homeid</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">String</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">valueid</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">String</span>))
+    
+    <span class="ruby-ivar">@_homeId</span> = <span class="ruby-identifier">homeid</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+    <span class="ruby-ivar">@value_id</span>  = <span class="ruby-identifier">valueid</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-ivar">@id</span> = [<span class="ruby-identifier">valueid</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">' '</span>)[<span class="ruby-value">-8</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;N&quot;</span>)
+    <span class="ruby-ivar">@id1</span> = [<span class="ruby-identifier">valueid</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">' '</span>)[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-9</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;N&quot;</span>)
+    <span class="ruby-comment"># parse all fields</span>
+    <span class="ruby-identifier">b</span> = <span class="ruby-constant">OZW_EventID_id</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@id</span>)
+    <span class="ruby-identifier">b1</span> = <span class="ruby-constant">OZW_EventID_id1</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@id1</span>)
+    <span class="ruby-comment"># and store them</span>
+    <span class="ruby-ivar">@_nodeId</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">node_id</span>
+    <span class="ruby-ivar">@_genre</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">value_genre</span>
+    <span class="ruby-ivar">@_type</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">value_type</span>
+    <span class="ruby-ivar">@_valueIndex</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">value_idx</span>
+    <span class="ruby-ivar">@_commandClassId</span> = <span class="ruby-identifier">b</span>.<span class="ruby-identifier">cmd_class</span>
+    <span class="ruby-ivar">@_instance</span> = <span class="ruby-identifier">b1</span>.<span class="ruby-identifier">cmd_class_instance</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;NEW ZWAVE VALUE CREATED: #{self.inspect}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+    
+    <span class="ruby-comment"># fill in some useful info so as not to query OpenZWave all the time</span>
+    <span class="ruby-ivar">@readonly</span> = <span class="ruby-ivar">@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:IsValueReadOnly</span>, <span class="ruby-keyword">self</span>)
+    
+    <span class="ruby-comment"># time of last update</span>
+    <span class="ruby-ivar">@last_update</span> = <span class="ruby-keyword">nil</span>
+    
+    <span class="ruby-comment"># a boolean flag set to true so as to know all subsequent notifications</span>
+    <span class="ruby-comment"># by OpenZWave regarding this value have been caused by us</span>
+    <span class="ruby-ivar">@poll_delayed</span> = <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-3D-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">==</span><span
+            class="method-args">(other)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>equality checking</p>
+          
+
+          
+          <div class="method-source-code" id="3D-3D-source">
+            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">other</span>)
+    <span class="ruby-keyword">return</span> ((<span class="ruby-ivar">@_homeId</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">_homeId</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@value_id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">value_id</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 3D-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 3D-3D-method -->
+
+    
+      <div id="method-i-get" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>get a value returns the current value stored in <a
+href="../OpenZWave.html">OpenZWave</a>,  OR raise exception if the call to
+<a href="../OpenZWave.html">OpenZWave</a> failed</p>
+          
+
+          
+          <div class="method-source-code" id="get-source">
+            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 108</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>()
+    <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onBeforeGet</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;get() called for #{self.inspect} by:\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">caller</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-identifier">operation</span> = <span class="ruby-keyword">case</span> <span class="ruby-ivar">@_type</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Bool</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsBool</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Byte</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsByte</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Int</span>    <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsInt</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Short</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsShort</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Decimal</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsFloat</span> <span class="ruby-comment">#FIXME</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_String</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueAsString</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_List</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:GetValueListItems</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Button</span> <span class="ruby-keyword">then</span>  <span class="ruby-value">:GetValueAsString</span> <span class="ruby-comment">#FIXME</span>
+        <span class="ruby-comment">#FIXME: when RemoteValueType::ValueType_Schedule</span>
+    <span class="ruby-keyword">else</span> <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/uninitialized value type! #{inspect}&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">operation</span>, <span class="ruby-keyword">self</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">retval</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;get() result=#{result.o_value}, prev=#{@previous_value.inspect} curr=#{@current_value.inspect} Refreshed=#{RefreshedNodes[@_nodeId]}&quot;</span>
+        <span class="ruby-comment"># call succeeded, let's see what we got from OpenZWave</span>
+        <span class="ruby-keyword">if</span> (<span class="ruby-ivar">@current_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">o_value</span>) <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-constant">RefreshedNodes</span>[<span class="ruby-ivar">@_nodeId</span>] <span class="ruby-keyword">then</span>
+            <span class="ruby-comment">#ZWave peculiarity: we got a ValueChanged event, but the value</span>
+            <span class="ruby-comment"># reported by OpenZWave is unchanged. Thus we need to RefreshNodeInfo</span>
+            <span class="ruby-ivar">@poll_delayed</span> = <span class="ruby-keyword">true</span>
+            <span class="ruby-identifier">trigger_change_monitor</span>
+        <span class="ruby-keyword">end</span>
+        <span class="ruby-identifier">update</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">o_value</span>)
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onAfterGet</span>)
+        <span class="ruby-keyword">return</span>(<span class="ruby-identifier">result</span>)
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;value #{self}: call to #{operation} failed!!&quot;</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get-method -->
+
+    
+      <div id="method-i-set" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">set</span><span
+            class="method-args">(new_val)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <pre>set a value 
+arg1: the new value, must be ruby-castable to OpenZWave's type system
+returns: true on success, raises exception on error</pre>
+
+<p>WARNING: a true return value doesn’t mean the command actually succeeded,</p>
+
+<pre>it only means that it was queued for delivery to the target node</pre>
+          
+
+          
+          <div class="method-source-code" id="set-source">
+            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 147</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set</span>(<span class="ruby-identifier">new_val</span>)
+    <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onBeforeSet</span>)
+    <span class="ruby-identifier">operation</span> = <span class="ruby-keyword">case</span> <span class="ruby-ivar">@_type</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Bool</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_Bool</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Byte</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_UInt8</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Int</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_Int32</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Short</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_Int16</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Decimal</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_Float</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_String</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_String</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_List</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValueListSelection</span>
+        <span class="ruby-keyword">when</span> <span class="ruby-constant">RemoteValueType</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueType_Button</span> <span class="ruby-keyword">then</span> <span class="ruby-value">:SetValue_String</span> <span class="ruby-comment">#FIXME </span>
+        <span class="ruby-comment">#FIXME: when RemoteValueType::ValueType_Schedule</span>
+    <span class="ruby-keyword">end</span> <span class="ruby-comment">#case</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">false</span>
+    <span class="ruby-comment">#special case</span>
+    <span class="ruby-keyword">if</span> [<span class="ruby-constant">TrueClass</span>, <span class="ruby-constant">FalseClass</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">new_val</span>.<span class="ruby-identifier">class</span>)
+        <span class="ruby-identifier">new_val</span> = <span class="ruby-identifier">new_val</span> <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span> = <span class="ruby-ivar">@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">operation</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">new_val</span>) <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">update</span>(<span class="ruby-identifier">new_val</span>)
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onAfterSet</span>)
+        <span class="ruby-keyword">return</span>(<span class="ruby-identifier">result</span>)
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;SetValue failed for #{self}&quot;</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- set-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- set-method -->
+
+    
+      <div id="method-i-trigger_change_monitor" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">trigger_change_monitor</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Zwave value notification system only informs us about  a  value being
+changed (ie by manual operation or by an external command).</p>
+          
+
+          
+          <div class="method-source-code" id="trigger_change_monitor-source">
+            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 178</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">trigger_change_monitor</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">@@NodesPolled</span>[<span class="ruby-ivar">@_nodeId</span>] <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">@@NodesPolled</span>[<span class="ruby-ivar">@_nodeId</span>] = <span class="ruby-keyword">true</span>
+        <span class="ruby-comment"># spawn new polling thread</span>
+        <span class="ruby-ivar">@poll_thread</span> = <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> {
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;==&gt; spawning trigger change monitor thread #{Thread.current} for node: #{@_nodeId}&lt;==&quot;</span>
+            <span class="ruby-keyword">begin</span>
+                <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onChangeMonitorStart</span>, <span class="ruby-ivar">@_nodeId</span>) 
+                <span class="ruby-comment"># request node status update</span>
+                <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
+                <span class="ruby-ivar">@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:RefreshNodeInfo</span>, <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">HomeID</span>, <span class="ruby-ivar">@_nodeId</span>) 
+                <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onChangeMonitorComplete</span>, <span class="ruby-ivar">@_nodeId</span>)
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;==&gt; trigger change monitor thread (#{Thread.current} ENDED&lt;==&quot;</span>
+                <span class="ruby-identifier">@@NodesPolled</span>[<span class="ruby-ivar">@_nodeId</span>] = <span class="ruby-keyword">false</span>
+            <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{e}:\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>)
+            <span class="ruby-keyword">end</span>
+        }
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- trigger_change_monitor-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- trigger_change_monitor-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Module: AnsibleValue</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>ansible_value.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-c-5B-5D">::[]</a>
+    
+    <li><a href="#method-c-insert">::insert</a>
+    
+    <li><a href="#method-i-matches-3F">#matches?</a>
+    
+    <li><a href="#method-i-update">#update</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./README.html">README</a>
+  
+    <li class="file"><a href="./license/LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="./license/gpl_txt.html">gpl</a>
+  
+    <li class="file"><a href="./license/lgpl_txt.html">lgpl</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Ansible.html">Ansible</a>
+  
+    <li><a href="./Ansible/KNXValue.html">Ansible::KNXValue</a>
+  
+    <li><a href="./Ansible/KNX_Transceiver.html">Ansible::KNX_Transceiver</a>
+  
+    <li><a href="./Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+  
+    <li><a href="./OpenZWave.html">OpenZWave</a>
+  
+    <li><a href="./OpenZWave/ValueID.html">OpenZWave::ValueID</a>
+  
+    <li><a href="./AnsibleCallback.html">AnsibleCallback</a>
+  
+    <li><a href="./AnsibleValue.html">AnsibleValue</a>
+  
+    <li><a href="./EIBAddr.html">EIBAddr</a>
+  
+    <li><a href="./EIBBuffer.html">EIBBuffer</a>
+  
+    <li><a href="./EIBConnection.html">EIBConnection</a>
+  
+    <li><a href="./EIBInt16.html">EIBInt16</a>
+  
+    <li><a href="./EIBInt32.html">EIBInt32</a>
+  
+    <li><a href="./EIBInt8.html">EIBInt8</a>
+  
+    <li><a href="./KNX_L_DATA_Frame.html">KNX_L_DATA_Frame</a>
+  
+    <li><a href="./KNX_TP_ControlField.html">KNX_TP_ControlField</a>
+  
+    <li><a href="./OZW_EventID_id.html">OZW_EventID_id</a>
+  
+    <li><a href="./OZW_EventID_id1.html">OZW_EventID_id1</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./OrbiterProxy.html">OrbiterProxy</a>
+  
+    <li><a href="./Test.html">Test</a>
+  
+    <li><a href="./Transceiver.html">Transceiver</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module AnsibleValue</h1>
+
+  <div id="description" class="description">
+    
+<p>Project <a href="Ansible.html">Ansible</a>  - An extensible home automation
+scripting framework</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-current_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">current_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-last_update" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">last_update</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-previous_value" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">previous_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-5B-5D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]</span><span
+            class="method-args">(filter_hash)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>lookup an <a href="AnsibleValue.html">AnsibleValue</a> by a filter hash</p>
+          
+
+          
+          <div class="method-source-code" id="5B-5D-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 55</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">filter_hash</span>)
+    <span class="ruby-comment">#puts &quot;AnsibleValue[] called, filter_hash=#{filter_hash}&quot;</span>
+    <span class="ruby-identifier">result_set</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;ooops! @@AllValues contains a non-AnsibleValue!&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">AnsibleValue</span>)
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">filter_hash</span>) <span class="ruby-keyword">then</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Found a matching value! #{v}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+            <span class="ruby-identifier">result_set</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result_set</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span>
+            <span class="ruby-identifier">result_set</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+        <span class="ruby-keyword">end</span>
+    }
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">result_set</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 5B-5D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 5B-5D-method -->
+
+    
+      <div id="method-c-insert" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">insert</span><span
+            class="method-args">(newvalue)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>add an <a href="AnsibleValue.html">AnsibleValue</a> to the singleton
+@@AllValues returns the newvalue</p>
+          
+
+          
+          <div class="method-source-code" id="insert-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">newvalue</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">newvalue</span>) <span class="ruby-keyword">then</span>
+        <span class="ruby-comment"># newvalue is already stored in @@AllValues, find it and return it</span>
+        <span class="ruby-keyword">return</span>( <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">find</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">newvalue</span>} )
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Adding a new value to @@AllValues (#{newvalue})&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+        <span class="ruby-identifier">@@AllValues</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">newvalue</span>
+        <span class="ruby-comment"># get initial state</span>
+        <span class="ruby-identifier">newvalue</span>.<span class="ruby-identifier">get</span>
+        <span class="ruby-keyword">return</span>(<span class="ruby-identifier">newvalue</span>)
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- insert-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- insert-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-matches-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">matches?</span><span
+            class="method-args">(hash)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>return true if a value’s instance variable (whose symbol is iv_symbol)
+matches a filter value (as a regexp) e.g. value.matches?(:name =&gt;
+/elias/, :telephone =&gt; /210/)</p>
+          
+
+          
+          <div class="method-source-code" id="matches-3F-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 32</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">hash</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}: AnsibleValue.match? single argument must be a hash..&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">iv_symbol</span>, <span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}: AnsibleValue.match?(hash)'s keys must be Symbols..&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">iv_symbol</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Symbol</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">instance_eval</span>(<span class="ruby-string">'@'</span><span class="ruby-operator">+</span><span class="ruby-identifier">iv_symbol</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword">then</span>
+            <span class="ruby-comment">#puts &quot;match.val(#{iv_symbol}) == #{val}&quot;</span>
+            <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span> &amp; <span class="ruby-keyword">case</span> <span class="ruby-identifier">filter</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-constant">Regexp</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_s</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">else</span> <span class="ruby-identifier">filter</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">val</span>
+            <span class="ruby-keyword">end</span>
+        <span class="ruby-keyword">else</span>
+            <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+        <span class="ruby-keyword">end</span>
+    }
+    <span class="ruby-keyword">return</span>(<span class="ruby-identifier">result</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- matches-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- matches-3F-method -->
+
+    
+      <div id="method-i-update" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update</span><span
+            class="method-args">(newval)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>update internal instance variable representing the current state of the
+value</p>
+          
+
+          
+          <div class="method-source-code" id="update-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>(<span class="ruby-identifier">newval</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">newval</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-ivar">@last_update</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;==&gt; updating value #{self}, with #{newval.inspect}&quot;</span>        
+        <span class="ruby-comment"># previous value was different, update it and fire onUpdate handler</span>
+        <span class="ruby-ivar">@previous_value</span> = <span class="ruby-ivar">@current_value</span>
+        <span class="ruby-ivar">@current_value</span> = <span class="ruby-identifier">newval</span>
+        <span class="ruby-comment"># trigger onUpdate callback, if any</span>
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onUpdate</span>, <span class="ruby-ivar">@current_value</span>)
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- update-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- update-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+
