@@ -1,5 +1,26 @@
-#~ Project Ansible
-#~ (c) 2011 Elias Karakoulakis <elias.karakoulakis@gmail.com>
+=begin
+Project Ansible  - An extensible home automation scripting framework
+----------------------------------------------------
+Copyright (c) 2011 Elias Karakoulakis <elias.karakoulakis@gmail.com>
+
+SOFTWARE NOTICE AND LICENSE
+
+Project Ansible is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, either version 3 of the License,
+or (at your option) any later version.
+
+Project Ansible is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Project Ansible.  If not, see <http://www.gnu.org/licenses/>.
+
+for more information on the LGPL, see:
+http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
+=end
 
 require 'thrift'
 
@@ -10,6 +31,8 @@ require 'ozw-headers'
 require "remote_manager"
 
 require 'ansible_value'
+require 'ansible_callback'
+
 require 'zwave_protocol'
 require 'zwave_command_classes'
 
@@ -25,6 +48,7 @@ RefreshedNodes = {}
 # extend the Thrift ValueID interface with some interesting stuff
 class ValueID < RemoteValueID
     include AnsibleValue
+    include AnsibleCallback
     
     #
     # ------ CLASS VARIABLES & METHODS
@@ -75,7 +99,6 @@ class ValueID < RemoteValueID
         # a boolean flag set to true so as to know all subsequent notifications
         # by OpenZWave regarding this value have been caused by us
         @poll_delayed = false
-
     end
     
     #
@@ -135,25 +158,16 @@ class ValueID < RemoteValueID
             #FIXME: when RemoteValueType::ValueType_Schedule
         end #case
         result = false
+        #special case
+        if [TrueClass, FalseClass].include?(new_val.class)
+            new_val = new_val ? 1 : 0
+        end
         if result = @transceiver.manager_send(operation, self, new_val) then
             update(new_val)
             fire_callback(:onAfterSet)
             return(result)
         else
             raise "SetValue failed for #{self}"
-        end
-    end
-    
-    # update internal instance variable representing the current state of the value 
-    def update(newval)
-        unless @current_value == newval then
-            @last_update = Time.now
-            puts "==> updating value #{self}, with #{newval.inspect}"        
-            # previous value was different, update it and fire onUpdate handler
-            @previous_value = @current_value
-            @current_value = newval
-            # trigger onUpdate callback, if any
-            fire_callback(:onUpdate, @current_value)
         end
     end
     

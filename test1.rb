@@ -12,6 +12,11 @@ thrift_url = 'thrift://localhost'
 ZWT = Ansible::ZWave_Transceiver.new(stomp_url, thrift_url)
 ZWT.manager.SendAllValues
 sleep(3)
+Tree = AnsibleValue[ 
+    :_nodeId => 2, 
+    :_commandClassId => 32
+    ][0]
+    
 if Dimmer = AnsibleValue[ 
     :_nodeId => 5, 
     :_commandClassId => OpenZWave::CommandClassesByName[:COMMAND_CLASS_SWITCH_MULTILEVEL],
@@ -20,12 +25,10 @@ if Dimmer = AnsibleValue[
     ] then
     Dimmer[0].declare_callback(:onUpdate) { | val, event|
         puts "ZWAVE EVENT  #{val}.#{event}! CURRENT VALUE==#{val.current_value} --------------------"
+        Tree.set(val.current_value>0)
     }
 else
     puts "valueid not found!"
 end
     
-Tree = AnsibleValue[ 
-    :_nodeId => 2, 
-    :_commandClassId => 32
-    ][0]
+
