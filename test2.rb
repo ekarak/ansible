@@ -26,36 +26,15 @@ $:.push(Dir.getwd)
 $:.push(File.join(Dir.getwd, 'knx'))
 $:.push(File.join(Dir.getwd, 'zwave'))
 
-load 'transceiver.rb'
-load 'zwave_transceiver.rb'
-load 'zwave_command_classes.rb'
+load 'knx_transceiver.rb'
+load 'knx_tools.rb'
 
-stomp_url = 'stomp://localhost'
-thrift_url = 'thrift://localhost'
-
-ZWT = Ansible::ZWave_Transceiver.new(stomp_url, thrift_url)
-ZWT.manager.SendAllValues
-sleep(3)
-Tree = AnsibleValue[ 
-    :_nodeId => 2, 
-    :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic
-    ][0]
-
-Tree.declare_callback(:onUpdate) { | val, event|
-    puts "-------- ZWAVE NODE #{val._nodeId} #{event}! CURRENT VALUE==#{val.current_value} ------------"
+KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
+# monitor all KNX activity
+KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
+    if frame.dst_addr < 4048 then
+    puts "frame==#{frame.inspect}"
+    puts "data ==#{frame.data}"
+    puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + ", priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]\
+    end
 }
-
-if Dimmer = AnsibleValue[ 
-    :_nodeId => 5,
-    :_type => OpenZWave::RemoteValueType::ValueType_Byte,
-    :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic
-    ] then
-    Dimmer[0].declare_callback(:onUpdate) { | val, event|
-        puts "-------- ZWAVE NODE  #{val._nodeId} #{event}! CURRENT VALUE==#{val.current_value} ------------"
-#        Tree.set(val.current_value>0)
-    }
-else
-    puts "valueid not found!"
-end
-    
-

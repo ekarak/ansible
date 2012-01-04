@@ -125,9 +125,9 @@ module Ansible
                             puts "Thrift: New heartbeat thread, #{Thread.current}"
                             # aargh, ugly heartbeat
                             while (@thrift_ok) do
-                                manager_send(:GetControllerNodeId, HomeID)
-                                #puts 'ping...'
                                 sleep(1)
+                                #puts 'ping...'
+                                manager_send(:GetControllerNodeId, HomeID)
                             end
                             puts "Thrift: heartbeat thread exiting, #{Thread.current}"
                         }
@@ -230,11 +230,8 @@ module Ansible
         def notification_Type_ValueChanged(nodeId, value) 
             #  A node value has been updated from the Z-Wave network. */
             puts "Notification: ValueChanged #{value}"
-            # get new state
-           # value.trigger_change_monitor
-           value.get
-            #OpenZWave::ValueID.mark_node_dirty(notification_node)
-            #OpenZWave::ValueID.trigger_change_monitor(notification_node)
+            # notify the value
+            value.changed
         end
         
         def notification_Type_Group(nodeId, value) 
@@ -306,21 +303,20 @@ module Ansible
             # The queries on a node that are essential to its operation have been completed. The node can now handle incoming messages. */
             puts "Notification: EssentialNodeQueriesComplete  (node:#{nodeId})"
             puts "==> marking node #{nodeId} as refreshed"
-            OpenZWave::RefreshedNodes[nodeId] = true
+            #OpenZWave::RefreshedNodes[nodeId] = true
         end
                     
         def notification_Type_NodeQueriesComplete(nodeId, value) 
             # All the initialisation queries on a node have been completed. */
             puts "Notification: NodeQueriesComplete (node:#{nodeId})"
-            if OpenZWave::RefreshedNodes[nodeId] then
+            OpenZWave::RefreshedNodes[nodeId] = true
+            Thread.new {
                 AnsibleValue[:_nodeId => nodeId].each { |val|
-                    val.get
+                    val.get()
                 }
-                # mark node as not refreshed, meaning all calls to GetValue 
-                # should be taken with a grain of salt
-                puts "==> marking node #{nodeId} as NOT refreshed"
+                #sleep(3)   # give me 3 secs to get the values!!!
                 OpenZWave::RefreshedNodes[nodeId] = false
-            end
+            }
         end
                     
         def notification_Type_AwakeNodesQueried(nodeId, value) 

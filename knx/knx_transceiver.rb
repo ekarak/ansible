@@ -1,5 +1,26 @@
-#~ Project Ansible
-#~ (c) 2011 Elias Karakoulakis <elias.karakoulakis@gmail.com>
+=begin
+Project Ansible  - An extensible home automation scripting framework
+----------------------------------------------------
+Copyright (c) 2011 Elias Karakoulakis <elias.karakoulakis@gmail.com>
+
+SOFTWARE NOTICE AND LICENSE
+
+Project Ansible is free software: you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published
+by the Free Software Foundation, either version 3 of the License,
+or (at your option) any later version.
+
+Project Ansible is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Lesser General Public License for more details.
+
+You should have received a copy of the GNU Lesser General Public License
+along with Project Ansible.  If not, see <http://www.gnu.org/licenses/>.
+
+for more information on the LGPL, see:
+http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
+=end
 
 require 'cgi'
 
@@ -25,78 +46,92 @@ KNX_COMMAND_TOPIC = "/queue/knx/command"
 
 module Ansible
 
-    class KNX_Transceiver < Transceiver
-        include AnsibleCallback
+    module KNX
         
-        attr_reader :stomp
-        
-        def initialize(connURL)
-            begin
-                puts("KNX: init connection to #{connURL}")
-                @monitor_conn = EIBConnection.new()
-                @monitor_conn.EIBSocketURL(connURL)
-                @send_conn = EIBConnection.new()
-                @send_conn.EIBSocketURL(connURL)
-                @knxbuf = EIBBuffer.new()
-                super()
-            rescue Exception => e
-                puts "Initializing #{self}: " + e + "\n\t" + e.backtrace.join("\n\t")
+        class KNX_Transceiver < Transceiver
+            include AnsibleCallback
+            
+            # a special exception to break the knx tranceiver loop
+            class NormalExit < Exception; end
+                
+            attr_reader :stomp
+            
+            def initialize(connURL)
+                begin
+                    puts("KNX: init connection to #{connURL}")
+                    @monitor_conn = EIBConnection.new()
+                    @monitor_conn.EIBSocketURL(connURL)
+                    @send_conn = EIBConnection.new()
+                    @send_conn.EIBSocketURL(connURL)
+                    @send_mutex = Mutex.new()
+                    @knxbuf = EIBBuffer.new()
+                    super()
+                rescue Exception => e
+                    puts "#{self}.initialize() EXCEPTION: #{e}\n\t" + e.backtrace.join("\n\t")
+                end
             end
-        end
-        
-        # the main KNX transceiver thread
-        def run()
-            puts("KNX Transceiver thread is running!")
-            begin
-                #### part 1: connect to STOMP broker
-                @stomp = OnStomp.connect "stomp://localhost"
-                #### part 2: subscribe to command channel, listen for messages and pass them to KNX
-                # @stomp.subscribe KNX_COMMAND_TOPIC do |msg|
-                    # dest = msg.headers['dest_addr'].to_i
-                    # #TODO: check address limits
-                    # apdu = Marshal.load(CGI.unescape(msg.body))
-                    # send_apdu_raw(dest, apdu)
-                # end
-                ##### part 3: monitor KNX bus, post all activity to /knx/monitor
-                @monitor_thread = Thread.new {
+            
+            # the main KNX transceiver thread
+            def run()
+                puts("KNX Transceiver thread is running!")
+                @stomp = nil
+                begin
+                    #### part 1: connect to STOMP broker
+                    @stomp = OnStomp.connect "stomp://localhost"
+                    #### part 2: subscribe to command channel, listen for messages and pass them to KNX
+                    # @stomp.subscribe KNX_COMMAND_TOPIC do |msg|
+                        # dest = msg.headers['dest_addr'].to_i
+                        # #TODO: check address limits
+                        # apdu = Marshal.load(CGI.unescape(msg.body))
+                        # send_apdu_raw(dest, apdu)
+                    # end
+                    ##### part 3: monitor KNX bus, post all activity to /knx/monitor
                     vbm = @monitor_conn.EIBOpenVBusmonitor()
                     loop do
+                        src, dest ="", ""
                         len = @monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
                         @monitor_conn.EIBGetGroup_Src(@buf, src, dest)
-                        frame = KNX_L_DATA_Frame.new(@knxbuf.buffer.pack('c*'))
+                        #puts "knxbuffer=="+@knxbuf.buffer.inspect
+                        frame = L_DATA_Frame.new(@knxbuf.buffer.pack('c*'))
+                        #puts "frame:\n\t"
                         headers = {}
                         frame.fields.each { |fld|
-                            headers[fld.name] = CGI.escape(fld.inspect_in_object(frame, :default))
+                            fldvalue = fld.inspect_in_object(frame, :default)
+                            #puts "\t#{fld.name} == #{fldvalue}"
+                            headers[fld.name] = CGI.escape(fldvalue)
                         }
-                        message = "KNX transceiver: #{APCICODES[headers.apci]} packet from #{addr2str(frame.src_addr)} to #{addr2str(frame.dst_addr, frame.daf)}, priority:#{PRIOCLASSES[headers.prio]}"
-                        @stomp.send(KNX_MONITOR_TOPIC, message, headers)
-                        fire_callback(:onKNXactivity, frame)
+                        @stomp.send(KNX_MONITOR_TOPIC, "KNX Activity", headers)
+                        fire_callback(:onKNXtelegram, frame)
+                        # 
                     end
+                rescue NormalExit => e
+                    puts("KNX transceiver terminating gracefully...")
+                rescue Exception => e
+                    puts("Exception in KNX server thread: #{e}")
+                    puts("backtrace:\n  " << e.backtrace.join("\n  "))
+                    retry
+                ensure
+                    @monitor_conn.EIBClose() if @monitor_conn
+                    @stomp.disconnect if @stomp
+                end
+            end #def run()
+        
+            def send_apdu_raw(dest, apdu)
+                @send_mutex.synchronize {
+                    puts("KNX transceiver: sending to group address #{dest}, #{apdu.inspect}")
+                    if (@send_conn.EIBOpenT_Group(dest, 1) == -1) then
+                        raise("KNX client: error setting socket mode")
+                    end
+                    @send_conn.EIBSendAPDU(apdu)
+                    @send_conn.EIBReset()
                 }
-                @monitor_thread.join
-            rescue NormalExit => e
-                puts("KNX transceiver terminating gracefully...")
-            rescue Exception => e
-                puts("Exception in KNX server thread: #{e}")
-                puts("backtrace:\n  " << e.backtrace.join("\n  "))
-            ensure
-                @monitor_conn.EIBClose()
-                @stomp.disconnect
             end
-        end #def Thread.run()
-    
-        def send_apdu_raw(dest, apdu)
-            puts("KNX transceiver: sending to group address #{dest}, #{apdu.inspect}")
-            if (@send_conn.EIBOpenT_Group(dest, 1) == -1) then
-                raise("KNX client: error setting socket mode")
-            end
-            @send_conn.EIBSendAPDU(apdu)
-            @send_conn.EIBReset()
-        end
-                
-    end #class 
+                    
+        end #class 
 
-end #module
+    end #module KNX
+    
+end #module Ansible
 
 #KNX = Ansible::KNX_Transceiver.new("ip:192.168.0.10")
 #KNX.thread.join

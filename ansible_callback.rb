@@ -41,12 +41,12 @@ module AnsibleCallback
     def declare_callback(cb, &cb_body)
         raise "declare_callback: 1st argument must be a Symbol" unless cb.is_a?Symbol
         raise "declare_callback: 2nd argument must be a Proc" unless cb_body.is_a?Proc
-        @callbacks = {} unless @callbacks.is_a?Hash
+        @callbacks = {} if @callbacks.nil?
         if (cb.to_s[0..1] == "on")  then
-            puts "Registering callback  (#{cb}) for #{self}"
+            puts "Registering callback  (#{cb}) for #{self.inspect}"
             @callbacks[cb] = cb_body
         elsif (cb.to_s == "default") then
-            puts "Registering DEFAULT callback  for #{self}"
+            puts "Registering DEFAULT callback  for #{self.inspect}"
             @callbacks.default = cb_body
         end
     end
@@ -62,7 +62,7 @@ module AnsibleCallback
         @callbacks = {} unless @callbacks.is_a?Hash
         default = @callbacks.has_key?(cb)
         if (cb_proc = @callbacks[cb]).is_a?Proc then
-            puts "firing callback(#{cb}) args: #{args.inspect}"
+            puts "firing callback(#{cb}) args: #{args.inspect}" if $DEBUG
             cb_proc .call(self, cb.to_s, *args)
         else
             #puts "WARNING: callback #{cb} not found for #{self}, iv=#{iv} cb_proc=#{cb_proc.inspect}"

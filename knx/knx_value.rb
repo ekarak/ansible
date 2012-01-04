@@ -30,6 +30,8 @@ require 'knx_tools'
 
 module Ansible
     
+    module KNX
+        
     # definition: a KNXValue is the device-dependant datapoint, having a
     # well defined data type (EIS type): EIS1 (boolean), EIS5 (float) 
     # linked to zero or more group addresses,
@@ -55,21 +57,24 @@ module Ansible
             return (@id == other.id)
         end
         
-        attr_reader :groups, :eistype
+        attr_reader :groups, :dpt_type, :id
         attr_accessor :description
 
-        # initialize KNXValue by its EIS type
-        def initialize(transceiver, eistype, groups)
+        # initialize KNXValue
+        def initialize(transceiver, groups=[], flags=nil)
+            # the transceiver responsible for all things KNX
             @transceiver = transceiver
-            
+
             # array of group addresses associated with this datapoint
             # only the first address is used in a  write operation (TODO: CHECKME)
-            @groups = []
-            @groups.replace(groups) if groups.is_a? Array
+            @groups = case groups
+                when String then Array[str2addr(groups)]
+                when Array then groups
+            end
             
             # set flag: knxvalue.flags[:r] = true
             # test flag: knxvalue.flags[:r]  (evaluates to true, meaning the read flag is set)
-            @flags = {}
+            @flags = flags or {}
             # c => Communication
             # r => Read
             # w => Write
@@ -86,7 +91,7 @@ module Ansible
             
             # id of datapoint
             # initialized by class method KNXValue.id_generator
-            @id = nil
+            @id = KNXValue.id_generator()
         end
         
         # get a value from eibd
@@ -96,33 +101,38 @@ module Ansible
         
         # set (write) a value to eibd
         def set(new_val)
-            #write value to 1/2/0
-            dest= str2addr("1/2/0")
-            puts "Writing (dest)"
-            if (conn.EIBOpenT_Group(dest, 1) == -1)
-                puts("KNX client: error setting socket mode")
-                puts(conn.inspect)
-                exit(1)
+            #write value to primary group address
+            dest = nil
+            if @groups.length > 0 then 
+                dest = @groups[0]
+            else
+                raise "#{self}: primary group address not set!!!"
             end
-            data = create_apdu
-            puts ("data length=#{data.length}")
-            conn.EIBSendAPDU(data)
-            conn.EIBReset()
-
+            apdu = create_apdu()
+            puts "#{self}: Writing value to #{addr2str(dest)}"
+            #
+            @transceiver.send_apdu_raw(dest, apdu)
         end
         
+        def group_primary=(grpaddr)
+            @groups.unshift(grpaddr)
+        end
         
         def groups=(other)
-            raise "KNXValue.groups= requires an array of group addresses" unless other.is_a?Array
+            raise "KNXValue.groups= requires an array of at least one group addresses" unless (other.is_a?Array) and (other.length > 0)
             @groups.replace(other)
         end
         
         def create_apdu
-            
-            val = 0 # 0=Off, 1=On
-            data = [0, 0x80| val]    
+            raise "must override create_apdu!!!"
         end
         
-    end # class
+    end #class KNXValue
+ 
+    #
+    # now we can load all known KNXValue_DPT** classes
+    Dir["knx/dpt/*.rb"].each { |f| load f }
     
-end #module
+    end #module KNX
+    
+end #module Ansible

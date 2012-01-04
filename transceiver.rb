@@ -36,7 +36,7 @@ class Transceiver
                 begin
                     run()
                 rescue Exception => e
-                    puts "----#{self.class.name.upcase} EXCEPTION----"
+                    puts "----#{self.class.name.upcase} EXCEPTION: #{e} ----"
                     puts "backtrace:\n\t" + e.backtrace.join("\n\t")
                 end
             }

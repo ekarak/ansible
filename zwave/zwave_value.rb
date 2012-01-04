@@ -64,7 +64,10 @@ class ValueID < RemoteValueID
     
     # equality checking
     def == (other)
-        return ((@_homeId == other._homeId) and (@value_id == other.value_id))
+        return (
+            other.is_a?(ValueID) and
+            (@_homeId == other._homeId) and (@value_id == other.value_id)
+        )
     end
     
     # initialize ValueID by home and value id (both hex strings)
@@ -123,17 +126,12 @@ class ValueID < RemoteValueID
         end
         result = @transceiver.manager_send(operation, self)
         if result and result.retval then
-            puts "get() result=#{result.o_value}, prev=#{@previous_value.inspect} curr=#{@current_value.inspect} Refreshed=#{RefreshedNodes[@_nodeId]}"
+            puts "get() result=#{result.o_value}, curr=#{@current_value.inspect} Refreshed=#{RefreshedNodes[@_nodeId]}"
             # call succeeded, let's see what we got from OpenZWave
-            if (@current_value == result.o_value) and not RefreshedNodes[@_nodeId] then
-                #ZWave peculiarity: we got a ValueChanged event, but the value
-                # reported by OpenZWave is unchanged. Thus we need to RefreshNodeInfo
-                @poll_delayed = true
-                trigger_change_monitor
-            end
-            update(result.o_value)
             fire_callback(:onAfterGet)
-            return(result)
+            # update the current value and return
+            # the new current value to our callers
+            return(update(result.o_value))
         else
             raise "value #{self}: call to #{operation} failed!!"
         end
@@ -163,19 +161,37 @@ class ValueID < RemoteValueID
             new_val = new_val ? 1 : 0
         end
         if result = @transceiver.manager_send(operation, self, new_val) then
-            update(new_val)
             fire_callback(:onAfterSet)
+            # update the current value
+            update(new_val)
             return(result)
         else
             raise "SetValue failed for #{self}"
         end
     end
     
-
+    # called by the transceiver on all values that received a ValueChanged 
+    # notification. NOTICE! we need to do some polling if the value returned
+    # by the library is the same...
+    def changed
+        result = get()
+        if (@current_value == result) and not OpenZWave::RefreshedNodes[@_nodeId]  then
+            #ZWave peculiarity: we got a ValueChanged event, but the value
+            # reported by OpenZWave is unchanged. Thus we need to poll the
+            # device using :RequestNodeDynamic, wait for NodeQueriesComplete
+            # then re-get the value
+            trigger_change_monitor unless @poll_delayed
+        else
+            # update the current value
+            update(result)
+        end
+    end
+        
     # Zwave value notification system only informs us about  a 
     # value being changed (ie by manual operation or by an
     # external command). 
     def trigger_change_monitor
+        @poll_delayed = true
         unless @@NodesPolled[@_nodeId] then
             @@NodesPolled[@_nodeId] = true
             # spawn new polling thread
@@ -183,12 +199,16 @@ class ValueID < RemoteValueID
                 puts "==> spawning trigger change monitor thread #{Thread.current} for node: #{@_nodeId}<=="
                 begin
                     fire_callback(:onChangeMonitorStart, @_nodeId) 
-                    # request node status update
+                    # request node status update after 1 sec
                     sleep(1)
-                    @transceiver.manager_send(:RefreshNodeInfo, Ansible::HomeID, @_nodeId) 
+                    @transceiver.manager_send(:RequestNodeDynamic, Ansible::HomeID, @_nodeId)
+                    #@transceiver.manager_send(:RefreshNodeInfo, Ansible::HomeID, @_nodeId)
+                    sleep(1)
+
                     fire_callback(:onChangeMonitorComplete, @_nodeId)
                     puts "==> trigger change monitor thread (#{Thread.current} ENDED<=="
                     @@NodesPolled[@_nodeId] = false
+                    @poll_delayed = false
                 rescue Exception => e
                     puts "#{e}:\n\t" + e.backtrace.join("\n\t")
                 end

@@ -22,8 +22,12 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-module AnsibleValue
+require 'ansible_callback'
 
+module AnsibleValue
+    
+    include AnsibleCallback
+    
     attr_reader :previous_value, :current_value
     attr_reader :last_update
     
@@ -35,10 +39,12 @@ module AnsibleValue
         hash.each { |iv_symbol, filter|
             raise "#{self.class}: AnsibleValue.match?(hash)'s keys must be Symbols.." unless iv_symbol.is_a?Symbol
             if val = instance_eval('@'+iv_symbol.to_s) then
-                #puts "match.val(#{iv_symbol}) == #{val}"
+                #puts "match.val(#{iv_symbol}) == #{val.inspect}"
                 result = result & case filter
+                # if the filter is a regular expression, use it to match the instance value
                 when Regexp then filter.match(val.to_s)
-                when Array then filter.include?(val)
+                # if the filter is an array, use set intersectionfrom_frame
+                when Array then (filter & val).length > 0
                 else filter == val
                 end
             else
@@ -52,14 +58,14 @@ module AnsibleValue
     @@AllValues = []
 
     # lookup an AnsibleValue by a filter hash
+    # returns an array of matching values
     def AnsibleValue.[](filter_hash)
         #puts "AnsibleValue[] called, filter_hash=#{filter_hash}"
-        result_set = nil
+        result_set = []
         @@AllValues.each { |v|
             raise "ooops! @@AllValues contains a non-AnsibleValue!" unless v.is_a?(AnsibleValue)
             if v.matches?(filter_hash) then
-                puts "Found a matching value! #{v}" if $DEBUG
-                result_set = Array.new unless result_set.is_a?Array
+                #puts "Found a matching value! #{v}" if $DEBUG
                 result_set << v
             end
         }
@@ -72,7 +78,7 @@ module AnsibleValue
     def AnsibleValue.insert(newvalue)
         if @@AllValues.include?(newvalue) then
             # newvalue is already stored in @@AllValues, find it and return it
-            return( @@AllValues.find{|val| val == newvalue} )
+            return( @@AllValues.find{|val| newvalue == val} )
         else
             puts "Adding a new value to @@AllValues (#{newvalue})" if $DEBUG
             @@AllValues << newvalue
@@ -86,13 +92,14 @@ module AnsibleValue
     def update(newval)
         unless @current_value == newval then
             @last_update = Time.now
-            puts "==> updating value #{self}, with #{newval.inspect}"        
+            puts "==> updating value #{self}, with #{newval.class}:#{newval.inspect}"        
             # previous value was different, update it and fire onUpdate handler
             @previous_value = @current_value
             @current_value = newval
             # trigger onUpdate callback, if any
             fire_callback(:onUpdate, @current_value)
         end
+        return(@current_value)
     end
 
 end #module
