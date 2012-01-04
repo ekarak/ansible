@@ -25,14 +25,7 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'bit-struct'
 
 # DPT5: 8-bit unsigned value
-=begin
-5.001 percentage (0=0..ff=100%)
-5.003 angle (degrees 0=0, ff=360)
-5.004 percentage (0..255%)
-5.005 ratio (0..255)
-5.006 tariff (0..255)
-5.010 counter pulses (0..255)
-=end
+
 module Ansible
     
     module KNX
@@ -42,9 +35,17 @@ module Ansible
         end
 
         class KNXValue_DPT5 < KNXValue
-            def to_apdu();  
-                return [0, 0x80, @current_value] 
+            
+            # create apdu for this DPT value
+            # APDU types are:
+            #   0x00 => Read
+            #   0x40 => Response (default)
+            #   0x80 => Write
+            def to_apdu(apci_code = 0x40);
+                return [0, apci_code, @current_value] 
             end
+            
+            # update internal state from raw KNX frame
             def update_from_frame(frame)
                 @frame = KNX_DPT5.new(frame.data)
                 puts "--- DPT5 frame: #{@frame.inspect_detailed}"
@@ -55,3 +56,12 @@ module Ansible
     end
     
 end
+
+=begin
+5.001 percentage (0=0..ff=100%)
+5.003 angle (degrees 0=0, ff=360)
+5.004 percentage (0..255%)
+5.005 ratio (0..255)
+5.006 tariff (0..255)
+5.010 counter pulses (0..255)
+=end

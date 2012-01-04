@@ -24,24 +24,33 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'bit-struct'
 
+# 8-bit unsigned value
+        
 module Ansible
     
     module KNX
 
-        # 8-bit unsigned value
         class KNX_DPT1 < BitStruct
             unsigned  :apci,   2, "APCI info (not useful)"
-            unsigned  :data, 6, "6 bit of useful data"
+            unsigned  :value, 6, "6 bit of useful data"
         end
 
         class KNXValue_DPT1 < KNXValue
-            def to_apdu();  
-                return [0, 0x80 | @current_value] 
+            
+            # create apdu for this DPT value
+            # APDU types are:
+            #   0x00 => Read
+            #   0x40 => Response (default)
+            #   0x80 => Write
+            def to_apdu(apci_code = 0x40);  
+                return [0, apci_code | @current_value] 
             end
-            def update_from_frame(frame)
-                @frame = KNX_DPT1.new(frame.data)
+            
+            # update internal state from raw KNX frame
+            def update_from_frame(rawframe)
+                @frame = KNX_DPT1.new([rawframe.apci_data].pack('c'))
                 puts "--- DPT1 frame: #{@frame.inspect_detailed}"
-                update(@frame.data)
+                update(@frame.value)
             end
         end #class
         
