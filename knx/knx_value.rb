@@ -47,6 +47,13 @@ module Ansible
             @@ids = @@ids + 1
             return @@ids
         end
+
+        # the transceiver responsible for all things KNX
+        @@transceiver = nil
+        def KNXValue.transceiver; return @@transceiver; end
+        def KNXValue.transceiver=(other); 
+            @@transceiver = other if other.is_a? Ansible::KNX::KNX_Transceiver
+        end
         
         #
         # ----- INSTANCE VARIABLES & METHODS
@@ -61,9 +68,7 @@ module Ansible
         attr_accessor :description
 
         # initialize KNXValue
-        def initialize(transceiver, groups=[], flags=nil)
-            # the transceiver responsible for all things KNX
-            @transceiver = transceiver
+        def initialize(groups=[], flags=nil)
 
             # array of group addresses associated with this datapoint
             # only the first address is used in a  write operation (TODO: CHECKME)
@@ -111,7 +116,7 @@ module Ansible
             apdu = create_apdu()
             puts "#{self}: Writing value to #{addr2str(dest)}"
             #
-            @transceiver.send_apdu_raw(dest, apdu)
+            @@transceiver.send_apdu_raw(dest, apdu)
         end
         
         def group_primary=(grpaddr)

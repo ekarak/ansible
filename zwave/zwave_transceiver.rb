@@ -52,6 +52,7 @@ module Ansible
         attr_reader :stompURL, :thriftURL
         
         def initialize(stompURL, thriftURL)
+            raise "Already initialized!" unless OpenZWave::ValueID::transceiver.nil?
             puts "#{self}: initializing" if $DEBUG
             @stompURL, @thriftURL = stompURL, thriftURL
             #@stompMutex = Mutex.new
@@ -59,6 +60,8 @@ module Ansible
             @stomp_ok, @thrift_ok = false, false
             @alive = true
             super()
+            # store reference to ourselves to the classes that use us
+            OpenZWave::ValueID.transceiver = self
         end
         
         # initialize connection to STOMP server
@@ -200,7 +203,7 @@ module Ansible
                     valueID = msg.headers["ValueID"]
                     # lookup or create value
                     # pass self as an argument so as to receive manager operations
-                    value = AnsibleValue.insert(OpenZWave::ValueID.new(self, homeID, valueID))
+                    value = AnsibleValue.insert(OpenZWave::ValueID.new(homeID, valueID))
                 end
                 #
                 if msg.headers["NotificationType"] then

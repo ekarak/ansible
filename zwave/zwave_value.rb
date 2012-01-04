@@ -54,8 +54,12 @@ class ValueID < RemoteValueID
     # ------ CLASS VARIABLES & METHODS
     #
     @@NodesPolled = {}
-    
-    
+    @@transceiver = nil
+    def ValueID.transceiver; return @@transceiver; end
+    def ValueID.transceiver=(other); 
+        @@transceiver = other if other.is_a? Ansible::ZWave_Transceiver
+    end
+        
     #
     # ----- INSTANCE VARIABLES & METHODS
     #
@@ -71,9 +75,7 @@ class ValueID < RemoteValueID
     end
     
     # initialize ValueID by home and value id (both hex strings)
-    def initialize(transceiver, homeid, valueid)
-        @transceiver = transceiver
-        
+    def initialize( homeid, valueid)
         raise 'both arguments must be strings' unless ((homeid.is_a?String) and (valueid.is_a?String))
         
         @_homeId = homeid.to_i(16)
@@ -94,7 +96,7 @@ class ValueID < RemoteValueID
         puts "NEW ZWAVE VALUE CREATED: #{self.inspect}" if $DEBUG
         
         # fill in some useful info so as not to query OpenZWave all the time
-        @readonly = @transceiver.manager_send(:IsValueReadOnly, self)
+        @readonly = @@transceiver.manager_send(:IsValueReadOnly, self)
         
         # time of last update
         @last_update = nil
@@ -124,7 +126,7 @@ class ValueID < RemoteValueID
             #FIXME: when RemoteValueType::ValueType_Schedule
         else raise "unknown/uninitialized value type! #{inspect}"
         end
-        result = @transceiver.manager_send(operation, self)
+        result = @@transceiver.manager_send(operation, self)
         if result and result.retval then
             puts "get() result=#{result.o_value}, curr=#{@current_value.inspect} Refreshed=#{RefreshedNodes[@_nodeId]}"
             # call succeeded, let's see what we got from OpenZWave
@@ -160,7 +162,7 @@ class ValueID < RemoteValueID
         if [TrueClass, FalseClass].include?(new_val.class)
             new_val = new_val ? 1 : 0
         end
-        if result = @transceiver.manager_send(operation, self, new_val) then
+        if result = @@transceiver.manager_send(operation, self, new_val) then
             fire_callback(:onAfterSet)
             # update the current value
             update(new_val)
@@ -180,7 +182,7 @@ class ValueID < RemoteValueID
             # reported by OpenZWave is unchanged. Thus we need to poll the
             # device using :RequestNodeDynamic, wait for NodeQueriesComplete
             # then re-get the value
-            trigger_change_monitor unless @poll_delayed
+            trigger_change_monitor
         else
             # update the current value
             update(result)
@@ -200,11 +202,10 @@ class ValueID < RemoteValueID
                 begin
                     fire_callback(:onChangeMonitorStart, @_nodeId) 
                     # request node status update after 1 sec
-                    sleep(1)
-                    @transceiver.manager_send(:RequestNodeDynamic, Ansible::HomeID, @_nodeId)
+                    sleep(2)
+                    @@transceiver.manager_send(:RequestNodeDynamic, Ansible::HomeID, @_nodeId)
                     #@transceiver.manager_send(:RefreshNodeInfo, Ansible::HomeID, @_nodeId)
                     sleep(1)
-
                     fire_callback(:onChangeMonitorComplete, @_nodeId)
                     puts "==> trigger change monitor thread (#{Thread.current} ENDED<=="
                     @@NodesPolled[@_nodeId] = false

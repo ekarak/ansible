@@ -58,7 +58,18 @@ KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
     puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
         addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
         "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
-    if (frame.apci ==  2)  then # A_GroupValue_Write
+    case frame.apci
+    when 0 then # A_GroupValue_Read
+        #puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
+        AnsibleValue[:groups => [frame.dst_addr]].each { |val| 
+            if val.current_value then
+                #puts "==> responding with  value #{val}"
+                KNX.send_apdu_raw(frame.dst_addr, val.to_apdu())
+            end
+        }
+    when 1 then # A_GroupValue_Response
+        # puts "response frame"
+    when 2  then # A_GroupValue_Write
         AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
             #puts "updating knx value #{v} from frame #{frame.inspect}"
             v.update_from_frame(frame) 
@@ -67,9 +78,10 @@ KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
 }
 
 
-AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new(KNX, "1/0/20") ).declare_callback(:onUpdate) { |sender, cb, args| 
+AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new("1/0/20") ).declare_callback(:onUpdate) { |sender, cb, args| 
     puts "KNX value 1/0/20 updated! args=#{args}"
-    Tree.set(args) # FIXME convert value domains
+    zwval = sender.current_value == 0 ? 0 : 1
+    Switch.set(zwval) # FIXME convert value domains
 }
 Switch.declare_callback(:onUpdate) { | sender, cb, args|
     puts "ZWave Switch  HAS CHANGED #{args}"
@@ -78,9 +90,10 @@ Switch.declare_callback(:onUpdate) { | sender, cb, args|
 }
 
 
-AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new(KNX, "1/0/40") ).declare_callback(:onUpdate) { |sender, cb, args| 
+AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new("1/0/40") ).declare_callback(:onUpdate) { |sender, cb, args| 
     puts "KNX value 1/0/40 updated! args=#{args}"
-    Dimmer.set(args) # FIXME convert value domains
+    zwval = sender.current_value == 0 ? 0 : 99
+    Dimmer.set(zwval) # FIXME convert value domains
 }
 Dimmer.declare_callback(:onUpdate) { | sender, cb, args|
     puts "ZWave DimerOnOff HAS CHANGED #{args}"
@@ -89,7 +102,7 @@ Dimmer.declare_callback(:onUpdate) { | sender, cb, args|
 }
 
 
-AnsibleValue.insert( Ansible::KNX::KNXValue_DPT5.new(KNX, "1/0/42") ).declare_callback(:onUpdate) { |sender, cb, args| 
+AnsibleValue.insert( Ansible::KNX::KNXValue_DPT5.new("1/0/42") ).declare_callback(:onUpdate) { |sender, cb, args| 
     puts "KNX value 1/0/42 updated! args=#{args}"
     zwval = sender.current_value * 99 / 255 
     DimmerAbsolute.set(zwval.round) # FIXME convert value domains

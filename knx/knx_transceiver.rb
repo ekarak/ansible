@@ -58,6 +58,7 @@ module Ansible
             
             def initialize(connURL)
                 begin
+                    raise "Already initialized!" unless  Ansible::KNX::KNXValue.transceiver.nil?
                     puts("KNX: init connection to #{connURL}")
                     @monitor_conn = EIBConnection.new()
                     @monitor_conn.EIBSocketURL(connURL)
@@ -66,6 +67,8 @@ module Ansible
                     @send_mutex = Mutex.new()
                     @knxbuf = EIBBuffer.new()
                     super()
+                    # store reference to ourselves to the classes that use us
+                    Ansible::KNX::KNXValue.transceiver = self
                 rescue Exception => e
                     puts "#{self}.initialize() EXCEPTION: #{e}\n\t" + e.backtrace.join("\n\t")
                 end
@@ -101,6 +104,9 @@ module Ansible
                             headers[fld.name] = CGI.escape(fldvalue)
                         }
                         @stomp.send(KNX_MONITOR_TOPIC, "KNX Activity", headers)
+                           # puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
+                             #   addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
+                               # "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
                         fire_callback(:onKNXtelegram, frame)
                         # 
                     end
