@@ -53,17 +53,18 @@ DimmerAbsolute = AnsibleValue[
      :_commandClassId => 38, #SWITCH_MULTILEVEL
      :_valueIndex => 0][0]
      
-KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
+#KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
+KNX = Ansible::KNX::KNX_Transceiver.new("ip:localhost")
 KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
     puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
-        addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
-        "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
+    addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
+              "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
     case frame.apci
     when 0 then # A_GroupValue_Read
-        #puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
+        puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
         AnsibleValue[:groups => [frame.dst_addr]].each { |val| 
             if val.current_value then
-                #puts "==> responding with  value #{val}"
+                puts "==> responding with  value #{val}"
                 KNX.send_apdu_raw(frame.dst_addr, val.to_apdu())
             end
         }
@@ -71,7 +72,7 @@ KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
         # puts "response frame"
     when 2  then # A_GroupValue_Write
         AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
-            #puts "updating knx value #{v} from frame #{frame.inspect}"
+            puts "updating knx value #{v} from frame #{frame.inspect}"
             v.update_from_frame(frame) 
         }
     end

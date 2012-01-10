@@ -22,38 +22,19 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
+$:.push(Dir.getwd)
+$:.push(File.join(Dir.getwd, 'knx'))
+$:.push(File.join(Dir.getwd, 'zwave'))
 
-# 8-bit unsigned value
-        
-module Ansible
-    
-    module KNX
+load 'transceiver.rb'
 
-        class KNX_DPT1 < BitStruct
-            unsigned  :apci,   2, "APCI info (not useful)"
-            unsigned  :value, 6, "6 bit of useful data"
-        end
+load 'knx_transceiver.rb'
+load 'knx_tools.rb'
+load 'knx_value.rb'
 
-        class KNXValue_DPT1 < KNXValue
-            
-            # create apdu for this DPT value
-            # APDU types are:
-            #   0x00 => Read
-            #   0x40 => Response (default)
-            #   0x80 => Write
-            def to_apdu(apci_code = 0x40);  
-                return [0, apci_code | @current_value] 
-            end
-            
-            # update internal state from raw KNX frame
-            def update_from_frame(rawframe)
-                @frame = KNX_DPT1.new([rawframe.apci_data].pack('c'))
-                puts "--- DPT1 frame: #{@frame.inspect_detailed}"
-                update(rawframe.apci_data)
-            end
-        end #class
-        
-    end
-    
-end
+KNX = Ansible::KNX::KNX_Transceiver.new("ip:localhost")
+KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
+    puts "#{Time.now}: #{Ansible::KNX::APCICODES[frame.apci]}" + 
+        " from #{addr2str(frame.src_addr)} to #{addr2str(frame.dst_addr, frame.daf)}" + 
+        " priority=#{Ansible::KNX::PRIOCLASSES[frame.prio_class]}"
+}

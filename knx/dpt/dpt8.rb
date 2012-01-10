@@ -31,9 +31,26 @@ module Ansible
     module KNX
         
         class KNX_DPT8 < BitStruct
-            unsigned :value,    16, "Value"
+            signed   :value,    16, "Value"
         end
 
+       class KNXValue_DPT8 < KNXValue
+             # check value range
+             def KNXValue_DPT8.range_check(value)
+                 return value.between?(-2**15+1, 2**15-1)
+             end
+             
+             def to_apdu(apci_code = 0x40);
+                 return [0, apci_code] << [@current_value].pack("N") #CHECKME 
+            end
+            
+            # update internal state from raw KNX frame
+            def update_from_frame(frame)
+                @frame = KNX_DPT8.new(frame.data)
+                puts "--- DPT7 frame: #{@frame.inspect_detailed}"
+                update(@frame.value)
+            end
+         end
     end
     
 end
