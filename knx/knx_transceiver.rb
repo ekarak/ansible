@@ -93,7 +93,6 @@ module Ansible
                     loop do
                         src, dest ="", ""
                         len = @monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
-                        @monitor_conn.EIBGetGroup_Src(@buf, src, dest)
                         #puts "knxbuffer=="+@knxbuf.buffer.inspect
                         frame = L_DATA_Frame.new(@knxbuf.buffer.pack('c*'))
                         #puts "frame:\n\t"
