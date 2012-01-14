@@ -54,7 +54,7 @@ DimmerAbsolute = AnsibleValue[
      :_valueIndex => 0][0]
      
 #KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
-KNX = Ansible::KNX::KNX_Transceiver.new("ip:localhost")
+KNX = Ansible::KNX::KNX_Transceiver.new("local:/tmp/eib")
 KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
     puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
     addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
@@ -79,7 +79,7 @@ KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
 }
 
 
-AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new("1/0/20") ).declare_callback(:onUpdate) { |sender, cb, args| 
+AnsibleValue.insert( Ansible::KNX::KNXValue_DPT1.new("5/0/2") ).declare_callback(:onUpdate) { |sender, cb, args| 
     puts "KNX value 1/0/20 updated! args=#{args}"
     zwval = sender.current_value == 0 ? 0 : 1
     Switch.set(zwval) # FIXME convert value domains
@@ -102,7 +102,7 @@ Dimmer.declare_callback(:onUpdate) { | sender, cb, args|
     KNX.send_apdu_raw(str2addr("1/0/41"), [0, 0x80 | knxval])
 }
 
-
+=begin
 AnsibleValue.insert( Ansible::KNX::KNXValue_DPT5.new("1/0/42") ).declare_callback(:onUpdate) { |sender, cb, args| 
     puts "KNX value 1/0/42 updated! args=#{args}"
     zwval = sender.current_value * 99 / 255 
@@ -113,3 +113,4 @@ DimmerAbsolute.declare_callback(:onUpdate) { | sender, cb, args|
     knxval = sender.current_value * 255 / 99 
     KNX.send_apdu_raw(str2addr("1/0/43"), [0, 0x80,  knxval.round]) ## NOTICE apdu
 }
+=end

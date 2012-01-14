@@ -40,7 +40,7 @@ def decode_framedata(data)
     end
 end
 
-KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
+KNX = Ansible::KNX::KNX_Transceiver.new("local:/tmp/eib")
 KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
     puts "#{Time.now}: #{Ansible::KNX::APCICODES[frame.apci]}" + 
         " from #{addr2str(frame.src_addr)} to #{addr2str(frame.dst_addr, frame.daf)}" + 
