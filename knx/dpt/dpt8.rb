@@ -1,3 +1,4 @@
+# encoding: ISO-8859-1
 =begin
 Project Ansible  - An extensible home automation scripting framework
 ----------------------------------------------------
@@ -22,47 +23,99 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
-
-# 2-byte signed value
+require 'bindata'
 
 module Ansible
     
     module KNX
-        
-        class KNX_DPT8 < BitStruct
-            signed   :value,    16, "Value"
-        end
 
-       class KNXValue_DPT8 < KNXValue
-             # check value range
-             def KNXValue_DPT8.range_check(value)
-                 return value.between?(-2**15+1, 2**15-1)
-             end
-             
-             def to_apdu(apci_code = 0x40);
-                 return [0, apci_code] << [@current_value].pack("N") #CHECKME 
+        #
+        # DPT8.*: 2-byte signed value
+        #
+        module DPT8 
+        
+            # Bitstruct to parse a DPT8 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                endian :big
+                #
+                int16  :data, :display_name => "Value"
             end
+
+            # DPT8 basetype info
+            Basetype = {
+                :bitlength => 16,
+                :valuetype => :basic,
+                :desc => "16-bit signed value"
+            }
             
-            # update internal state from raw KNX frame
-            def update_from_frame(frame)
-                @frame = KNX_DPT8.new(frame.data)
-                puts "--- DPT7 frame: #{@frame.inspect_detailed}"
-                update(@frame.value)
-            end
+            # DPT8 subtypes info
+            Subtypes = {
+                # 8.001 pulses difference
+                "001" => {
+                    :name => "DPT_Value_2_Count", 
+                    :desc => "pulses", 
+                    :unit => "pulses"
+                },
+                
+                # 8.002 time lag (ms)
+                "002" => {
+                    :name => "DPT_DeltaTimeMsec", 
+                    :desc => "time lag(ms)",
+                    :unit => "milliseconds"
+                },
+                
+                # 8.003 time lag (10ms)
+                "003" => {
+                    :name => "DPT_DeltaTime10Msec", 
+                    :desc => "time lag(10ms)",
+                    :unit => "centiseconds"
+                },
+                
+                # 8.004 time lag (100ms)
+                "004" => {
+                    :name => "DPT_DeltaTime100Msec", 
+                    :desc => "time lag(100ms)",
+                    :unit => "deciseconds"
+                },
+                
+                # 8.005 time lag (sec)
+                "005" => {
+                    :name => "DPT_DeltaTimeSec", 
+                    :desc => "time lag(s)",
+                    :unit => "seconds"
+                },
+                
+                # 8.006 time lag (min)
+                "006" => {
+                    :name => "DPT_DeltaTimeMin", 
+                    :desc => "time lag(min)",
+                    :unit => "minutes"
+                },
+                
+                # 8.007 time lag (hour)
+                "007" => {
+                    :name => "DPT_DeltaTimeHrs", 
+                    :desc => "time lag(hrs)",
+                    :unit => "hours"
+                },
+                
+                # 8.010 percentage difference (%)
+                "010" => {
+                    :name => "DPT_Percent_V16", 
+                    :desc => "percentage difference", 
+                    :unit => "%"
+                },
+
+                # 8.011 rotation angle (deg)
+                "011" => {
+                    :name => "DPT_RotationAngle", 
+                    :desc => "angle(degrees)",
+                    :unit => "°"
+                },
+            }
          end
+         
     end
     
 end
-        
-=begin
-8.001 pulses difference
-8.002 time lag (ms)
-8.003 time lag (10ms)
-8.004 time lag (100ms)
-8.005 time lag (sec)
-8.006 time lag (min)
-8.007 time lag (hour)
-8.010 percentage difference (%)
-8.011 rotation angle (deg)
-=end

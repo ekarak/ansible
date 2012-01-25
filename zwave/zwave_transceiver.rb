@@ -52,7 +52,7 @@ module Ansible
         attr_reader :stompURL, :thriftURL
         
         def initialize(stompURL, thriftURL)
-            raise "Already initialized!" unless OpenZWave::ValueID::transceiver.nil?
+            raise "Already initialized!" unless Ansible::ZWave::ValueID::transceiver.nil?
             puts "#{self}: initializing" if $DEBUG
             @stompURL, @thriftURL = stompURL, thriftURL
             #@stompMutex = Mutex.new
@@ -61,7 +61,7 @@ module Ansible
             @alive = true
             super()
             # store reference to ourselves to the classes that use us
-            OpenZWave::ValueID.transceiver = self
+            Ansible::ZWave::ValueID.transceiver = self
         end
         
         # initialize connection to STOMP server
@@ -203,7 +203,7 @@ module Ansible
                     valueID = msg.headers["ValueID"]
                     # lookup or create value
                     # pass self as an argument so as to receive manager operations
-                    value = AnsibleValue.insert(OpenZWave::ValueID.new(homeID, valueID))
+                    value = AnsibleValue.insert(Ansible::ZWave::ValueID.new(homeID, valueID))
                 end
                 #
                 if msg.headers["NotificationType"] then
@@ -312,13 +312,13 @@ module Ansible
         def notification_Type_NodeQueriesComplete(nodeId, value) 
             # All the initialisation queries on a node have been completed. */
             puts "Notification: NodeQueriesComplete (node:#{nodeId})"
-            OpenZWave::RefreshedNodes[nodeId] = true
+            Ansible::ZWave::RefreshedNodes[nodeId] = true
             Thread.new {
                 AnsibleValue[:_nodeId => nodeId].each { |val|
                     val.get()
                 }
                 #sleep(3)   # give me 3 secs to get the values!!!
-                OpenZWave::RefreshedNodes[nodeId] = false
+                Ansible::ZWave::RefreshedNodes[nodeId] = false
             }
         end
                     

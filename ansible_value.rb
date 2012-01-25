@@ -24,7 +24,9 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'ansible_callback'
 
-module AnsibleValue
+module Ansible
+    
+    module AnsibleValue
     
     include AnsibleCallback
     
@@ -90,6 +92,7 @@ module AnsibleValue
     
     # update internal instance variable representing the current state of the value 
     def update(newval)
+        validate_ranges if respond_to?(:validate_ranges)
         unless @current_value == newval then
             @last_update = Time.now
             puts "==> updating value #{self}, with #{newval.class}:#{newval.inspect}"        
@@ -101,5 +104,7 @@ module AnsibleValue
         end
         return(@current_value)
     end
+
+end
 
 end #module

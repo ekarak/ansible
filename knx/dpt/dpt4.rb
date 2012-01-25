@@ -22,16 +22,45 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
-
-# 8-bit character
+require 'bindata'
 
 module Ansible
     
     module KNX
 
-        class KNX_DPT4 < BitStruct
-            char :value, 8, "Character"
+        #
+        # DPT4: 8-bit character
+        #
+        module DPT4
+            
+            # Bitstruct to parse a DPT4 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                uint8 :data, :display_name => "Character"
+            end
+
+            Basetype =  {
+                :bitlength => 8,
+                :valuetype => :basic,
+                :desc => "8-bit character"
+            }
+                        
+            Subtypes = {
+                # 4.001 character (ASCII)
+                "001" => {
+                    :name => "DPT_Char_ASCII",
+                    :desc => "ASCII character (0-127)",
+                    :range => 0..127,
+                    :use => "G",
+                },
+                # 4.002 character (ISO-8859-1)
+                "002" => {
+                    :name => "DPT_Char_8859_1",
+                    :desc => "ISO-8859-1 character (0..255)",
+                    :use => "G",
+                }
+            }
+            
         end
         
     end
@@ -45,8 +74,4 @@ puts KNX_DPT2.new([0x02].pack('c')).inspect #
 puts KNX_DPT2.new([0x03].pack('c')).inspect #
 
 puts [0x02].pack('c').inspect
-
-=begin
-4.001 character (ASCII)
-4.002 character (ISO-8859-1)
 =end

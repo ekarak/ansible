@@ -54,6 +54,20 @@ def str2addr(s)
     end
 end
 
+def decode_framedata(data)
+    case data
+    when Fixnum then "0x"+data.to_s(16).upcase
+    when Array then data.collect{|b| "0x"+b.to_s(16).upcase}
+    when String then data.unpack('C*').collect{|b| "0x"+b.to_s(16).upcase}
+    end
+end
+
+def frame_inspect(frame)
+    return "#{Time.now.strftime('%a %d/%m/%Y %H:%M:%S %Z')}: #{Ansible::KNX::APCICODES[frame.apci]}" +  
+    " prio=#{Ansible::KNX::PRIOCLASSES[frame.prio_class]}" + " len=#{frame.datalength}" +
+    " from #{addr2str(frame.src_addr)} to #{addr2str(frame.dst_addr, frame.daf)}" +
+    " data=" + decode_framedata(frame.datalength > 1 ? frame.data : frame.apci_data).inspect   
+end
 
 #ga = 17*256 + 200
 #~ ga = [17, 200]

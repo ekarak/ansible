@@ -1,3 +1,5 @@
+# encoding: ISO-8859-1
+
 =begin
 Project Ansible  - An extensible home automation scripting framework
 ----------------------------------------------------
@@ -22,46 +24,76 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
-
-# DPT5: 8-bit unsigned value
+require 'bindata'
 
 module Ansible
     
     module KNX
     
-        class KNX_DPT5 < BitStruct
-            unsigned    :uvalue,   8, "8-bit unsigned value"
-        end
+        #
+        # DPT5: 8-bit unsigned value
+        #
+        module DPT5
+            
+            # Bitstruct to parse a DPT5 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                endian :big
+                #
+                uint8  :data,  {
+                    :display_name => "8-bit unsigned value",
+                    :range => 0..255
+                }
+            end
+            
+            # DPT base type
+            Basetype = {
+                :bitlength => 8,
+                :valuetype => :basic,
+                :desc => "8-bit unsigned value"
+            }
+            # DPT subtypes
+            Subtypes = {
+                # 5.001 percentage (0=0..ff=100%)
+                "001" => {
+                    :name => "DPT_Scaling", :desc => "percent", 
+                    :unit => "%", :target_range => 0..100
+                },
+                
+                # 5.003 angle (degrees 0=0, ff=360)
+                "003" => {
+                    :name => "DPT_Angle", :desc => "angle degrees", 
+                    :unit => "°", :target_range => 0..360
+                },
+                
+                # 5.004 percentage (0..255%)
+                "004" => {
+                    :name => "DPT_Percent_U8", :desc => "percent", 
+                    :unit => "%", :target_range => 0..255
+                },
+                
+                # 5.005 ratio (0..255)
+                "005" => {
+                    :name => "DPT_DecimalFactor", :desc => "ratio", 
+                    :unit => "ratio", :target_range => 0..255
+                },
+                
+                # 5.006 tariff (0..255)
+                "006" => {
+                    :name => "DPT_Tariff", :desc => "tariff", 
+                    :unit => "tariff", :target_range => 0..255
+                },
+                
+                # 5.010 counter pulses (0..255)
+                "010" => {
+                    :name => "DPT_Value_1_Ucount", :desc => "counter pulses", 
+                    :unit => "pulses", :target_range => 0..255
+                },
+            }
 
-        class KNXValue_DPT5 < KNXValue
-            
-            # create apdu for this DPT value
-            # APDU types are:
-            #   0x00 => Read
-            #   0x40 => Response (default)
-            #   0x80 => Write
-            def to_apdu(apci_code = 0x40);
-                return [0, apci_code, @current_value] 
-            end
-            
-            # update internal state from raw KNX frame
-            def update_from_frame(frame)
-                @frame = KNX_DPT5.new(frame.data)
-                puts "--- DPT5 frame: #{@frame.inspect_detailed}"
-                update(@frame.uvalue)
-            end
-        end #class
+        end 
         
     end
     
 end
 
-=begin
-5.001 percentage (0=0..ff=100%)
-5.003 angle (degrees 0=0, ff=360)
-5.004 percentage (0..255%)
-5.005 ratio (0..255)
-5.006 tariff (0..255)
-5.010 counter pulses (0..255)
-=end

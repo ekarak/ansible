@@ -23,51 +23,47 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
 require 'bindata'
-
-#
-# DPT6.*: 8-bit signed value
-#
-
+        
 module Ansible
     
     module KNX
-        
-        module DPT6
-            
-            # Bitstruct to parse a DPT6 frame. 
-            # Always 8-bit aligned.      
-            class FrameStruct < BinData::Record
-                int8 :data, :display_name => "Signed value -128..127"
-            end
 
-            # DPT Basetype info
+        #
+        # DPT16: ASCII string
+        #
+        module DPT16
+        
+            # Bitstruct to parse a DPT16 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                string :data, :length => 14
+            end
+            
+            # DPT16 basetype info
             Basetype = {
-                :bitlength => 8,
-                :desc => "8-bit signed value"
-            }            
-            # DPT subtypes info
-            Subtypes = {
-                # 6.001 percentage (-128%..127%)
-                "001" => {
-                    :name => "DPT_Switch", :desc => "percent",
-                    :unit => "%", :target_range => -128..127 
+                :bitlength => 14*8,
+                :valuetype => :basic,
+                :desc => "14-character string"
+            }
+            
+            # DPT9 subtypes
+            Subtypes = {    
+                # 16.000 ASCII string
+                "000" => { :use => "G",
+                    :name => "DPT_String_ASCII", :desc => "ASCII string",
+                    :force_encoding => "US-ASCII"
                 },
-                
-                # 6.002 counter pulses (-128..127)
-                "002" => {
-                    :name => "DPT_Bool", :desc => "counter pulses",
-                    :unit => "pulses", :target_range => -128..127
+
+                # 16.001 ISO-8859-1 string
+                "001" => { :use => "G",
+                    :name => "DPT_String_8859_1", :desc => "ISO-8859-1 string",
+                    :force_encoding => "ISO-8859-1"
                 },
-                # 
             }
             
         end
         
     end
-    
+
 end
-=begin
-puts KNX_DPT6.bit_length
-puts KNX_DPT6.new([0x32].pack('c')).inspect # 50
-puts KNX_DPT6.new([0xce].pack('c')).inspect # -50
-=end
+

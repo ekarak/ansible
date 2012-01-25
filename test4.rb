@@ -32,19 +32,9 @@ load 'knx_transceiver.rb'
 load 'knx_tools.rb'
 load 'knx_value.rb'
 
-def decode_framedata(data)
-    case data
-    when Fixnum then "0x"+data.to_s(16).upcase
-    when Array then data.collect{|b| "0x"+b.to_s(16).upcase}
-    when String then data.unpack('C*').collect{|b| "0x"+b.to_s(16).upcase}
-    end
-end
 
+# a lone KNX transceiver will log all KNX activity by default
 KNX = Ansible::KNX::KNX_Transceiver.new("local:/tmp/eib")
-KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
-    puts "#{Time.now}: #{Ansible::KNX::APCICODES[frame.apci]}" + 
-        " from #{addr2str(frame.src_addr)} to #{addr2str(frame.dst_addr, frame.daf)}" + 
-        " prio=#{Ansible::KNX::PRIOCLASSES[frame.prio_class]}" +
-        " data=" + decode_framedata(frame.datalength > 1 ? frame.data : frame.apci_data).inspect +
-        " len=#{frame.datalength}"
-}
+V1 = Ansible::KNX::KNXValue.new("1.001", "1/0/20")
+V2 = Ansible::KNX::KNXValue.new("5.004", "1/0/42")
+

@@ -56,7 +56,10 @@ module Ansible
                 
             attr_reader :stomp
             
-            def initialize(connURL)
+            # initialize a KNXTranceiver
+            # params:
+            #   connURL = an eibd connection URL. see eibd --help for acceptable values
+            def initialize(connURL="local:/tmp/eib")
                 begin
                     raise "Already initialized!" unless  Ansible::KNX::KNXValue.transceiver.nil?
                     puts("KNX: init connection to #{connURL}")
@@ -72,6 +75,27 @@ module Ansible
                 rescue Exception => e
                     puts "#{self}.initialize() EXCEPTION: #{e}\n\t" + e.backtrace.join("\n\t")
                 end
+                # register default handler for KNX frames
+                declare_callback(:onKNXtelegram) { | sender, cb, frame |
+                    puts(frame_inspect(frame))# if $DEBUG
+                    case frame.apci
+                    when 0 then # A_GroupValue_Read
+                        puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |val| 
+                            if val.current_value then
+                                puts "==> responding with value #{val}"
+                                send_apdu_raw(frame.dst_addr, val.to_apdu())
+                            end
+                        }
+                    when 1 then # A_GroupValue_Response
+                        # puts "response frame"
+                    when 2  then # A_GroupValue_Write
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
+                            puts "updating knx value #{v} from frame #{frame.inspect}"
+                            v.update_from_frame(frame) 
+                        }
+                    end
+                }
             end
             
             # the main KNX transceiver thread
@@ -114,6 +138,7 @@ module Ansible
                 rescue Exception => e
                     puts("Exception in KNX server thread: #{e}")
                     puts("backtrace:\n  " << e.backtrace.join("\n  "))
+                    sleep(1)
                     retry
                 ensure
                     @monitor_conn.EIBClose() if @monitor_conn
@@ -131,7 +156,7 @@ module Ansible
                     @send_conn.EIBReset()
                 }
             end
-                    
+            
         end #class 
 
     end #module KNX

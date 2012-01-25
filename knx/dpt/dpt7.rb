@@ -22,41 +22,94 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
+require 'bindata'
 
-# 2-byte unsigned value
+#
+# DPT7.*: 2-byte unsigned value
+#
 
 module Ansible
     
     module KNX
         
-        class KNX_DPT7 < BitStruct
-            unsigned :value, 16, "Value"
-        end
-        
-         class KNXValue_DPT7 < KNXValue
-             # check value range
-             def KNXValue_DPT7.range_check(value)
-                 return value.between?(0, 2**16-1)
-             end
-             
-             def to_apdu(apci_code = 0x40);
-                 return [0, apci_code] << [@current_value].pack("N") #CHECKME 
-            end
+        module DPT7
             
-            # update internal state from raw KNX frame
-            def update_from_frame(frame)
-                @frame = KNX_DPT7.new(frame.data)
-                puts "--- DPT7 frame: #{@frame.inspect_detailed}"
-                update(@frame.value)
-            end
+            # Bitstruct to parse a DPT7 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                endian :big
+                #
+                uint16 :data, :display_name => "Value"
+            end        
+            
+            # DPT basetype info
+            Basetype = {
+                :bitlength => 16,
+                :valuetype => :basic,
+                :desc => "16-bit unsigned value"
+            }
+            
+            # DPT subtypes info
+            Subtypes = {
+                # 7.001 pulses
+                
+                # 7.003 time(10ms)
+                # 7.004 time(100ms)
+                # 7.005 time(s)
+                # 7.006 time(min)
+                # 7.007 time(h)
+                # 7.012 current(mA)
+                
+                # 7.002 time(ms)               
+                "002" => {
+                    :name => "DPT_TimePeriodMsec", 
+                    :desc => "time (ms)",
+                    :unit => "milliseconds"
+                },
+                
+                # 7.003 time (10ms)
+                "003" => {
+                    :name => "DPT_TimePeriod10Msec", 
+                    :desc => "time (10ms)",
+                    :unit => "centiseconds"
+                },
+                
+                # 7.004 time (100ms)
+                "004" => {
+                    :name => "DPT_TimePeriod100Msec", 
+                    :desc => "time (100ms)",
+                    :unit => "deciseconds"
+                },
+                
+                # 7.005 time (sec)
+                "005" => {
+                    :name => "DPT_TimePeriodSec", 
+                    :desc => "time (s)",
+                    :unit => "seconds"
+                },
+                
+                # 8.006 time lag (min)
+                "006" => {
+                    :name => "DPT_TimePeriodMin", 
+                    :desc => "time lag(min)",
+                    :unit => "minutes"
+                },
+                
+                # 8.007 time lag (hour)
+                "007" => {
+                    :name => "DPT_TimePeriodHrs", 
+                    :desc => "time lag(hrs)",
+                    :unit => "hours"
+                },
+
+            }
          end
-         
+
     end
     
 end
-        
-        
+
+
 =begin
 puts KNX_DPT2.bit_length
 puts KNX_DPT2.new([0x00].pack('c')).inspect #
@@ -67,12 +120,5 @@ puts KNX_DPT2.new([0x03].pack('c')).inspect #
 puts [0x02].pack('c').inspect
 
 =begin
-7.001 pulses
-7.002 time(ms)
-7.003 time(10ms)
-7.004 time(100ms)
-7.005 time(s)
-7.006 time(min)
-7.007 time(h)
-7.012 current(mA)
+
 =end

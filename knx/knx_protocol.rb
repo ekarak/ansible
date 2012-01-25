@@ -52,12 +52,12 @@ module Ansible
             unsigned    :daf,       1,  "Dest.Address flag 0=physical 1=group"
             unsigned    :ctrlfield, 3,  "Network control field"
             unsigned    :datalength,    4,  "Data length (bytes after octet #6)"
-            # octet 6 .. plus 2 bits from octet 7: TPCI+APCI
+            # octet 6 + octet 7: TPCI+APCI+6-bit data
             unsigned    :tpci,  2,  "TPCI control bits 8+7"
             unsigned    :seq,   4,  "Packet sequence"
             unsigned    :apci,    4,  "APCI control bits"
-            # octet 7 ... end
             unsigned    :apci_data, 6, "APCI/Data combined"
+            # octet 8 .. end
             rest            :data,            "rest of frame"
         end
     

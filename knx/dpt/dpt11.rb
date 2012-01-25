@@ -24,41 +24,46 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'bindata'
 
-#
-# DPT6.*: 8-bit signed value
-#
-
 module Ansible
     
     module KNX
         
-        module DPT6
-            
-            # Bitstruct to parse a DPT6 frame. 
-            # Always 8-bit aligned.      
-            class FrameStruct < BinData::Record
-                int8 :data, :display_name => "Signed value -128..127"
-            end
+        #
+        # DPT11.*: date
+        #        
+        module DPT11
 
-            # DPT Basetype info
+            class FrameStruct < BinData::Record
+                bit3 :pad1 
+                bit5 :dayofmonth,  {
+                    :display_name =>  "Day of month (1..31)", :range => 1..31
+                }
+                #
+                bit4 :pad2
+                bit4 :month, {
+                    :display_name => "Month (1..12)", :range => 1..12 
+                }
+                #
+                bit1 :pad3
+                bit7 :year,  {
+                    :display_name => "Year 0..99 (<90 => 20xx, >=90 => 19xx)", :range => 0..99 
+                } 
+            end
+            
+            # DPT11 base type info
             Basetype = {
-                :bitlength => 8,
-                :desc => "8-bit signed value"
-            }            
-            # DPT subtypes info
-            Subtypes = {
-                # 6.001 percentage (-128%..127%)
+                :bitlength => 24,
+                :valuetype => :basic,
+                :desc => "3-byte date value"
+            }
+            
+            
+            # DPT11 subtypes info
+            Subtypes = {   
+                # 11.001 date
                 "001" => {
-                    :name => "DPT_Switch", :desc => "percent",
-                    :unit => "%", :target_range => -128..127 
-                },
-                
-                # 6.002 counter pulses (-128..127)
-                "002" => {
-                    :name => "DPT_Bool", :desc => "counter pulses",
-                    :unit => "pulses", :target_range => -128..127
-                },
-                # 
+                    :name => "DPT_Date", :desc => "Date"
+                }
             }
             
         end
@@ -66,8 +71,4 @@ module Ansible
     end
     
 end
-=begin
-puts KNX_DPT6.bit_length
-puts KNX_DPT6.new([0x32].pack('c')).inspect # 50
-puts KNX_DPT6.new([0xce].pack('c')).inspect # -50
-=end
+

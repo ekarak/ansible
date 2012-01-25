@@ -22,38 +22,121 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bit-struct'
+require 'bindata'
 
-# 2-bit control value
+#
+# DPT2: 2-bit control value
+#
 
 module Ansible
     
     module KNX
 
-        class KNX_DPT2 < BitStruct
-            unsigned :rest, 6
-            unsigned :priority, 1, "1=Priority"
-            unsigned :value, 1, "Value"
-        end
+        module DPT2
+            
+            # Bitstruct to parse a DPT2 frame. 
+            # Always 8-bit aligned.
+            class FrameStruct < BinData::Record
+                endian  :big
+                bit2    :apci, {
+                    :display_name => "APCI info (not useful)"
+                }
+                bit4    :pad1 
+                bit1    :priority, {
+                    :display_name => "0=No Control 1=Priority"
+                }
+                bit1    :data, :display_name => "Value"
+            end
+            
+            # DPT basetype info hash
+            Basetype = {
+                :bitlength => 2,
+                :desc => "1-bit value with priority"
+            }
+            
+            # DPT subtypes info hash
+            Subtypes = {
+                # 2.001 switch control
+                "001" => { :use => "G",
+                    :name => "DPT_Switch_Control", 
+                    :desc => "switch with priority", 
+                    :data_desc => { 0 => "Off", 1 => "On" }
+                },
+                # 2.002 boolean control
+                "002" => { :use => "G",
+                    :name => "DPT_Bool_Control", 
+                    :desc => "boolean with priority", 
+                    :data_desc => { 0 => "false", 1 => "true" }
+                },
+                # 2.003 enable control
+                "003" => {  :use => "FB",
+                    :name => "DPT_Emable_Control", 
+                    :desc => "enable with priority", 
+                    :data_desc => { 0 => "Disabled", 1 => "Enabled" }
+                },
 
-        class KNXValue_DPT2 < KNXValue
+                # 2.004 ramp control
+                "004" => { :use => "FB",
+                    :name => "DPT_Ramp_Control", 
+                    :desc => "ramp with priority", 
+                    :data_desc => { 0 => "No ramp", 1 => "Ramp" }
+                },
+
+                # 2.005 alarm control
+                "005" => { :use => "FB",
+                    :name => "DPT_Alarm_Control", 
+                    :desc => "alarm with priority", 
+                    :data_desc => { 0 => "No alarm", 1 => "Alarm" }
+                },
+
+                # 2.006 binary value control
+                "006" => { :use => "FB",
+                    :name => "DPT_BinaryValue_Control", 
+                    :desc => "binary value with priority", 
+                    :data_desc => { 0 => "Off", 1 => "On" }
+                },
+
+                # 2.007 step control
+                "007" => { :use => "FB",
+                    :name => "DPT_Step_Control", 
+                    :desc => "step with priority", 
+                    :data_desc => { 0 => "Off", 1 => "On" }
+                },
+
+                # 2.008 Direction1 control
+                "008" => { :use => "FB",
+                    :name => "DPT_Direction1_Control", 
+                    :desc => "direction 1 with priority", 
+                    :data_desc => { 0 => "Off", 1 => "On" }
+                },
+               
+                # 2.009 Direction2 control
+                "009" => { :use => "FB",
+                    :name => "DPT_Direction2_Control", 
+                    :desc => "direction 2 with priority", 
+                    :data_desc => { 0 => "Off", 1 => "On" }
+                },
+                
+                # 2.010 start control
+                "001" => { :use => "FB",
+                    :name => "DPT_Start_Control", 
+                    :desc => "start with priority", 
+                    :data_desc => { 0..1 => "No control", 2 => "Off", 3 => "On" }
+                },
+
+                # 2.011 state control
+                "001" => { :use => "FB",
+                    :name => "DPT_Switch_Control", :desc => "switch", 
+                    :data_desc => { 0..1 => "No control", 2 => "Off", 3 => "On" }
+                },
+
+                # 2.012 invert control
+                "001" => { :use => "FB",
+                    :name => "DPT_Switch_Control", :desc => "switch", 
+                    :data_desc => { 0..1 => "No control", 2 => "Off", 3 => "On" }
+                }
+            }
             
-            # create apdu for this DPT value
-            # APDU types are:
-            #   0x00 => Read
-            #   0x40 => Response (default)
-            #   0x80 => Write
-            def to_apdu(apci_code = 0x40);
-                priority = @frame.nil? ? 0 : @frame.priority
-                return [0, apci_code | @current_value] 
-            end
-            
-            # update internal state from raw KNX frame
-            def update_from_frame(rawframe)
-                @frame = KNX_DPT2.new([rawframe.apci_data].pack('c'))
-                puts "--- DPT2 frame: #{@frame.inspect_detailed}"
-                update(@frame.value)
-            end
         end #class
         
     end
@@ -69,14 +152,4 @@ puts KNX_DPT2.new([0x03].pack('c')).inspect #
 
 puts [0x02].pack('c').inspect
 =begin
-2.001 switch control
-2.002 boolean control
-2.003 enable control
-2.004 ramp control
-2.005 alarm control
-2.006 binary value control
-2.007 step control
-2.010 start control
-2.011 state control
-2.012 invert control
 =end

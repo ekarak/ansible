@@ -24,41 +24,37 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'bindata'
 
-#
-# DPT6.*: 8-bit signed value
-#
-
 module Ansible
     
     module KNX
         
-        module DPT6
-            
-            # Bitstruct to parse a DPT6 frame. 
-            # Always 8-bit aligned.      
+        #
+        # DPT12.*:  4-byte unsigned value
+        #        
+        module DPT12
+
             class FrameStruct < BinData::Record
-                int8 :data, :display_name => "Signed value -128..127"
+                endian :big
+                #
+                uint32 :data, { 
+                    :display_name => "32-bit value",
+                    :range => 0..2**32-1
+                }
             end
 
-            # DPT Basetype info
+            # DPT12 base type info
             Basetype = {
-                :bitlength => 8,
-                :desc => "8-bit signed value"
-            }            
-            # DPT subtypes info
-            Subtypes = {
-                # 6.001 percentage (-128%..127%)
+                :bitlength => 32,
+                :valuetype => :basic,
+                :desc => "4-byte unsigned value"
+            }
+                        
+            # DPT12 subtype info
+            Subtypes = {   
+                # 12.001 counter pulses
                 "001" => {
-                    :name => "DPT_Switch", :desc => "percent",
-                    :unit => "%", :target_range => -128..127 
-                },
-                
-                # 6.002 counter pulses (-128..127)
-                "002" => {
-                    :name => "DPT_Bool", :desc => "counter pulses",
-                    :unit => "pulses", :target_range => -128..127
-                },
-                # 
+                    :name => "DPT_Value_4_Ucount", :desc => "counter pulses"
+                }
             }
             
         end
@@ -66,8 +62,4 @@ module Ansible
     end
     
 end
-=begin
-puts KNX_DPT6.bit_length
-puts KNX_DPT6.new([0x32].pack('c')).inspect # 50
-puts KNX_DPT6.new([0xce].pack('c')).inspect # -50
-=end
+

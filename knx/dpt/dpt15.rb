@@ -24,41 +24,46 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'bindata'
 
-#
-# DPT6.*: 8-bit signed value
-#
-
 module Ansible
     
     module KNX
+    
+        #
+        # DPT15.*: Access data
+        #        
+        module DPT15
         
-        module DPT6
-            
-            # Bitstruct to parse a DPT6 frame. 
-            # Always 8-bit aligned.      
+            # Bitstruct to parse a DPT4 frame. 
+            # Always 8-bit aligned.
             class FrameStruct < BinData::Record
-                int8 :data, :display_name => "Signed value -128..127"
+                bit4 :d6, :display_name => "D6"
+                bit4 :d5, :display_name => "D5"
+                #
+                bit4 :d4, :display_name => "D4"
+                bit4 :d3, :display_name => "D3"
+                #
+                bit4 :d2, :display_name => "D2"
+                bit4 :d1, :display_name => "D1"
+                #
+                bit1  :e
+                bit1  :p
+                bit1  :d
+                bit1  :c
+                bit4  :idx
             end
-
-            # DPT Basetype info
+            
+            # DPT15 base type info
             Basetype = {
-                :bitlength => 8,
-                :desc => "8-bit signed value"
-            }            
-            # DPT subtypes info
+                :bitlength => 32,
+                :valuetype => :basic,
+                :desc => "4-byte access control data"
+            }
+            
+            # DPT8 subtypes info
             Subtypes = {
-                # 6.001 percentage (-128%..127%)
-                "001" => {
-                    :name => "DPT_Switch", :desc => "percent",
-                    :unit => "%", :target_range => -128..127 
-                },
-                
-                # 6.002 counter pulses (-128..127)
-                "002" => {
-                    :name => "DPT_Bool", :desc => "counter pulses",
-                    :unit => "pulses", :target_range => -128..127
-                },
-                # 
+                "000" => {
+                    :name => "DPT_Access_Data"
+                }
             }
             
         end
@@ -66,8 +71,4 @@ module Ansible
     end
     
 end
-=begin
-puts KNX_DPT6.bit_length
-puts KNX_DPT6.new([0x32].pack('c')).inspect # 50
-puts KNX_DPT6.new([0xce].pack('c')).inspect # -50
-=end
+
