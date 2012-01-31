@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -33,9 +31,7 @@ module Ansible
         #
         module DPT13
             
-            class FrameStruct < BinData::Record
-                endian :big
-                #
+            class DPT13Struct < DPTStruct
                 int32 :data,  { 
                     :display_name => "32-bit signed value",
                     :range => -2**31..2**31-1

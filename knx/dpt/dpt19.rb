@@ -22,16 +22,16 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
     
-        # DPT18: 8-byte Date and Time
+        #
+        # DPT19: 8-byte Date and Time
+        #
         module DPT19
     
-            class FrameStruct < BinData::Record
+            class DPT19Struct < DPTStruct
                 # byte 8 (MSB)
                 uint8 :year, { 
                     :display_name => "Year" 
@@ -64,23 +64,23 @@ module Ansible
                     :display_name => "Seconds"
                 }
                 # byte 2
-                bit1    :flag_F
-                bit1    :flag_WD
-                bit1    :flag_NWD
-                bit1    :flag_NY
-                bit1    :flag_ND
-                bit1    :flag_NDOW
-                bit1    :flag_NT
-                bit1    :flag_SUTI
+                bit1    :flag_F   #
+                bit1    :flag_WD  #
+                bit1    :flag_NWD # no week day
+                bit1    :flag_NY  # no year
+                bit1    :flag_ND  # no day
+                bit1    :flag_NDOW # no day of week
+                bit1    :flag_NT   # no time
+                bit1    :flag_SUTI # summertime
                 # byte 1
-                bit1    :flag_CLQ
+                bit1    :flag_CLQ #clock accuracy
                 bit7    :pad1
             end
             
             # DPT18 basetype info
             Basetype = {
                 :bitlength => 8,
-                :valuetype => :basic,
+                :valuetype => :composite,
                 :desc => "8-bit Scene Activate/Learn + number"
             }
             

@@ -23,42 +23,46 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
 require 'rubygems'
-require 'bit-struct'
+require 'bindata'
 
 module Ansible
     
     module KNX
     
-        class TP_ControlField < BitStruct
-            unsigned    :lpdu_code, 2,     "LPDU (2bit) 2=L_DATA.req 3=L_Poll_data.req"
-            unsigned    :rep_flag,    1,     "Repeat flag"
-            unsigned    :ack_not,    1,     "0 = Acknowledge frame, 1 = standard frame"
-            unsigned    :prio_class, 2,     "Priority class (0=highest .. 3=lowest)"
-            unsigned    :unused1,   2,      "two unused bits (should be 00)"
-        end
+        class TP_ControlField < BinData::Record
+            bit2    :lpdu_code, { :display_name => "LPDU (2bit) 2=L_DATA.req 3=L_Poll_data.req" }
+            bit1    :rep_flag,  { :display_name => "Repeat flag"}
+            bit1    :ack_not,   { :display_name => "0 = Acknowledge frame, 1 = standard frame"}
+            bit2    :prio_class,{ :display_name => "Priority class (0=highest .. 3=lowest)"}
+            bit2    :unused1,   { :display_name => "two unused bits (should be 00)"}
+            end
         
-        class L_DATA_Frame < BitStruct
+        class L_DATA_Frame < BinData::Record
+            endian :big
             # octet 0: TP1 control field
-            unsigned    :lpdu_code, 2,     "LPDU (2bit) 2=L_DATA.req 3=L_Poll_data.req"
-            unsigned    :rep_flag,    1,     "Repeat flag"
-            unsigned    :ack_not,    1,     "0 = Acknowledge frame, 1 = standard frame"
-            unsigned    :prio_class, 2,     "Priority class (0=highest .. 3=lowest)"
-            unsigned    :unused1,   2,      "two unused bits (should be 00)"
+            bit2    :lpdu_code, { :display_name => "LPDU (2bit) 2=L_DATA.req 3=L_Poll_data.req"}
+            bit1    :rep_flag,  { :display_name => "Repeat flag"}
+            bit1    :ack_not,   { :display_name => "0 = Acknowledge frame, 1 = standard frame"}
+            bit2    :prio_class,{ :display_name => "Priority class (0=highest .. 3=lowest)"}
+            bit2    :unused1,   { :display_name => "two unused bits (should be 00)"}
             # octet 1+2: source
-            unsigned    :src_addr,  16, "Source Address"
+            uint16  :src_addr,  { :display_name => "Source Address"}
             # octet 3+4: destination
-            unsigned    :dst_addr,  16, "Destination Address"
+            uint16  :dst_addr,  { :display_name => "Destination Address"}
             # octet 5: control fields
-            unsigned    :daf,       1,  "Dest.Address flag 0=physical 1=group"
-            unsigned    :ctrlfield, 3,  "Network control field"
-            unsigned    :datalength,    4,  "Data length (bytes after octet #6)"
+            bit1    :daf,       { :display_name => "Dest.Address flag 0=physical 1=group"}
+            bit3    :ctrlfield, { :display_name => "Network control field"}
+            bit4    :datalength,{ :display_name => "Data length (bytes after octet #6)"}
             # octet 6 + octet 7: TPCI+APCI+6-bit data
-            unsigned    :tpci,  2,  "TPCI control bits 8+7"
-            unsigned    :seq,   4,  "Packet sequence"
-            unsigned    :apci,    4,  "APCI control bits"
-            unsigned    :apci_data, 6, "APCI/Data combined"
+            bit2    :tpci,      { :display_name => "TPCI control bits 8+7"}
+            bit4    :seq,       { :display_name => "Packet sequence"}
+            bit4    :apci,      { :display_name => "APCI control bits"}
+            bit6    :apci_data, { :display_name => "APCI/Data combined"}
             # octet 8 .. end
-            rest            :data,            "rest of frame"
+            string  :data, {
+                :read_length => lambda { datalength - 1 },
+                :display_nane => "rest of frame"
+            }
         end
     
         #########################################################

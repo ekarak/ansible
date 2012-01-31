@@ -77,22 +77,26 @@ module Ansible
                 end
                 # register default handler for KNX frames
                 declare_callback(:onKNXtelegram) { | sender, cb, frame |
-                    puts(frame_inspect(frame))# if $DEBUG
-                    case frame.apci
+                    puts(frame_inspect(frame)) if $DEBUG
+                    case frame.apci.value
                     when 0 then # A_GroupValue_Read
                         puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
-                        AnsibleValue[:groups => [frame.dst_addr]].each { |val| 
-                            if val.current_value then
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
+                            if v.current_value then
                                 puts "==> responding with value #{val}"
-                                send_apdu_raw(frame.dst_addr, val.to_apdu())
+                                send_apdu_raw(frame.dst_addr, val.to_apdu(0x40))
                             end
                         }
                     when 1 then # A_GroupValue_Response
-                        # puts "response frame"
-                    when 2  then # A_GroupValue_Write
-                        AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
-                            puts "updating knx value #{v} from frame #{frame.inspect}"
-                            v.update_from_frame(frame) 
+                        puts "response frame by #{addr2str(frame.src_addr)} for knx address #{addr2str(frame.dst_addr, frame.daf)}"
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |v|
+                            v.update_from_frame(frame)
+                            puts "synchronized knx value #{v} from frame #{frame.inspect}" if $DEBUG
+                        }
+                    when 2 then # A_GroupValue_Write
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |v|
+                            v.update_from_frame(frame)
+                            puts "updated knx value #{v} from frame #{frame.inspect}" if $DEBUG
                         }
                     end
                 }
@@ -118,18 +122,18 @@ module Ansible
                         src, dest ="", ""
                         len = @monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
                         #puts "knxbuffer=="+@knxbuf.buffer.inspect
-                        frame = L_DATA_Frame.new(@knxbuf.buffer.pack('c*'))
+                        frame = L_DATA_Frame.read(@knxbuf.buffer.pack('c*'))
                         #puts "frame:\n\t"
                         headers = {}
-                        frame.fields.each { |fld|
-                            fldvalue = fld.inspect_in_object(frame, :default)
-                            #puts "\t#{fld.name} == #{fldvalue}"
-                            headers[fld.name] = CGI.escape(fldvalue)
+                        frame.field_names.each { |fieldname|
+                            field = frame.send(fieldname)
+                            #puts "\t#{fieldname} == #{field.value}"
+                            headers[fieldname] = CGI.escape(field.value.to_s)
                         }
                         @stomp.send(KNX_MONITOR_TOPIC, "KNX Activity", headers)
-                           # puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
-                             #   addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
-                               # "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
+                        #puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
+                        #  addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
+                        #  "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
                         fire_callback(:onKNXtelegram, frame)
                         # 
                     end
@@ -146,15 +150,53 @@ module Ansible
                 end
             end #def run()
         
+            # send a raw APDU to the KNX bus.
+            # Arguments: 
+            #   dest:: destination (16-bit integer)
+            #   apdu:: raw APDU (binary string)       
             def send_apdu_raw(dest, apdu)
                 @send_mutex.synchronize {
-                    puts("KNX transceiver: sending to group address #{dest}, #{apdu.inspect}")
+                    puts("KNX transceiver: sending to group address #{dest}, #{apdu.inspect}") if $DEBUG
                     if (@send_conn.EIBOpenT_Group(dest, 1) == -1) then
                         raise("KNX client: error setting socket mode")
                     end
                     @send_conn.EIBSendAPDU(apdu)
                     @send_conn.EIBReset()
                 }
+            end
+            
+            # (Try to) read a groupaddr from eibd cache.
+            # return it if found, otherwise query the bus. In the latter case, 
+            # the main receiver thread (in run()) will act on the response.
+            # params: 
+            #   ga: group address (Fixnum)
+            #   cache_only: when true, do not query the bus   
+            def read_eibd_cache(ga, cache_only=false)
+                src = EIBAddr.new()
+                buf = EIBBuffer.new()
+                result = nil
+                @send_mutex.synchronize {
+                    # query eibd for a cached value
+                    if (@send_conn.EIB_Cache_Read_Sync(ga, src, buf, 0) == -1) then
+                        # value not found in cache
+                        puts "groupaddress #{addr2str(ga, true)} not found in cache."
+                        unless cache_only then
+                            puts ".. requesting value on bus .."
+                            if (@send_conn.EIBOpenT_Group(ga, 1) == -1) then
+                                raise("KNX client: error setting socket mode")
+                            end
+                            # send a read request to the bus
+                            @send_conn.EIBSendAPDU([0,0x00])
+                        end
+                        @send_conn.EIBReset()
+                    else
+                        @send_conn.EIBReset()
+                        # value found in cache..
+                        puts "found in cache, last sender was #{addr2str(src.data)}"
+                        result = buf.buffer
+                    end
+                }
+                return result
             end
             
         end #class 

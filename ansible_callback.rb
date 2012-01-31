@@ -65,7 +65,7 @@ module Ansible
             default = @callbacks.has_key?(cb)
             if (cb_proc = @callbacks[cb]).is_a?Proc then
                 puts "firing callback(#{cb}) args: #{args.inspect}" if $DEBUG
-                cb_proc .call(self, cb.to_s, *args)
+                cb_proc.call(self, cb.to_s, *args)
             else
                 #puts "WARNING: callback #{cb} not found for #{self}, iv=#{iv} cb_proc=#{cb_proc.inspect}"
             end

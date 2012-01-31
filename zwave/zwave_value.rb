@@ -86,8 +86,8 @@ module Ansible
                 @id = [valueid.delete(' ')[-8..-1].to_i(16)].pack("N")
                 @id1 = [valueid.delete(' ')[0..-9].to_i(16)].pack("N")
                 # parse all fields
-                b = OZW_EventID_id.new(@id)
-                b1 = OZW_EventID_id1.new(@id1)
+                b = OZW_EventID_id.read(@id)
+                b1 = OZW_EventID_id1.read(@id1)
                 # and store them
                 @_nodeId = b.node_id
                 @_genre = b.value_genre
@@ -109,7 +109,7 @@ module Ansible
             end
             
             #
-            # get a value
+            # get a OpenZWave value
             # returns the current value stored in OpenZWave, 
             # OR raise exception if the call to OpenZWave failed 
             def get()
@@ -117,13 +117,13 @@ module Ansible
                 puts "get() called for #{self.inspect} by:\n\t" + caller[0..2].join("\n\t") if $DEBUG
                 #
                 operation = case @_type
-                    when OpenZWave::RemoteValueType::ValueType_Bool then :GetValueAsBool
-                    when OpenZWave::RemoteValueType::ValueType_Byte then :GetValueAsByte
-                    when OpenZWave::RemoteValueType::ValueType_Int    then :GetValueAsInt
+                    when OpenZWave::RemoteValueType::ValueType_Bool  then :GetValueAsBool
+                    when OpenZWave::RemoteValueType::ValueType_Byte  then :GetValueAsByte
+                    when OpenZWave::RemoteValueType::ValueType_Int   then :GetValueAsInt
                     when OpenZWave::RemoteValueType::ValueType_Short then :GetValueAsShort
                     when OpenZWave::RemoteValueType::ValueType_Decimal then :GetValueAsFloat #FIXME
                     when OpenZWave::RemoteValueType::ValueType_String then :GetValueAsString
-                    when OpenZWave::RemoteValueType::ValueType_List then :GetValueListItems
+                    when OpenZWave::RemoteValueType::ValueType_List   then :GetValueListItems
                     when OpenZWave::RemoteValueType::ValueType_Button then  :GetValueAsString #FIXME
                     #FIXME: when RemoteValueType::ValueType_Schedule
                 else raise "unknown/uninitialized value type! #{inspect}"

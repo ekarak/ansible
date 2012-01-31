@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 #
 # DPT6.*: 8-bit signed value
 #
@@ -36,27 +34,29 @@ module Ansible
             
             # Bitstruct to parse a DPT6 frame. 
             # Always 8-bit aligned.      
-            class FrameStruct < BinData::Record
-                int8 :data, :display_name => "Signed value -128..127"
+            class DPT6Struct < DPTStruct
+                int8 :data, :display_name => "Signed value -128..127",
             end
 
             # DPT Basetype info
             Basetype = {
                 :bitlength => 8,
-                :desc => "8-bit signed value"
+                :valuetype => :basic,
+                :desc => "8-bit signed value",
+                :range => -128..127
             }            
             # DPT subtypes info
             Subtypes = {
                 # 6.001 percentage (-128%..127%)
                 "001" => {
                     :name => "DPT_Switch", :desc => "percent",
-                    :unit => "%", :target_range => -128..127 
+                    :unit => "%",  
                 },
                 
                 # 6.002 counter pulses (-128..127)
                 "002" => {
                     :name => "DPT_Bool", :desc => "counter pulses",
-                    :unit => "pulses", :target_range => -128..127
+                    :unit => "pulses"
                 },
                 # 
             }

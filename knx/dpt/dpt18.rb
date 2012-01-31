@@ -22,23 +22,23 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
-    
+
+        #
         # DPT18: 8-bit Scene Control
+        #
         module DPT18
     
-            class FrameStruct < BinData::Record
+            class DPT18Struct < DPTStruct
                 bit1  :exec_learn, {
                     :display_name => "Execute=0, Learn = 1"
                 }
                 bit1  :pad, {
                     :display_name => "Reserved bit"
                 }
-                bit6  :scene, {
+                bit6  :data, {
                     :display_name => "Scene number"
                 }
             end
@@ -46,7 +46,7 @@ module Ansible
             # DPT18 basetype info
             Basetype = {
                 :bitlength => 8,
-                :valuetype => :basic,
+                :valuetype => :composite,
                 :desc => "8-bit Scene Activate/Learn + number"
             }
             

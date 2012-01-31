@@ -41,11 +41,11 @@ module Ansible
         hash.each { |iv_symbol, filter|
             raise "#{self.class}: AnsibleValue.match?(hash)'s keys must be Symbols.." unless iv_symbol.is_a?Symbol
             if val = instance_eval('@'+iv_symbol.to_s) then
-                #puts "match.val(#{iv_symbol}) == #{val.inspect}"
+                #puts "match.val(#{iv_symbol}) == #{val.inspect}" if $DEBUG
                 result = result & case filter
                 # if the filter is a regular expression, use it to match the instance value
                 when Regexp then filter.match(val.to_s)
-                # if the filter is an array, use set intersectionfrom_frame
+                # if the filter is an array, use set intersection
                 when Array then (filter & val).length > 0
                 else filter == val
                 end
@@ -62,7 +62,7 @@ module Ansible
     # lookup an AnsibleValue by a filter hash
     # returns an array of matching values
     def AnsibleValue.[](filter_hash)
-        #puts "AnsibleValue[] called, filter_hash=#{filter_hash}"
+        puts "AnsibleValue[] called, filter_hash=#{filter_hash}" if $DEBUG
         result_set = []
         @@AllValues.each { |v|
             raise "ooops! @@AllValues contains a non-AnsibleValue!" unless v.is_a?(AnsibleValue)
@@ -105,6 +105,17 @@ module Ansible
         return(@current_value)
     end
 
+    # convert a value to its canonical form
+    # must be overriden by protocol-specific subclass
+    def to_canonical()
+        raise "#{self}.to_canonical must be overriden!!!"
+    end
+    
+    # convert a canonical value back to its protocol-specific form 
+    def from_canonical(v)
+        raise "#{self}.from_canonical must be overriden!!!"
+    end
+    
 end
 
 end #module

@@ -25,35 +25,41 @@
 #   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 # 
 
+
+require 'hexdump'
 require 'socket'
 include Socket::Constants
 
 class EIBBuffer
-    attr_accessor :buffer
+  attr_accessor :buffer
   def initialize(buf = [])
     @buffer = buf
   end
 end
 
 class EIBAddr
+  attr_accessor :data
   def initialize(value = 0)
     @data = value
   end
 end
 
 class EIBInt8
+  attr_accessor :data
   def initialize(value = 0)
     @data = value
   end
 end
 
 class EIBInt16
+  attr_accessor :data
   def initialize(value = 0)
     @data = value
   end
 end
 
 class EIBInt32
+  attr_accessor :data
   def initialize(value = 0)
     @data = value
   end
@@ -146,7 +152,7 @@ class EIBConnection
     #puts "__EIB_SendRequest(data=#{data.inspect} length=#{data.length})" if $DEBUG
     result = data.pack("C*")
     @fd.send(result, 0)
-    puts "__EIB_SendRequest sent #{result.length} bytes: #{result.inspect}" if $DEBUG
+    #puts "__EIB_SendRequest sent #{result.length} bytes: #{result.hexdump}" if $DEBUG
     return 0
   end
   
@@ -195,7 +201,7 @@ class EIBConnection
     if @readlen < 2
       maxlen = 2-@readlen
       result = block ? @fd.recv(maxlen) : @fd.recv_nonblock(maxlen)
-      puts "__EIB_CheckRequest received #{result.length} bytes: #{result.inspect})" if $DEBUG
+      #puts "__EIB_CheckRequest received #{result.length} bytes: #{result.hexdump})" if $DEBUG
       if result.length > 0
         @head.concat(result.split('').collect{|c| c.unpack('c')[0]})
       end
@@ -209,7 +215,7 @@ class EIBConnection
     if @readlen < @datalen + 2
       maxlen = @datalen + 2 -@readlen
       result = block ? @fd.recv(maxlen) : @fd.recv_nonblock(maxlen)
-      puts "__EIB_CheckRequest received #{result.length} bytes: #{result.inspect})" if $DEBUG
+      #puts "__EIB_CheckRequest received #{result.length} bytes: #{result.hexdump})" if $DEBUG
       if result.length > 0
         @data.concat(result.split('').collect{|c| c.unpack('c')[0]})
 	puts "__EIB_CheckRequest @data after recv. = #{@data.inspect})" if $DEBUG
@@ -220,6 +226,7 @@ class EIBConnection
   end
 
   def __EIBGetAPDU_Complete()
+    puts "__EIBGetAPDU_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -234,6 +241,7 @@ class EIBConnection
 
 
   def EIBGetAPDU_async(buf)
+    puts "EIBGetAPDU_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     @__complete = __EIBGetAPDU_Complete()
@@ -241,6 +249,7 @@ class EIBConnection
   end
 
   def EIBGetAPDU(buf)
+    puts "EIBGetAPDU()" if $DEBUG
     if EIBGetAPDU_async(buf) == -1
       return -1
     end
@@ -248,6 +257,7 @@ class EIBConnection
   end
 
   def __EIBGetAPDU_Src_Complete()
+    puts "__EIBGetAPDU_Src_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -265,6 +275,7 @@ class EIBConnection
 
 
   def EIBGetAPDU_Src_async(buf, src)
+    puts "EIBGetAPDU_Src_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     @ptr5 = src
@@ -273,6 +284,7 @@ class EIBConnection
   end
 
   def EIBGetAPDU_Src(buf, src)
+    puts "EIBGetAPDU_Src()" if $DEBUG
     if EIBGetAPDU_Src_async(buf, src) == -1
       return -1
     end
@@ -280,6 +292,7 @@ class EIBConnection
   end
 
   def __EIBGetBusmonitorPacket_Complete()
+    puts "__EIBGetBusmonitorPacket_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -294,6 +307,7 @@ class EIBConnection
 
 
   def EIBGetBusmonitorPacket_async(buf)
+    puts "EIBGetBusmonitorPacket_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     @__complete = __EIBGetBusmonitorPacket_Complete()
@@ -301,6 +315,7 @@ class EIBConnection
   end
 
   def EIBGetBusmonitorPacket(buf)
+    puts "EIBGetBusmonitorPacket()" if $DEBUG
     if EIBGetBusmonitorPacket_async(buf) == -1
       return -1
     end
@@ -308,6 +323,7 @@ class EIBConnection
   end
 
   def __EIBGetGroup_Src_Complete()
+    puts "__EIBGetGroup_Src_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -328,6 +344,7 @@ class EIBConnection
 
 
   def EIBGetGroup_Src_async(buf, src, dest)
+    puts "EIBGetGroup_Src_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     @ptr5 = src
@@ -337,6 +354,7 @@ class EIBConnection
   end
 
   def EIBGetGroup_Src(buf, src, dest)
+    puts "EIBGetGroup_Src()" if $DEBUG
     if EIBGetGroup_Src_async(buf, src, dest) == -1
       return -1
     end
@@ -344,6 +362,7 @@ class EIBConnection
   end
 
   def __EIBGetTPDU_Complete()
+    puts "__EIBGetTPDU_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -361,6 +380,7 @@ class EIBConnection
 
 
   def EIBGetTPDU_async(buf, src)
+    puts "EIBGetTPDU_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     @ptr5 = src
@@ -369,6 +389,7 @@ class EIBConnection
   end
 
   def EIBGetTPDU(buf, src)
+    puts "EIBGetTPDU()" if $DEBUG
     if EIBGetTPDU_async(buf, src) == -1
       return -1
     end
@@ -376,6 +397,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Clear_Complete()
+    puts "__EIB_Cache_Clear_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -389,6 +411,7 @@ class EIBConnection
 
 
   def EIB_Cache_Clear_async()
+    puts "EIB_Cache_Clear_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 114
@@ -402,6 +425,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Clear()
+    puts "EIB_Cache_Clear()" if $DEBUG
     if EIB_Cache_Clear_async() == -1
       return -1
     end
@@ -409,6 +433,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Disable_Complete()
+    puts "__EIB_Cache_Disable_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -422,6 +447,7 @@ class EIBConnection
 
 
   def EIB_Cache_Disable_async()
+    puts "EIB_Cache_Disable_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 113
@@ -435,6 +461,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Disable()
+    puts "EIB_Cache_Disable()" if $DEBUG
     if EIB_Cache_Disable_async() == -1
       return -1
     end
@@ -442,6 +469,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Enable_Complete()
+    puts "__EIB_Cache_Enable_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -459,6 +487,7 @@ class EIBConnection
 
 
   def EIB_Cache_Enable_async()
+    puts "EIB_Cache_Enable_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 112
@@ -472,6 +501,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Enable()
+    puts "EIB_Cache_Enable()" if $DEBUG
     if EIB_Cache_Enable_async() == -1
       return -1
     end
@@ -479,6 +509,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Read_Complete()
+    puts "__EIB_Cache_Read_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -504,6 +535,7 @@ class EIBConnection
 
 
   def EIB_Cache_Read_async(dst, src, buf)
+    puts "EIB_Cache_Read_async()" if $DEBUG
     ibuf = [0] * 4;
     @buf = buf
     @ptr5 = src
@@ -521,6 +553,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Read(dst, src, buf)
+    puts "EIB_Cache_Read()" if $DEBUG
     if EIB_Cache_Read_async(dst, src, buf) == -1
       return -1
     end
@@ -528,6 +561,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Read_Sync_Complete()
+    puts "__EIB_Cache_Read_Sync_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -553,6 +587,7 @@ class EIBConnection
 
 
   def EIB_Cache_Read_Sync_async(dst, src, buf, age)
+    puts "EIB_Cache_Read_Sync_async()" if $DEBUG
     ibuf = [0] * 6;
     @buf = buf
     @ptr5 = src
@@ -572,6 +607,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Read_Sync(dst, src, buf, age)
+    puts "EIB_Cache_Read_Sync()" if $DEBUG
     if EIB_Cache_Read_Sync_async(dst, src, buf, age) == -1
       return -1
     end
@@ -579,6 +615,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_Remove_Complete()
+    puts "__EIB_Cache_Remove_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -592,6 +629,7 @@ class EIBConnection
 
 
   def EIB_Cache_Remove_async(dest)
+    puts "EIB_Cache_Remove_async()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -607,6 +645,7 @@ class EIBConnection
   end
 
   def EIB_Cache_Remove(dest)
+    puts "EIB_Cache_Remove()" if $DEBUG
     if EIB_Cache_Remove_async(dest) == -1
       return -1
     end
@@ -614,6 +653,7 @@ class EIBConnection
   end
 
   def __EIB_Cache_LastUpdates_Complete()
+    puts "__EIB_Cache_LastUpdates_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -631,6 +671,7 @@ class EIBConnection
 
 
   def EIB_Cache_LastUpdates_async(start, timeout, buf, ende)
+    puts "EIB_Cache_LastUpdates_async()" if $DEBUG
     ibuf = [0] * 5;
     @buf = buf
     @ptr4 = ende
@@ -649,6 +690,7 @@ class EIBConnection
   end
 
   def EIB_Cache_LastUpdates(start, timeout, buf, ende)
+    puts "EIB_Cache_LastUpdates()" if $DEBUG
     if EIB_Cache_LastUpdates_async(start, timeout, buf, ende) == -1
       return -1
     end
@@ -656,6 +698,7 @@ class EIBConnection
   end
 
   def __EIB_LoadImage_Complete()
+    puts "__EIB_LoadImage_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -669,6 +712,7 @@ class EIBConnection
 
 
   def EIB_LoadImage_async(image)
+    puts "EIB_LoadImage_async()" if $DEBUG
     ibuf = [0] * 2;
     if image.length < 0
       @errno = Errno::EINVAL
@@ -688,6 +732,7 @@ class EIBConnection
   end
 
   def EIB_LoadImage(image)
+    puts "EIB_LoadImage()" if $DEBUG
     if EIB_LoadImage_async(image) == -1
       return -1
     end
@@ -695,6 +740,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Authorize_Complete()
+    puts "__EIB_MC_Authorize_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -708,6 +754,7 @@ class EIBConnection
 
 
   def EIB_MC_Authorize_async(key)
+    puts "EIB_MC_Authorize_async()" if $DEBUG
     ibuf = [0] * 6;
     if key.length != 4
       @errno = Errno::EINVAL
@@ -726,6 +773,7 @@ class EIBConnection
   end
 
   def EIB_MC_Authorize(key)
+    puts "EIB_MC_Authorize()" if $DEBUG
     if EIB_MC_Authorize_async(key) == -1
       return -1
     end
@@ -733,6 +781,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Connect_Complete()
+    puts "__EIB_MC_Connect_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -746,6 +795,7 @@ class EIBConnection
 
 
   def EIB_MC_Connect_async(dest)
+    puts "EIB_MC_Connect_async()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -761,6 +811,7 @@ class EIBConnection
   end
 
   def EIB_MC_Connect(dest)
+    puts "EIB_MC_Connect()" if $DEBUG
     if EIB_MC_Connect_async(dest) == -1
       return -1
     end
@@ -768,6 +819,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Individual_Open_Complete()
+    puts "__EIB_MC_Individual_Open_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -781,6 +833,7 @@ class EIBConnection
 
 
   def EIB_MC_Individual_Open_async(dest)
+    puts "EIB_MC_Individual_Open_async()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -796,6 +849,7 @@ class EIBConnection
   end
 
   def EIB_MC_Individual_Open(dest)
+    puts "EIB_MC_Individual_Open()" if $DEBUG
     if EIB_MC_Individual_Open_async(dest) == -1
       return -1
     end
@@ -803,6 +857,7 @@ class EIBConnection
   end
 
   def __EIB_MC_GetMaskVersion_Complete()
+    puts "__EIB_MC_GetMaskVersion_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -816,6 +871,7 @@ class EIBConnection
 
 
   def EIB_MC_GetMaskVersion_async()
+    puts "EIB_MC_GetMaskVersion_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 89
@@ -829,6 +885,7 @@ class EIBConnection
   end
 
   def EIB_MC_GetMaskVersion()
+    puts "EIB_MC_GetMaskVersion()" if $DEBUG
     if EIB_MC_GetMaskVersion_async() == -1
       return -1
     end
@@ -836,6 +893,7 @@ class EIBConnection
   end
 
   def __EIB_MC_GetPEIType_Complete()
+    puts "__EIB_MC_GetPEIType_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -849,6 +907,7 @@ class EIBConnection
 
 
   def EIB_MC_GetPEIType_async()
+    puts "EIB_MC_GetPEIType_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 85
@@ -862,6 +921,7 @@ class EIBConnection
   end
 
   def EIB_MC_GetPEIType()
+    puts "EIB_MC_GetPEIType()" if $DEBUG
     if EIB_MC_GetPEIType_async() == -1
       return -1
     end
@@ -869,6 +929,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Progmode_Off_Complete()
+    puts "__EIB_MC_Progmode_Off_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -882,6 +943,7 @@ class EIBConnection
 
 
   def EIB_MC_Progmode_Off_async()
+    puts "EIB_MC_Progmode_Off_async()" if $DEBUG
     ibuf = [0] * 3;
     ibuf[2] = ((0)&0xff)
     ibuf[0] = 0
@@ -896,6 +958,7 @@ class EIBConnection
   end
 
   def EIB_MC_Progmode_Off()
+    puts "EIB_MC_Progmode_Off()" if $DEBUG
     if EIB_MC_Progmode_Off_async() == -1
       return -1
     end
@@ -903,6 +966,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Progmode_On_Complete()
+    puts "__EIB_MC_Progmode_On_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -916,6 +980,7 @@ class EIBConnection
 
 
   def EIB_MC_Progmode_On_async()
+    puts "EIB_MC_Progmode_On_async()" if $DEBUG
     ibuf = [0] * 3;
     ibuf[2] = ((1)&0xff)
     ibuf[0] = 0
@@ -930,6 +995,7 @@ class EIBConnection
   end
 
   def EIB_MC_Progmode_On()
+    puts "EIB_MC_Progmode_On()" if $DEBUG
     if EIB_MC_Progmode_On_async() == -1
       return -1
     end
@@ -937,6 +1003,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Progmode_Status_Complete()
+    puts "__EIB_MC_Progmode_Status_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -950,6 +1017,7 @@ class EIBConnection
 
 
   def EIB_MC_Progmode_Status_async()
+    puts "EIB_MC_Progmode_Status_async()" if $DEBUG
     ibuf = [0] * 3;
     ibuf[2] = ((3)&0xff)
     ibuf[0] = 0
@@ -964,6 +1032,7 @@ class EIBConnection
   end
 
   def EIB_MC_Progmode_Status()
+    puts "EIB_MC_Progmode_Status()" if $DEBUG
     if EIB_MC_Progmode_Status_async() == -1
       return -1
     end
@@ -971,6 +1040,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Progmode_Toggle_Complete()
+    puts "__EIB_MC_Progmode_Toggle_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -984,6 +1054,7 @@ class EIBConnection
 
 
   def EIB_MC_Progmode_Toggle_async()
+    puts "EIB_MC_Progmode_Toggle_async()" if $DEBUG
     ibuf = [0] * 3;
     ibuf[2] = ((2)&0xff)
     ibuf[0] = 0
@@ -998,6 +1069,7 @@ class EIBConnection
   end
 
   def EIB_MC_Progmode_Toggle()
+    puts "EIB_MC_Progmode_Toggle()" if $DEBUG
     if EIB_MC_Progmode_Toggle_async() == -1
       return -1
     end
@@ -1005,6 +1077,7 @@ class EIBConnection
   end
 
   def __EIB_MC_PropertyDesc_Complete()
+    puts "__EIB_MC_PropertyDesc_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1027,6 +1100,7 @@ class EIBConnection
 
 
   def EIB_MC_PropertyDesc_async(obj, propertyno, proptype, max_nr_of_elem, access)
+    puts "EIB_MC_PropertyDesc_async()" if $DEBUG
     ibuf = [0] * 4;
     @ptr2 = proptype
     @ptr4 = max_nr_of_elem
@@ -1045,6 +1119,7 @@ class EIBConnection
   end
 
   def EIB_MC_PropertyDesc(obj, propertyno, proptype, max_nr_of_elem, access)
+    puts "EIB_MC_PropertyDesc()" if $DEBUG
     if EIB_MC_PropertyDesc_async(obj, propertyno, proptype, max_nr_of_elem, access) == -1
       return -1
     end
@@ -1052,6 +1127,7 @@ class EIBConnection
   end
 
   def __EIB_MC_PropertyRead_Complete()
+    puts "__EIB_MC_PropertyRead_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1066,6 +1142,7 @@ class EIBConnection
 
 
   def EIB_MC_PropertyRead_async(obj, propertyno, start, nr_of_elem, buf)
+    puts "EIB_MC_PropertyRead_async()" if $DEBUG
     ibuf = [0] * 7;
     @buf = buf
     ibuf[2] = ((obj)&0xff)
@@ -1085,6 +1162,7 @@ class EIBConnection
   end
 
   def EIB_MC_PropertyRead(obj, propertyno, start, nr_of_elem, buf)
+    puts "EIB_MC_PropertyRead()" if $DEBUG
     if EIB_MC_PropertyRead_async(obj, propertyno, start, nr_of_elem, buf) == -1
       return -1
     end
@@ -1092,6 +1170,7 @@ class EIBConnection
   end
 
   def __EIB_MC_PropertyScan_Complete()
+    puts "__EIB_MC_PropertyScan_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1106,6 +1185,7 @@ class EIBConnection
 
 
   def EIB_MC_PropertyScan_async(buf)
+    puts "EIB_MC_PropertyScan_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     ibuf[0] = 0
@@ -1120,6 +1200,7 @@ class EIBConnection
   end
 
   def EIB_MC_PropertyScan(buf)
+    puts "EIB_MC_PropertyScan()" if $DEBUG
     if EIB_MC_PropertyScan_async(buf) == -1
       return -1
     end
@@ -1127,6 +1208,7 @@ class EIBConnection
   end
 
   def __EIB_MC_PropertyWrite_Complete()
+    puts "__EIB_MC_PropertyWrite_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1141,6 +1223,7 @@ class EIBConnection
 
 
   def EIB_MC_PropertyWrite_async(obj, propertyno, start, nr_of_elem, buf, res)
+    puts "EIB_MC_PropertyWrite_async()" if $DEBUG
     ibuf = [0] * 7;
     ibuf[2] = ((obj)&0xff)
     ibuf[3] = ((propertyno)&0xff)
@@ -1166,6 +1249,7 @@ class EIBConnection
   end
 
   def EIB_MC_PropertyWrite(obj, propertyno, start, nr_of_elem, buf, res)
+    puts "EIB_MC_PropertyWrite()" if $DEBUG
     if EIB_MC_PropertyWrite_async(obj, propertyno, start, nr_of_elem, buf, res) == -1
       return -1
     end
@@ -1173,6 +1257,7 @@ class EIBConnection
   end
 
   def __EIB_MC_ReadADC_Complete()
+    puts "__EIB_MC_ReadADC_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1189,6 +1274,7 @@ class EIBConnection
 
 
   def EIB_MC_ReadADC_async(channel, count, val)
+    puts "EIB_MC_ReadADC_async()" if $DEBUG
     ibuf = [0] * 4;
     @ptr1 = val
     ibuf[2] = ((channel)&0xff)
@@ -1205,6 +1291,7 @@ class EIBConnection
   end
 
   def EIB_MC_ReadADC(channel, count, val)
+    puts "EIB_MC_ReadADC()" if $DEBUG
     if EIB_MC_ReadADC_async(channel, count, val) == -1
       return -1
     end
@@ -1212,6 +1299,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Read_Complete()
+    puts "__EIB_MC_Read_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1226,6 +1314,7 @@ class EIBConnection
 
 
   def EIB_MC_Read_async(addr, buf_len, buf)
+    puts "EIB_MC_Read_async()" if $DEBUG
     ibuf = [0] * 6;
     @buf = buf
     ibuf[2] = ((addr>>8)&0xff)
@@ -1244,6 +1333,7 @@ class EIBConnection
   end
 
   def EIB_MC_Read(addr, buf_len, buf)
+    puts "EIB_MC_Read()" if $DEBUG
     if EIB_MC_Read_async(addr, buf_len, buf) == -1
       return -1
     end
@@ -1251,6 +1341,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Restart_Complete()
+    puts "__EIB_MC_Restart_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1264,6 +1355,7 @@ class EIBConnection
 
 
   def EIB_MC_Restart_async()
+    puts "EIB_MC_Restart_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 90
@@ -1277,6 +1369,7 @@ class EIBConnection
   end
 
   def EIB_MC_Restart()
+    puts "EIB_MC_Restart()" if $DEBUG
     if EIB_MC_Restart_async() == -1
       return -1
     end
@@ -1284,6 +1377,7 @@ class EIBConnection
   end
 
   def __EIB_MC_SetKey_Complete()
+    puts "__EIB_MC_SetKey_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1301,6 +1395,7 @@ class EIBConnection
 
 
   def EIB_MC_SetKey_async(key, level)
+    puts "EIB_MC_SetKey_async()" if $DEBUG
     ibuf = [0] * 7;
     if key.length != 4
       @errno = Errno::EINVAL
@@ -1320,6 +1415,7 @@ class EIBConnection
   end
 
   def EIB_MC_SetKey(key, level)
+    puts "EIB_MC_SetKey()" if $DEBUG
     if EIB_MC_SetKey_async(key, level) == -1
       return -1
     end
@@ -1327,6 +1423,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Write_Complete()
+    puts "__EIB_MC_Write_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1344,6 +1441,7 @@ class EIBConnection
 
 
   def EIB_MC_Write_async(addr, buf)
+    puts "EIB_MC_Write_async()" if $DEBUG
     ibuf = [0] * 6;
     ibuf[2] = ((addr>>8)&0xff)
     ibuf[3] = ((addr)&0xff)
@@ -1367,6 +1465,7 @@ class EIBConnection
   end
 
   def EIB_MC_Write(addr, buf)
+    puts "EIB_MC_Write()" if $DEBUG
     if EIB_MC_Write_async(addr, buf) == -1
       return -1
     end
@@ -1374,6 +1473,7 @@ class EIBConnection
   end
 
   def __EIB_MC_Write_Plain_Complete()
+    puts "__EIB_MC_Write_Plain_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1387,6 +1487,7 @@ class EIBConnection
 
 
   def EIB_MC_Write_Plain_async(addr, buf)
+    puts "EIB_MC_Write_Plain_async()" if $DEBUG
     ibuf = [0] * 6;
     ibuf[2] = ((addr>>8)&0xff)
     ibuf[3] = ((addr)&0xff)
@@ -1410,6 +1511,7 @@ class EIBConnection
   end
 
   def EIB_MC_Write_Plain(addr, buf)
+    puts "EIB_MC_Write_Plain()" if $DEBUG
     if EIB_MC_Write_Plain_async(addr, buf) == -1
       return -1
     end
@@ -1417,6 +1519,7 @@ class EIBConnection
   end
 
   def __EIB_M_GetMaskVersion_Complete()
+    puts "__EIB_M_GetMaskVersion_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1430,6 +1533,7 @@ class EIBConnection
 
 
   def EIB_M_GetMaskVersion_async(dest)
+    puts "EIB_M_GetMaskVersion_async()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1445,6 +1549,7 @@ class EIBConnection
   end
 
   def EIB_M_GetMaskVersion(dest)
+    puts "EIB_M_GetMaskVersion()" if $DEBUG
     if EIB_M_GetMaskVersion_async(dest) == -1
       return -1
     end
@@ -1452,6 +1557,7 @@ class EIBConnection
   end
 
   def __EIB_M_Progmode_Off_Complete()
+    puts "__EIB_M_Progmode_Off_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1465,6 +1571,7 @@ class EIBConnection
 
 
   def EIB_M_Progmode_Off_async(dest)
+    puts "EIB_M_Progmode_Off_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1481,6 +1588,7 @@ class EIBConnection
   end
 
   def EIB_M_Progmode_Off(dest)
+    puts "EIB_M_Progmode_Off()" if $DEBUG
     if EIB_M_Progmode_Off_async(dest) == -1
       return -1
     end
@@ -1488,6 +1596,7 @@ class EIBConnection
   end
 
   def __EIB_M_Progmode_On_Complete()
+    puts "__EIB_M_Progmode_On_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1501,6 +1610,7 @@ class EIBConnection
 
 
   def EIB_M_Progmode_On_async(dest)
+    puts "EIB_M_Progmode_On_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1517,6 +1627,7 @@ class EIBConnection
   end
 
   def EIB_M_Progmode_On(dest)
+    puts "EIB_M_Progmode_On()" if $DEBUG
     if EIB_M_Progmode_On_async(dest) == -1
       return -1
     end
@@ -1524,6 +1635,7 @@ class EIBConnection
   end
 
   def __EIB_M_Progmode_Status_Complete()
+    puts "__EIB_M_Progmode_Status_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1537,6 +1649,7 @@ class EIBConnection
 
 
   def EIB_M_Progmode_Status_async(dest)
+    puts "EIB_M_Progmode_Status_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1553,6 +1666,7 @@ class EIBConnection
   end
 
   def EIB_M_Progmode_Status(dest)
+    puts "EIB_M_Progmode_Status()" if $DEBUG
     if EIB_M_Progmode_Status_async(dest) == -1
       return -1
     end
@@ -1560,6 +1674,7 @@ class EIBConnection
   end
 
   def __EIB_M_Progmode_Toggle_Complete()
+    puts "__EIB_M_Progmode_Toggle_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1573,6 +1688,7 @@ class EIBConnection
 
 
   def EIB_M_Progmode_Toggle_async(dest)
+    puts "EIB_M_Progmode_Toggle_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1589,6 +1705,7 @@ class EIBConnection
   end
 
   def EIB_M_Progmode_Toggle(dest)
+    puts "EIB_M_Progmode_Toggle()" if $DEBUG
     if EIB_M_Progmode_Toggle_async(dest) == -1
       return -1
     end
@@ -1596,6 +1713,7 @@ class EIBConnection
   end
 
   def __EIB_M_ReadIndividualAddresses_Complete()
+    puts "__EIB_M_ReadIndividualAddresses_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1610,6 +1728,7 @@ class EIBConnection
 
 
   def EIB_M_ReadIndividualAddresses_async(buf)
+    puts "EIB_M_ReadIndividualAddresses_async()" if $DEBUG
     ibuf = [0] * 2;
     @buf = buf
     ibuf[0] = 0
@@ -1624,6 +1743,7 @@ class EIBConnection
   end
 
   def EIB_M_ReadIndividualAddresses(buf)
+    puts "EIB_M_ReadIndividualAddresses()" if $DEBUG
     if EIB_M_ReadIndividualAddresses_async(buf) == -1
       return -1
     end
@@ -1631,6 +1751,7 @@ class EIBConnection
   end
 
   def __EIB_M_WriteIndividualAddress_Complete()
+    puts "__EIB_M_WriteIndividualAddress_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1656,6 +1777,7 @@ class EIBConnection
 
 
   def EIB_M_WriteIndividualAddress_async(dest)
+    puts "EIB_M_WriteIndividualAddress_async()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1671,6 +1793,7 @@ class EIBConnection
   end
 
   def EIB_M_WriteIndividualAddress(dest)
+    puts "EIB_M_WriteIndividualAddress()" if $DEBUG
     if EIB_M_WriteIndividualAddress_async(dest) == -1
       return -1
     end
@@ -1678,6 +1801,7 @@ class EIBConnection
   end
 
   def __EIBOpenBusmonitor_Complete()
+    puts "__EIBOpenBusmonitor_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1695,6 +1819,7 @@ class EIBConnection
 
 
   def EIBOpenBusmonitor_async()
+    puts "EIBOpenBusmonitor_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 16
@@ -1708,6 +1833,7 @@ class EIBConnection
   end
 
   def EIBOpenBusmonitor()
+    puts "EIBOpenBusmonitor()" if $DEBUG
     if EIBOpenBusmonitor_async() == -1
       return -1
     end
@@ -1715,6 +1841,7 @@ class EIBConnection
   end
 
   def __EIBOpenBusmonitorText_Complete()
+    puts "__EIBOpenBusmonitorText_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1732,6 +1859,7 @@ class EIBConnection
 
 
   def EIBOpenBusmonitorText_async()
+    puts "EIBOpenBusmonitorText_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 17
@@ -1745,6 +1873,7 @@ class EIBConnection
   end
 
   def EIBOpenBusmonitorText()
+    puts "EIBOpenBusmonitorText()" if $DEBUG
     if EIBOpenBusmonitorText_async() == -1
       return -1
     end
@@ -1752,6 +1881,7 @@ class EIBConnection
   end
 
   def __EIBOpen_GroupSocket_Complete()
+    puts "__EIBOpen_GroupSocket_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1765,6 +1895,7 @@ class EIBConnection
 
 
   def EIBOpen_GroupSocket_async(write_only)
+    puts "EIBOpen_GroupSocket_async()" if $DEBUG
     ibuf = [0] * 5;
     if write_only != 0
       ibuf[4] = 0xff
@@ -1783,6 +1914,7 @@ class EIBConnection
   end
 
   def EIBOpen_GroupSocket(write_only)
+    puts "EIBOpen_GroupSocket()" if $DEBUG
     if EIBOpen_GroupSocket_async(write_only) == -1
       return -1
     end
@@ -1790,6 +1922,7 @@ class EIBConnection
   end
 
   def __EIBOpenT_Broadcast_Complete()
+    puts "__EIBOpenT_Broadcast_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1803,6 +1936,7 @@ class EIBConnection
 
 
   def EIBOpenT_Broadcast_async(write_only)
+    puts "EIBOpenT_Broadcast_async()" if $DEBUG
     ibuf = [0] * 5;
     if write_only != 0
       ibuf[4] = 0xff
@@ -1821,6 +1955,7 @@ class EIBConnection
   end
 
   def EIBOpenT_Broadcast(write_only)
+    puts "EIBOpenT_Broadcast()" if $DEBUG
     if EIBOpenT_Broadcast_async(write_only) == -1
       return -1
     end
@@ -1828,6 +1963,7 @@ class EIBConnection
   end
 
   def __EIBOpenT_Connection_Complete()
+    puts "__EIBOpenT_Connection_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1841,6 +1977,7 @@ class EIBConnection
 
 
   def EIBOpenT_Connection_async(dest)
+    puts "EIBOpenT_Connection_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1856,6 +1993,7 @@ class EIBConnection
   end
 
   def EIBOpenT_Connection(dest)
+    puts "EIBOpenT_Connection()" if $DEBUG
     if EIBOpenT_Connection_async(dest) == -1
       return -1
     end
@@ -1863,6 +2001,7 @@ class EIBConnection
   end
 
   def __EIBOpenT_Group_Complete()
+    puts "__EIBOpenT_Group_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1876,6 +2015,7 @@ class EIBConnection
 
 
   def EIBOpenT_Group_async(dest, write_only)
+    puts "EIBOpenT_Group_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1896,6 +2036,7 @@ class EIBConnection
   end
 
   def EIBOpenT_Group(dest, write_only)
+    puts "EIBOpenT_Group()" if $DEBUG
     if EIBOpenT_Group_async(dest, write_only) == -1
       return -1
     end
@@ -1903,6 +2044,7 @@ class EIBConnection
   end
 
   def __EIBOpenT_Individual_Complete()
+    puts "__EIBOpenT_Individual_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1916,6 +2058,7 @@ class EIBConnection
 
 
   def EIBOpenT_Individual_async(dest, write_only)
+    puts "EIBOpenT_Individual_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -1936,6 +2079,7 @@ class EIBConnection
   end
 
   def EIBOpenT_Individual(dest, write_only)
+    puts "EIBOpenT_Individual()" if $DEBUG
     if EIBOpenT_Individual_async(dest, write_only) == -1
       return -1
     end
@@ -1943,6 +2087,7 @@ class EIBConnection
   end
 
   def __EIBOpenT_TPDU_Complete()
+    puts "__EIBOpenT_TPDU_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1956,6 +2101,7 @@ class EIBConnection
 
 
   def EIBOpenT_TPDU_async(src)
+    puts "EIBOpenT_TPDU_async()" if $DEBUG
     ibuf = [0] * 5;
     ibuf[2] = ((src>>8)&0xff)
     ibuf[3] = ((src)&0xff)
@@ -1971,6 +2117,7 @@ class EIBConnection
   end
 
   def EIBOpenT_TPDU(src)
+    puts "EIBOpenT_TPDU()" if $DEBUG
     if EIBOpenT_TPDU_async(src) == -1
       return -1
     end
@@ -1978,6 +2125,7 @@ class EIBConnection
   end
 
   def __EIBOpenVBusmonitor_Complete()
+    puts "__EIBOpenVBusmonitor_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -1995,6 +2143,7 @@ class EIBConnection
 
 
   def EIBOpenVBusmonitor_async()
+    puts "EIBOpenVBusmonitor_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 18
@@ -2008,6 +2157,7 @@ class EIBConnection
   end
 
   def EIBOpenVBusmonitor()
+    puts "EIBOpenVBusmonitor()" if $DEBUG
     if EIBOpenVBusmonitor_async() == -1
       return -1
     end
@@ -2015,6 +2165,7 @@ class EIBConnection
   end
 
   def __EIBOpenVBusmonitorText_Complete()
+    puts "__EIBOpenVBusmonitorText_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -2032,6 +2183,7 @@ class EIBConnection
 
 
   def EIBOpenVBusmonitorText_async()
+    puts "EIBOpenVBusmonitorText_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 19
@@ -2045,6 +2197,7 @@ class EIBConnection
   end
 
   def EIBOpenVBusmonitorText()
+    puts "EIBOpenVBusmonitorText()" if $DEBUG
     if EIBOpenVBusmonitorText_async() == -1
       return -1
     end
@@ -2052,6 +2205,7 @@ class EIBConnection
   end
 
   def __EIBReset_Complete()
+    puts "__EIBReset_Complete()" if $DEBUG
     @__complete = nil
     if __EIB_GetRequest() == -1
       return -1
@@ -2065,6 +2219,7 @@ class EIBConnection
 
 
   def EIBReset_async()
+    puts "EIBReset_async()" if $DEBUG
     ibuf = [0] * 2;
     ibuf[0] = 0
     ibuf[1] = 4
@@ -2078,6 +2233,7 @@ class EIBConnection
   end
 
   def EIBReset()
+    puts "EIBReset()" if $DEBUG
     if EIBReset_async() == -1
       return -1
     end
@@ -2085,6 +2241,7 @@ class EIBConnection
   end
 
   def EIBSendAPDU(data)
+    puts "EIBSendAPDU()" if $DEBUG
     ibuf = [0] * 2;
     if data.length < 2
       @errno = Errno::EINVAL
@@ -2104,6 +2261,7 @@ class EIBConnection
   end
 
   def EIBSendGroup(dest, data)
+    puts "EIBSendGroup()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)
@@ -2125,6 +2283,7 @@ class EIBConnection
   end
 
   def EIBSendTPDU(dest, data)
+    puts "EIBSendTPDU()" if $DEBUG
     ibuf = [0] * 4;
     ibuf[2] = ((dest>>8)&0xff)
     ibuf[3] = ((dest)&0xff)

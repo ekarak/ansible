@@ -21,8 +21,6 @@ along with Project Ansible.  If not, see <http://www.gnu.org/licenses/>.
 for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
-
-require 'bindata'
         
 module Ansible
     
@@ -35,7 +33,7 @@ module Ansible
         
             # Bitstruct to parse a DPT16 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
+            class DPT16Struct < DPTStruct
                 string :data, :length => 14
             end
             

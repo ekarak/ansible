@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -35,7 +33,7 @@ module Ansible
             
             # Bitstruct to parse a DPT4 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
+            class DPT4Struct < DPTStruct
                 uint8 :data, :display_name => "Character"
             end
 

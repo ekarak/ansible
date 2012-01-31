@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Module: Ansible::AnsibleCallback</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>ansible_callback.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li><a href="#method-i-declare_callback">#declare_callback</a>
+    
+    <li><a href="#method-i-fire_callback">#fire_callback</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../license/LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../license/gpl_txt.html">gpl</a>
+  
+    <li class="file"><a href="../license/lgpl_txt.html">lgpl</a>
+  
+    <li class="file"><a href="../monit/monitrc-ansible.html">monitrc-ansible</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Ansible.html">Ansible</a>
+  
+    <li><a href="../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
+  
+    <li><a href="../Ansible/AnsibleDevice.html">Ansible::AnsibleDevice</a>
+  
+    <li><a href="../Ansible/AnsibleDevice/AbstractDevice.html">Ansible::AnsibleDevice::AbstractDevice</a>
+  
+    <li><a href="../Ansible/AnsibleDevice/Dimmer.html">Ansible::AnsibleDevice::Dimmer</a>
+  
+    <li><a href="../Ansible/AnsibleDevice/Switch.html">Ansible::AnsibleDevice::Switch</a>
+  
+    <li><a href="../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
+  
+    <li><a href="../Ansible/KNX.html">Ansible::KNX</a>
+  
+    <li><a href="../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
+  
+    <li><a href="../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
+  
+    <li><a href="../Ansible/KNX/DPT10/DPT10Struct.html">Ansible::KNX::DPT10::DPT10Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
+  
+    <li><a href="../Ansible/KNX/DPT11/DPT11Struct.html">Ansible::KNX::DPT11::DPT11Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
+  
+    <li><a href="../Ansible/KNX/DPT12/DPT12Struct.html">Ansible::KNX::DPT12::DPT12Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
+  
+    <li><a href="../Ansible/KNX/DPT13/DPT13Struct.html">Ansible::KNX::DPT13::DPT13Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
+  
+    <li><a href="../Ansible/KNX/DPT14/DPT14Struct.html">Ansible::KNX::DPT14::DPT14Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
+  
+    <li><a href="../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
+  
+    <li><a href="../Ansible/KNX/DPT15/DPT15Struct.html">Ansible::KNX::DPT15::DPT15Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
+  
+    <li><a href="../Ansible/KNX/DPT16/DPT16Struct.html">Ansible::KNX::DPT16::DPT16Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
+  
+    <li><a href="../Ansible/KNX/DPT17/DPT17Struct.html">Ansible::KNX::DPT17::DPT17Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
+  
+    <li><a href="../Ansible/KNX/DPT18/DPT18Struct.html">Ansible::KNX::DPT18::DPT18Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
+  
+    <li><a href="../Ansible/KNX/DPT19/DPT19Struct.html">Ansible::KNX::DPT19::DPT19Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT1/DPT1Struct.html">Ansible::KNX::DPT1::DPT1Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
+  
+    <li><a href="../Ansible/KNX/DPT2/DPT2Struct.html">Ansible::KNX::DPT2::DPT2Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
+  
+    <li><a href="../Ansible/KNX/DPT3/DPT3Struct.html">Ansible::KNX::DPT3::DPT3Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
+  
+    <li><a href="../Ansible/KNX/DPT4/DPT4Struct.html">Ansible::KNX::DPT4::DPT4Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
+  
+    <li><a href="../Ansible/KNX/DPT5/DPT5Struct.html">Ansible::KNX::DPT5::DPT5Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
+  
+    <li><a href="../Ansible/KNX/DPT6/DPT6Struct.html">Ansible::KNX::DPT6::DPT6Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
+  
+    <li><a href="../Ansible/KNX/DPT7/DPT7Struct.html">Ansible::KNX::DPT7::DPT7Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
+  
+    <li><a href="../Ansible/KNX/DPT8/DPT8Struct.html">Ansible::KNX::DPT8::DPT8Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
+  
+    <li><a href="../Ansible/KNX/DPT9/DPT9Struct.html">Ansible::KNX::DPT9::DPT9Struct</a>
+  
+    <li><a href="../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
+  
+    <li><a href="../Ansible/KNX/DPTStruct.html">Ansible::KNX::DPTStruct</a>
+  
+    <li><a href="../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
+  
+    <li><a href="../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a>
+  
+    <li><a href="../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a>
+  
+    <li><a href="../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a>
+  
+    <li><a href="../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
+  
+    <li><a href="../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
+  
+    <li><a href="../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
+  
+    <li><a href="../Ansible/ZWave.html">Ansible::ZWave</a>
+  
+    <li><a href="../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
+  
+    <li><a href="../Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+  
+    <li><a href="../DPT10.html">DPT10</a>
+  
+    <li><a href="../DPT9.html">DPT9</a>
+  
+    <li><a href="../DPT9_Float.html">DPT9_Float</a>
+  
+    <li><a href="../EIBAddr.html">EIBAddr</a>
+  
+    <li><a href="../EIBBuffer.html">EIBBuffer</a>
+  
+    <li><a href="../EIBConnection.html">EIBConnection</a>
+  
+    <li><a href="../EIBInt16.html">EIBInt16</a>
+  
+    <li><a href="../EIBInt32.html">EIBInt32</a>
+  
+    <li><a href="../EIBInt8.html">EIBInt8</a>
+  
+    <li><a href="../OZW_EventID_id.html">OZW_EventID_id</a>
+  
+    <li><a href="../OZW_EventID_id1.html">OZW_EventID_id1</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../OpenZWave.html">OpenZWave</a>
+  
+    <li><a href="../OrbiterProxy.html">OrbiterProxy</a>
+  
+    <li><a href="../Test.html">Test</a>
+  
+    <li><a href="../Transceiver.html">Transceiver</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Ansible::AnsibleCallback</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-declare_callback" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">declare_callback</span><span
+            class="method-args">(cb, &cb_body)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>callback declaration mechanism. callbacks must be defined by a Symbol (eg
+:onChange) starting with “on”  A special case is :default , this
+callback gets called at all events. the callback Proc always gets supplied
+these arguments 1st argument to callback proc is the ValueID instance 2nd
+argument is the callback symbol (eg :onChange) 3rd and later arguments:
+event-specific data example:</p>
+
+<pre class="ruby"><span class="ruby-identifier">obj</span>.<span class="ruby-identifier">declare_callback</span>(:<span class="ruby-identifier">onChange</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Object #{o} has changed!&quot;</span> }
+<span class="ruby-identifier">obj</span>.<span class="ruby-identifier">declare_callback</span>(:<span class="ruby-identifier">default</span>) { <span class="ruby-operator">|</span><span class="ruby-identifier">o</span>, <span class="ruby-identifier">cb</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Object #{o}: callback #{cb}!&quot;</span> }
+</pre>
+          
+
+          
+          <div class="method-source-code" id="declare_callback-source">
+            <pre><span class="ruby-comment"># File ansible_callback.rb, line 43</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">declare_callback</span>(<span class="ruby-identifier">cb</span>, &amp;<span class="ruby-identifier">cb_body</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;declare_callback: 1st argument must be a Symbol&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Symbol</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;declare_callback: 2nd argument must be a Proc&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cb_body</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Proc</span>
+    <span class="ruby-ivar">@callbacks</span> = {} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@callbacks</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">cb</span>.<span class="ruby-identifier">to_s</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;on&quot;</span>)  <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Registering callback  (#{cb}) for #{self.inspect}&quot;</span>
+        <span class="ruby-ivar">@callbacks</span>[<span class="ruby-identifier">cb</span>] = <span class="ruby-identifier">cb_body</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">cb</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;default&quot;</span>) <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Registering DEFAULT callback  for #{self.inspect}&quot;</span>
+        <span class="ruby-ivar">@callbacks</span>.<span class="ruby-identifier">default</span> = <span class="ruby-identifier">cb_body</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- declare_callback-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- declare_callback-method -->
+
+    
+      <div id="method-i-fire_callback" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">fire_callback</span><span
+            class="method-args">(cb, *args)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>callback firing processor.  Checks if a proc is stored as an instance
+variable, then calls it with the object instance as its first argument, 
+the callback symbol  as its second arg, and all other *args appended to the
+call example:</p>
+
+<pre>obj.fire_callback(:onChange, :arg1, :arg2, :arg3)</pre>
+          
+
+          
+          <div class="method-source-code" id="fire_callback-source">
+            <pre><span class="ruby-comment"># File ansible_callback.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">fire_callback</span>(<span class="ruby-identifier">cb</span>, *<span class="ruby-identifier">args</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;fire_callback: 1st argument must be a Symbol&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Symbol</span>
+    <span class="ruby-ivar">@callbacks</span> = {} <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@callbacks</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
+    <span class="ruby-identifier">default</span> = <span class="ruby-ivar">@callbacks</span>.<span class="ruby-identifier">has_key?</span>(<span class="ruby-identifier">cb</span>)
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">cb_proc</span> = <span class="ruby-ivar">@callbacks</span>[<span class="ruby-identifier">cb</span>]).<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Proc</span> <span class="ruby-keyword">then</span>
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;firing callback(#{cb}) args: #{args.inspect}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+        <span class="ruby-identifier">cb_proc</span> .<span class="ruby-identifier">call</span>(<span class="ruby-keyword">self</span>, <span class="ruby-identifier">cb</span>.<span class="ruby-identifier">to_s</span>, *<span class="ruby-identifier">args</span>)
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-comment">#puts &quot;WARNING: callback #{cb} not found for #{self}, iv=#{iv} cb_proc=#{cb_proc.inspect}&quot;</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- fire_callback-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- fire_callback-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

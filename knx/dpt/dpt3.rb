@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -35,13 +33,13 @@ module Ansible
             
             # Bitstruct to parse a DPT3 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
-                bit2    :apci_data, :display_name => "APCI data"
+            class DPT3Struct < DPTStruct
+                bit2    :apci_pad, :display_name => "APCI data"
                 bit2    :pad1
                 bit1    :decr_incr, :display_name => "Decrease(0) / Increase(1)"
                 bit3    :data,  {
                     :display_name => "0=break, 1-7 = amount of intervals between 1..100%",
-                    :data_desc => {
+                    :enc => {
                         0 => "break",
                         1 => "ival=50%",
                         2 => "ival=25%",

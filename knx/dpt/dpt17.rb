@@ -35,7 +35,7 @@ module Ansible
         
             # Bitstruct to parse a DPT17 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
+            class DPT17Struct < DPTStruct
                 bit2 :pad
                 bit6 :data, { 
                     :display_name => "Scene number"

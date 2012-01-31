@@ -59,6 +59,7 @@ def decode_framedata(data)
     when Fixnum then "0x"+data.to_s(16).upcase
     when Array then data.collect{|b| "0x"+b.to_s(16).upcase}
     when String then data.unpack('C*').collect{|b| "0x"+b.to_s(16).upcase}
+    else data
     end
 end
 

@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 #
 # DPT7.*: 2-byte unsigned value
 #
@@ -36,9 +34,7 @@ module Ansible
             
             # Bitstruct to parse a DPT7 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
-                endian :big
-                #
+            class DPT7Struct < DPTStruct
                 uint16 :data, :display_name => "Value"
             end        
             
@@ -52,58 +48,84 @@ module Ansible
             # DPT subtypes info
             Subtypes = {
                 # 7.001 pulses
-                
-                # 7.003 time(10ms)
-                # 7.004 time(100ms)
-                # 7.005 time(s)
-                # 7.006 time(min)
-                # 7.007 time(h)
-                # 7.012 current(mA)
+                "001" => { :use => "G",
+                    :name => "DPT_Value_2_Ucount", 
+                    :desc => "pulses", 
+                    :unit => "pulses"
+                },
                 
                 # 7.002 time(ms)               
-                "002" => {
+                "002" => { :use => "G",
                     :name => "DPT_TimePeriodMsec", 
                     :desc => "time (ms)",
                     :unit => "milliseconds"
                 },
                 
                 # 7.003 time (10ms)
-                "003" => {
+                "003" => { :use => "G",
                     :name => "DPT_TimePeriod10Msec", 
                     :desc => "time (10ms)",
                     :unit => "centiseconds"
                 },
                 
                 # 7.004 time (100ms)
-                "004" => {
+                "004" => { :use => "G",
                     :name => "DPT_TimePeriod100Msec", 
                     :desc => "time (100ms)",
                     :unit => "deciseconds"
                 },
                 
                 # 7.005 time (sec)
-                "005" => {
+                "005" => { :use => "G",
                     :name => "DPT_TimePeriodSec", 
                     :desc => "time (s)",
                     :unit => "seconds"
                 },
                 
-                # 8.006 time lag (min)
-                "006" => {
+                # 7.006 time (min)
+                "006" => { :use => "G",
                     :name => "DPT_TimePeriodMin", 
-                    :desc => "time lag(min)",
+                    :desc => "time (min)",
                     :unit => "minutes"
                 },
                 
-                # 8.007 time lag (hour)
-                "007" => {
+                # 7.007 time  (hour)
+                "007" => { :use => "G",
                     :name => "DPT_TimePeriodHrs", 
-                    :desc => "time lag(hrs)",
+                    :desc => "time (hrs)",
                     :unit => "hours"
                 },
-
+                
+                # 7.010 DPT_PropDataType
+                # not to be used in runtime communications!
+                "010" => { :use => "FB",
+                    :name => "DPT_PropDataType",
+                    :desc => "Identifier Interface Object Property data type "
+                },
+                
+                # 7.011
+                "011" => { :use => "FB SAB",
+                    :name => "DPT_Length_mm",
+                    :desc => "Length in mm",
+                    :unit => "mm"
+                },
+                
+                # 7.012
+                "012" => { :use => "FB",
+                    :name => "DPT_UEICurrentmA",
+                    :desc => "bus power supply current (mA)",
+                    :unit => "mA"
+                },
+                
+                # 7.013
+                "013" => { :use => "FB",
+                    :name => "DPT_Brightness",
+                    :desc => "interior brightness",
+                    :unit => "lux"
+                }
             }
-         end
+            
+        end
 
     end
     

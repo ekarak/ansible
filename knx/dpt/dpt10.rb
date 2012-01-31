@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -33,9 +31,9 @@ module Ansible
         #
         module DPT10
             
-            # Bitstruct to parse a DPT10 frame. 
+            # DPTStruct to parse a DPT10 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
+            class DPT10Struct < DPTStruct
                 bit3 :dayofweek, {
                     :display_name => "Day of week", 
                     :range => 0..7, :data_desc => {

@@ -24,8 +24,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -37,9 +35,7 @@ module Ansible
             
             # Bitstruct to parse a DPT5 frame. 
             # Always 8-bit aligned.
-            class FrameStruct < BinData::Record
-                endian :big
-                #
+            class DPT5Struct < DPTStruct
                 uint8  :data,  {
                     :display_name => "8-bit unsigned value",
                     :range => 0..255
@@ -57,37 +53,37 @@ module Ansible
                 # 5.001 percentage (0=0..ff=100%)
                 "001" => {
                     :name => "DPT_Scaling", :desc => "percent", 
-                    :unit => "%", :target_range => 0..100
+                    :unit => "%", :scalar_range => 0..100
                 },
                 
                 # 5.003 angle (degrees 0=0, ff=360)
                 "003" => {
                     :name => "DPT_Angle", :desc => "angle degrees", 
-                    :unit => "°", :target_range => 0..360
+                    :unit => "°", :scalar_range => 0..360
                 },
                 
                 # 5.004 percentage (0..255%)
                 "004" => {
                     :name => "DPT_Percent_U8", :desc => "percent", 
-                    :unit => "%", :target_range => 0..255
+                    :unit => "%", 
                 },
                 
                 # 5.005 ratio (0..255)
                 "005" => {
                     :name => "DPT_DecimalFactor", :desc => "ratio", 
-                    :unit => "ratio", :target_range => 0..255
+                    :unit => "ratio", 
                 },
                 
                 # 5.006 tariff (0..255)
                 "006" => {
                     :name => "DPT_Tariff", :desc => "tariff", 
-                    :unit => "tariff", :target_range => 0..255
+                    :unit => "tariff", 
                 },
                 
                 # 5.010 counter pulses (0..255)
                 "010" => {
                     :name => "DPT_Value_1_Ucount", :desc => "counter pulses", 
-                    :unit => "pulses", :target_range => 0..255
+                    :unit => "pulses",
                 },
             }
 

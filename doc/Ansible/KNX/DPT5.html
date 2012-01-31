@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>Module: Ansible::KNX::DPT5</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>knx/dpt/dpt5.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../README.html">README</a>
+  
+    <li class="file"><a href="../../license/LICENSE.html">LICENSE</a>
+  
+    <li class="file"><a href="../../license/gpl_txt.html">gpl</a>
+  
+    <li class="file"><a href="../../license/lgpl_txt.html">lgpl</a>
+  
+    <li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../Ansible.html">Ansible</a>
+  
+    <li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
+  
+    <li><a href="../../Ansible/AnsibleDevice.html">Ansible::AnsibleDevice</a>
+  
+    <li><a href="../../Ansible/AnsibleDevice/AbstractDevice.html">Ansible::AnsibleDevice::AbstractDevice</a>
+  
+    <li><a href="../../Ansible/AnsibleDevice/Dimmer.html">Ansible::AnsibleDevice::Dimmer</a>
+  
+    <li><a href="../../Ansible/AnsibleDevice/Switch.html">Ansible::AnsibleDevice::Switch</a>
+  
+    <li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
+  
+    <li><a href="../../Ansible/KNX.html">Ansible::KNX</a>
+  
+    <li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
+  
+    <li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
+  
+    <li><a href="../../Ansible/KNX/DPT10/DPT10Struct.html">Ansible::KNX::DPT10::DPT10Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
+  
+    <li><a href="../../Ansible/KNX/DPT11/DPT11Struct.html">Ansible::KNX::DPT11::DPT11Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
+  
+    <li><a href="../../Ansible/KNX/DPT12/DPT12Struct.html">Ansible::KNX::DPT12::DPT12Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
+  
+    <li><a href="../../Ansible/KNX/DPT13/DPT13Struct.html">Ansible::KNX::DPT13::DPT13Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
+  
+    <li><a href="../../Ansible/KNX/DPT14/DPT14Struct.html">Ansible::KNX::DPT14::DPT14Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
+  
+    <li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
+  
+    <li><a href="../../Ansible/KNX/DPT15/DPT15Struct.html">Ansible::KNX::DPT15::DPT15Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
+  
+    <li><a href="../../Ansible/KNX/DPT16/DPT16Struct.html">Ansible::KNX::DPT16::DPT16Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
+  
+    <li><a href="../../Ansible/KNX/DPT17/DPT17Struct.html">Ansible::KNX::DPT17::DPT17Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
+  
+    <li><a href="../../Ansible/KNX/DPT18/DPT18Struct.html">Ansible::KNX::DPT18::DPT18Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
+  
+    <li><a href="../../Ansible/KNX/DPT19/DPT19Struct.html">Ansible::KNX::DPT19::DPT19Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT1/DPT1Struct.html">Ansible::KNX::DPT1::DPT1Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
+  
+    <li><a href="../../Ansible/KNX/DPT2/DPT2Struct.html">Ansible::KNX::DPT2::DPT2Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
+  
+    <li><a href="../../Ansible/KNX/DPT3/DPT3Struct.html">Ansible::KNX::DPT3::DPT3Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
+  
+    <li><a href="../../Ansible/KNX/DPT4/DPT4Struct.html">Ansible::KNX::DPT4::DPT4Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
+  
+    <li><a href="../../Ansible/KNX/DPT5/DPT5Struct.html">Ansible::KNX::DPT5::DPT5Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
+  
+    <li><a href="../../Ansible/KNX/DPT6/DPT6Struct.html">Ansible::KNX::DPT6::DPT6Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
+  
+    <li><a href="../../Ansible/KNX/DPT7/DPT7Struct.html">Ansible::KNX::DPT7::DPT7Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
+  
+    <li><a href="../../Ansible/KNX/DPT8/DPT8Struct.html">Ansible::KNX::DPT8::DPT8Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
+  
+    <li><a href="../../Ansible/KNX/DPT9/DPT9Struct.html">Ansible::KNX::DPT9::DPT9Struct</a>
+  
+    <li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
+  
+    <li><a href="../../Ansible/KNX/DPTStruct.html">Ansible::KNX::DPTStruct</a>
+  
+    <li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
+  
+    <li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a>
+  
+    <li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a>
+  
+    <li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a>
+  
+    <li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
+  
+    <li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
+  
+    <li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
+  
+    <li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a>
+  
+    <li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
+  
+    <li><a href="../../Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+  
+    <li><a href="../../DPT10.html">DPT10</a>
+  
+    <li><a href="../../DPT9.html">DPT9</a>
+  
+    <li><a href="../../DPT9_Float.html">DPT9_Float</a>
+  
+    <li><a href="../../EIBAddr.html">EIBAddr</a>
+  
+    <li><a href="../../EIBBuffer.html">EIBBuffer</a>
+  
+    <li><a href="../../EIBConnection.html">EIBConnection</a>
+  
+    <li><a href="../../EIBInt16.html">EIBInt16</a>
+  
+    <li><a href="../../EIBInt32.html">EIBInt32</a>
+  
+    <li><a href="../../EIBInt8.html">EIBInt8</a>
+  
+    <li><a href="../../OZW_EventID_id.html">OZW_EventID_id</a>
+  
+    <li><a href="../../OZW_EventID_id1.html">OZW_EventID_id1</a>
+  
+    <li><a href="../../Object.html">Object</a>
+  
+    <li><a href="../../OpenZWave.html">OpenZWave</a>
+  
+    <li><a href="../../OrbiterProxy.html">OrbiterProxy</a>
+  
+    <li><a href="../../Test.html">Test</a>
+  
+    <li><a href="../../Transceiver.html">Transceiver</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module Ansible::KNX::DPT5</h1>
+
+  <div id="description" class="description">
+    
+<p>DPT5: 8-bit unsigned value</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="Basetype">Basetype
+        
+        <dd class="description"><p>DPT base type</p>
+        
+      
+        <dt id="Subtypes">Subtypes
+        
+        <dd class="description"><p>DPT subtypes</p>
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

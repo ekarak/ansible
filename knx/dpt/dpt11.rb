@@ -22,8 +22,6 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'bindata'
-
 module Ansible
     
     module KNX
@@ -33,7 +31,7 @@ module Ansible
         #        
         module DPT11
 
-            class FrameStruct < BinData::Record
+            class DPT11Struct < DPTStruct
                 bit3 :pad1 
                 bit5 :dayofmonth,  {
                     :display_name =>  "Day of month (1..31)", :range => 1..31
@@ -53,7 +51,7 @@ module Ansible
             # DPT11 base type info
             Basetype = {
                 :bitlength => 24,
-                :valuetype => :basic,
+                :valuetype => :composite,
                 :desc => "3-byte date value"
             }
             
