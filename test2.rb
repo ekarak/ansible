@@ -26,15 +26,21 @@ $:.push(Dir.getwd)
 $:.push(File.join(Dir.getwd, 'knx'))
 $:.push(File.join(Dir.getwd, 'zwave'))
 
-load 'knx_transceiver.rb'
-load 'knx_tools.rb'
+require 'knx_transceiver'
+require 'knx_tools'
 
-KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
+require 'config'
+
+KNX = Ansible::KNX::KNX_Transceiver.new(Ansible::KNX_URL)
 # monitor all KNX activity
-KNX.declare_callback(:onKNXtelegram) { | sender, cb, frame |
+KNX.add_callback(:onKNXtelegram) { | sender, cb, frame |
     if frame.dst_addr < 4048 then
     puts "frame==#{frame.inspect}"
     puts "data ==#{frame.data}"
     puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + ", priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]\
     end
+}
+
+loop {
+        sleep(1)
 }

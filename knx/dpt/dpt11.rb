@@ -31,7 +31,7 @@ module Ansible
         #        
         module DPT11
 
-            class DPT11Struct < DPTStruct
+            class DPT11_Frame < DPTFrame
                 bit3 :pad1 
                 bit5 :dayofmonth,  {
                     :display_name =>  "Day of month (1..31)", :range => 1..31

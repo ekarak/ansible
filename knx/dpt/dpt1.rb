@@ -22,7 +22,7 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-
+require 'knx/dpt/canonical_1bit'
         
 module Ansible
     
@@ -35,14 +35,18 @@ module Ansible
             
             # DPT1 frame description 
             # Always 8-bit aligned.
-            class DPT1Struct < DPTStruct
+            class DPT1_Frame < DPTFrame
                 bit2  :apci_pad, :display_name => "APCI info (not useful)"
-                bit6  :data, :display_name => "6 bit of useful data", :range => 0..1
+                bit5  :null_pad
+                bit1  :data, :display_name => "6 bit of useful data"
             end
+            
+            include Canonical_1bit
             
             # DPT basetype info hash
             Basetype = {
                 :bitlength => 1,
+                :range => 0..1,
                 :valuetype => :basic,
                 :desc => "1-bit value"
             }
@@ -210,6 +214,8 @@ module Ansible
                     :enc => { 0 => "???", 1 => "???" }
                 },
             }
+            
+            include Canonical_1bit
             
         end #module DPT1
         

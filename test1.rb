@@ -26,22 +26,27 @@ $:.push(Dir.getwd)
 $:.push(File.join(Dir.getwd, 'knx'))
 $:.push(File.join(Dir.getwd, 'zwave'))
 
-load 'transceiver.rb'
-load 'zwave_transceiver.rb'
-load 'zwave_command_classes.rb'
+require 'config'
+require 'transceiver'
+require 'zwave_transceiver'
+require 'zwave_command_classes'
+require 'zwave_value'
 
-stomp_url = 'stomp://localhost'
-thrift_url = 'thrift://localhost'
+include Ansible
 
-ZWT = Ansible::ZWave_Transceiver.new(stomp_url, thrift_url)
+ZWT = ZWave::ZWave_Transceiver.new(Ansible::STOMP_URL, Ansible::THRIFT_URL)
 ZWT.manager.SendAllValues
 sleep(3)
+
+K = AnsibleValue[:_nodeId => 6, :_genre=>1]
+
+=begin
 Tree = AnsibleValue[ 
     :_nodeId => 2, 
     :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic
     ][0]
 
-Tree.declare_callback(:onUpdate) { | val, event|
+Tree.add_callback(:onUpdate) { | val, event|
     puts "-------- ZWAVE NODE #{val._nodeId} #{event}! CURRENT VALUE==#{val.current_value} ------------"
 }
 
@@ -50,7 +55,7 @@ if Dimmer = AnsibleValue[
     :_type => OpenZWave::RemoteValueType::ValueType_Byte,
     :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic
     ] then
-    Dimmer[0].declare_callback(:onUpdate) { | val, event|
+    Dimmer[0].add_callback(:onUpdate) { | val, event|
         puts "-------- ZWAVE NODE  #{val._nodeId} #{event}! CURRENT VALUE==#{val.current_value} ------------"
 #        Tree.set(val.current_value>0)
     }
@@ -58,4 +63,4 @@ else
     puts "valueid not found!"
 end
     
-
+=end

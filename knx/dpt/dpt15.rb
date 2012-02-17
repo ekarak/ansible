@@ -33,7 +33,7 @@ module Ansible
         
             # Bitstruct to parse a DPT4 frame. 
             # Always 8-bit aligned.
-            class DPT15Struct < DPTStruct
+            class DPT15_Frame < DPTFrame
                 bit4 :d6, :display_name => "D6"
                 bit4 :d5, :display_name => "D5"
                 #

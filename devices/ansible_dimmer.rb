@@ -25,28 +25,24 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'ansible_device'
 
 module Ansible
-    
-    module AnsibleDevice
         
-        class Dimmer < Switch
-            
-            def bind_dimming(zwave_dimm_val, knx_dimm_val, knx_dimmstatus_val=nil)
-                knx_dimm_val.declare_callback(:onUpdate) { |sender, cb, args| 
-                    puts "KNX value #{sender} updated! args=#{args}"
-                    zwval = sender.current_value * 99 / 255 
-                    zwave_dimm_val.set(zwval.round) # FIXME convert value domains
+    class Dimmer < Switch
+        
+        def bind_dimming(zwave_dimm_val, knx_dimm_val, knx_dimmstatus_val=nil)
+            knx_dimm_val.add_callback(:onUpdate) { |sender, cb, args| 
+                puts "KNX value #{sender} updated! args=#{args} canonical=#{sender.as_canonical_value}"
+                zwval = sender.current_value.data * 99 / 255 
+                zwave_dimm_val.set(zwval.round) # FIXME convert value domains
+            }
+            if knx_dimmstatus_val then
+                zwave_dimm_val.add_callback(:onUpdate) { | sender, cb, args|
+                    puts "ZWave value #{sender} HAS CHANGED #{args}"
+                    knxval = sender.current_value.data * 255 / 99
+                    knx_dimmstatus_val.set(knxval.round)
                 }
-                if knx_dimmstatus_val then
-                    zwave_dimm_val.declare_callback(:onUpdate) { | sender, cb, args|
-                        puts "ZWave value #{sender} HAS CHANGED #{args}"
-                        knxval = sender.current_value * 255 / 99
-                        knx_dimmstatus_val.set(knxval.round)
-                    }
-                end
             end
-            
-        end #class
+        end
         
-    end
+    end #class
     
 end

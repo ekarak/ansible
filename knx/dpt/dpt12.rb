@@ -31,7 +31,7 @@ module Ansible
         #        
         module DPT12
 
-            class DPT12Struct < DPTStruct
+            class DPT12_Frame < DPTFrame
                 uint32 :data, { 
                     :display_name => "32-bit value",
                     :range => 0..2**32-1

@@ -31,12 +31,13 @@ module Ansible
         #
         module DPT10
             
-            # DPTStruct to parse a DPT10 frame. 
+            # DPTFrame to parse a DPT10 frame. 
             # Always 8-bit aligned.
-            class DPT10Struct < DPTStruct
+            class DPT10_Frame < DPTFrame
                 bit3 :dayofweek, {
                     :display_name => "Day of week", 
-                    :range => 0..7, :data_desc => {
+                    :range => 0..7, 
+                    :enc => {
                         0 => "(no day set)",
                         1 => "Monday",
                         2 => "Tuesday",

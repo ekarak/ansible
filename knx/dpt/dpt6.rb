@@ -34,8 +34,8 @@ module Ansible
             
             # Bitstruct to parse a DPT6 frame. 
             # Always 8-bit aligned.      
-            class DPT6Struct < DPTStruct
-                int8 :data, :display_name => "Signed value -128..127",
+            class DPT6_Frame < DPTFrame
+                int8 :data, :display_name => "Signed value -128..127"
             end
 
             # DPT Basetype info

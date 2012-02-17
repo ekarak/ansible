@@ -23,7 +23,6 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
 require 'bindata'
-
 #~ // ID Packing:
 #~ // Bits
 #~ // 24-31:	8 bits. Node ID of device
@@ -33,19 +32,20 @@ require 'bindata'
 #~ // 04-11:	8 bits. Index of value within all the value created by the command class
 #~ //                  instance (in configuration parameters, this is also the parameter ID).
 #~ // 00-03:	4 bits. Type of value (bool, byte, string etc).
-class OZW_EventID_id < BinData::Record
+class OZW_ValueID_id < BinData::Record
     bit8    :node_id,       { :display_name => "Node ID of device" }
     bit2    :value_genre,   { :display_name => "Value Genre"}
     bit8    :cmd_class,     { :display_name => "command class"}
-    bit2    :unused1,       { :display_name =>  "(unused)"}
-    bit8    :value_idx,     { :display_name =>  "value index"}
+    bit2    :pad1
+    bit8    :value_idx,     { :display_name => "value index"}
     bit4    :value_type,    { :display_name => "value type( bool, byte, string etc)"}
 end
 
 #~ // ID1 Packing:
 #~ // Bits
 #~ // 24-31	8 bits. Instance Index of the command class.
-class OZW_EventID_id1 < BinData::Record
+class OZW_ValueID_id1 < BinData::Record
     bit8    :cmd_class_instance, { :display_name => "cmd class instance" }
-    bit24    :unused2   { :display_name => "(unused)"    }
+    bit24    :unused2,   { :display_name => "(unused)"    }
 end
+    

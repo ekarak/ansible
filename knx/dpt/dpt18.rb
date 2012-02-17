@@ -31,7 +31,7 @@ module Ansible
         #
         module DPT18
     
-            class DPT18Struct < DPTStruct
+            class DPT18_Frame < DPTFrame
                 bit1  :exec_learn, {
                     :display_name => "Execute=0, Learn = 1"
                 }

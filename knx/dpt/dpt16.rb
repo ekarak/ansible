@@ -33,7 +33,7 @@ module Ansible
         
             # Bitstruct to parse a DPT16 frame. 
             # Always 8-bit aligned.
-            class DPT16Struct < DPTStruct
+            class DPT16_Frame < DPTFrame
                 string :data, :length => 14
             end
             

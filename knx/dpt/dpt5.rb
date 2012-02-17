@@ -24,30 +24,36 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
+require 'knx_dpt_scalar'
+
 module Ansible
     
     module KNX
     
         #
-        # DPT5: 8-bit unsigned value
+        # DPT5: 8-bit unsigned value 
         #
         module DPT5
             
+            # DPT5 is the only (AFAIK) DPT with scalar datatypes (5.001 and 5.003)
+            include ScalarValue
+            
             # Bitstruct to parse a DPT5 frame. 
             # Always 8-bit aligned.
-            class DPT5Struct < DPTStruct
+            class DPT5_Frame < DPTFrame
                 uint8  :data,  {
                     :display_name => "8-bit unsigned value",
-                    :range => 0..255
                 }
             end
             
             # DPT base type
             Basetype = {
                 :bitlength => 8,
+                :range => 0..255,
                 :valuetype => :basic,
                 :desc => "8-bit unsigned value"
             }
+            
             # DPT subtypes
             Subtypes = {
                 # 5.001 percentage (0=0..ff=100%)
@@ -87,9 +93,32 @@ module Ansible
                 },
             }
 
+            # DPT5 canonical values
+            # ---------------------
+            # use scalar conversion, if applicable 
+            # otherwise just return the data value
+            def as_canonical_value()
+                return nil if current_value.nil?
+                # get and apply field's scalar range, if any (only in DPT5 afaik)
+                if (sr = getparam(:scalar_range) and range = getparam(:range)) then
+                    return to_scalar(current_value.data.value, range, sr)
+                else
+                    return current_value.data.value
+                end
+            end
+     
+            #
+            #
+            def to_protocol_value(v)
+                if (sr = getparam(:scalar_range) and range = getparam(:range)) then
+                    return from_scalar(v, range, sr)
+                else
+                    return v
+                end
+            end
+            
         end 
         
     end
     
 end
-

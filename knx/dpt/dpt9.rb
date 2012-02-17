@@ -66,9 +66,9 @@ module Ansible
                 end # set
             end
 
-            # DPTStruct to parse a DPT9 frame. 
+            # DPTFrame to parse a DPT9 frame. 
             # Always 8-bit aligned.
-            class DPT9Struct < DPTStruct
+            class DPT9_Frame < DPTFrame
                 dpt9_float :data
             end
         

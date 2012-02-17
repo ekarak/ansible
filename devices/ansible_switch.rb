@@ -25,31 +25,18 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'ansible_device'
 
 module Ansible
+
+    # a Switch is a device controlled by a boolean state: False/Off/0 and True/On/1
     
-    module AnsibleDevice
+    class Switch < AbstractDevice
         
-        class Switch < AbstractDevice
-            
-            def initialize(zwave_val, knx_cmd_val, knx_status_val=nil)
-                puts "Declaring new Ansible Switch: #{self}"
-                knx_cmd_val.declare_callback(:onUpdate) { |sender, cb, args| 
-                    puts "KNX value #{knx_cmd_val.primary} updated! args=#{args}"
-                    zwval = sender.current_value == 0 ? 0 : 1
-                    zwave_val.set(zwval) # FIXME convert value domains
-                }
-                if knx_status_val then
-                    zwave_val.declare_callback(:onUpdate) { | sender, cb, args|
-                        puts "ZWave Switch #{zwval} HAS CHANGED!"
-                        knxval = sender.current_value == 0 ? 0 : 1
-                        knx_status_val.set(knxval)
-                    }
-                end
-            end
-            
-            def bind
-                
-            end
-            
+        # initialize an Ansible::Switch.
+        # ctrl_value (control value) is the value controlling the end device
+        def initialize(ctrl_value)
+            super()
+            puts "Declaring new Ansible Switch: #{self}"
+            input(ctrl_value)
+            output(ctrl_value)
         end
         
     end

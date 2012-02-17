@@ -47,7 +47,8 @@ module Ansible
     THRIFT_URL = 'thrift://localhost'
     
     # KNX eibd URL
-    KNX_URL = "local:/tmp/eib"
+    #KNX_URL = "local:/tmp/eib" - local sockets do not generate disconnection events!
+    KNX_URL = "ip:localhost"
     
     ###################
     # KNX MONITOR TOPIC: 

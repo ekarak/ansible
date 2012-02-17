@@ -26,15 +26,26 @@ $:.push(Dir.getwd)
 $:.push(File.join(Dir.getwd, 'knx'))
 $:.push(File.join(Dir.getwd, 'zwave'))
 
-load 'transceiver.rb'
+require 'transceiver'
 
-load 'knx_transceiver.rb'
-load 'knx_tools.rb'
-load 'knx_value.rb'
-
+require 'knx_transceiver'
+require 'knx_tools'
+require 'knx_value'
+require 'config'
 
 # a lone KNX transceiver will log all KNX activity by default
-KNX = Ansible::KNX::KNX_Transceiver.new("local:/tmp/eib")
-V1 = Ansible::KNX::KNXValue.new("1.001", "1/0/20")
-V2 = Ansible::KNX::KNXValue.new("5.004", "1/0/42")
+KNX = Ansible::KNX::KNX_Transceiver.new(Ansible::KNX_URL)
+#V1 = Ansible::KNX::KNXValue.new("1.001", "1/0/20")
+V1 = Ansible::KNX::KNXValue.new("1.005", "5/0/1")
+V2 = Ansible::KNX::KNXValue.new("1.005", "5/0/2")
+
+V3 = Ansible::KNX::KNXValue.new("1.001", "1/1/0")
+V3.description = "Basement light"
+
+V4 = Ansible::KNX::KNXValue.new("1.001", "3/0/3")
+V4.description = "Anakykloforia ZNX"
+
+V5 = Ansible::KNX::KNXValue.new("5.004", "1/0/42")
+
+#BasementLights = 
 

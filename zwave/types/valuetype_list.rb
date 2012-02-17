@@ -28,9 +28,13 @@ module Ansible
         
         module ValueType_List
             
-            def bind_type
-                @read_operation = :GetValueListItems 
-                @write_operation = :SetValueListSelection
+            # define type-specific OZW::Manager API calls
+            def read_operation
+                return :GetValueListItems
+            end
+            
+            def write_operation
+                return :SetValueListSelection
             end
              
             def to_protocol_value(new_val)

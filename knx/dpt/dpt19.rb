@@ -31,7 +31,7 @@ module Ansible
         #
         module DPT19
     
-            class DPT19Struct < DPTStruct
+            class DPT19_Frame < DPTFrame
                 # byte 8 (MSB)
                 uint8 :year, { 
                     :display_name => "Year" 

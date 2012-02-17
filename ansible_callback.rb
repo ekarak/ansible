@@ -22,6 +22,8 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
+require 'weakref'
+
 module Ansible
     
     module AnsibleCallback
@@ -31,46 +33,100 @@ module Ansible
         #
         
         # callback declaration mechanism.
-        # callbacks must be defined by a Symbol (eg :onChange) starting with "on" 
-        # A special case is :default , this callback gets called at all events.
-        # the callback Proc always gets supplied these arguments
-        # 1st argument to callback proc is the ValueID instance
-        # 2nd argument is the callback symbol (eg :onChange)
-        # 3rd and later arguments: event-specific data
-        # example:
-        #   obj.declare_callback(:onChange) { |o| puts "Object #{o} has changed!" }
-        #   obj.declare_callback(:default) { |o, cb| puts "Object #{o}: callback #{cb}!" }
-        def declare_callback(cb, &cb_body)
-            raise "declare_callback: 1st argument must be a Symbol" unless cb.is_a?Symbol
-            raise "declare_callback: 2nd argument must be a Proc" unless cb_body.is_a?Proc
-            @callbacks = {} if @callbacks.nil?
-            if (cb.to_s[0..1] == "on")  then
-                puts "Registering callback  (#{cb}) for #{self.inspect}"
-                @callbacks[cb] = cb_body
-            elsif (cb.to_s == "default") then
-                puts "Registering DEFAULT callback  for #{self.inspect}"
-                @callbacks.default = cb_body
+        # arguments:
+        # 1) event: a Symbol for the event (eg :onChange) 
+        #           A special case is :default , this callback gets called at all events.
+        # 2) target: a unique hashable target (so as to register a target-specific callback
+        #           for an event) - you can pass any value, if it can be hashed. 
+        #           TODO: use WeakRef,so that the target can be reclaimed by Ruby's GC 
+        #               when its fixed on Ruby1.9 (http://bugs.ruby-lang.org/issues/4168)
+        # 3) cb_body: a Proc to get called when a callback is fired.
+        #   the callback Proc always gets supplied these arguments:
+        #   1st argument to callback proc is the AnsibleValue instance
+        #   2nd argument is the callback symbol (eg :onChange)
+        #   3rd and later arguments: event-specific data
+        # examples:
+        #   obj.add_callback(:onChange) { |o| puts "Object #{o} has changed!" }
+        #   obj.add_callback(:onChange, 'SPECIAL') { |o| puts "Object #{o} has changed!" }
+        #   obj.add_callback(:default) { |o, cb, *args| puts "Object #{o}: callback #{cb}!" }
+        def add_callback(event, target=nil, &cb_body)
+            raise "add_callback: last argument must be a Proc" unless cb_body.is_a?Proc
+            init_callbacks(event)
+            puts "#{self}: Registering #{event} callback" + (target.nil? ? '' : " especially for target #{target}")
+            if target.nil? then
+                @callbacks[event].default = cb_body
+            else
+                @callbacks[event][target] = cb_body
             end
         end
         
-        # callback firing processor. 
-        # Checks if a proc is stored as an instance variable, then calls it
+        # remove a callback
+        # arguments:
+        # 1) event: a Symbol for the event (eg :onChange) 
+        #           A special case is :default , this callback gets called at all events.
+        # 2) target: a unique hashable target - you can pass any value
+        # examples:
+        #
+        def remove_callback(event, target=nil)
+            init_callbacks(event)
+            @callbacks[event].delete(target)
+        end
+        
+        # callback firing processor.
+        #
+        # Checks if a proc is stored for a ginen event, then calls it
         # with the object instance as its first argument,  the callback symbol 
         # as its second arg, and all other *args appended to the call
+        #
+        # arguments:
+        # 1) event:  a Symbol for the event (eg :onChange) 
+        # 2) target: the unique id of target (so as to fire target-specific callbacks
+        #           for a specific event)        
+        # NOTE 1) its prohibited to fire the DEFAULT callback programmatically 
+        #           (it will get fired anyway at ANY event)
+        # NOTE 2) if a target_id is given, then try to fire target-specific callbacks.   
+        #           if none is found, fall-back to the generic callback for this event
         # example:
-        #   obj.fire_callback(:onChange, :arg1, :arg2, :arg3)
-        def fire_callback(cb, *args)
-            raise "fire_callback: 1st argument must be a Symbol" unless cb.is_a?Symbol
-            @callbacks = {} unless @callbacks.is_a?Hash
-            default = @callbacks.has_key?(cb)
-            if (cb_proc = @callbacks[cb]).is_a?Proc then
-                puts "firing callback(#{cb}) args: #{args.inspect}" if $DEBUG
-                cb_proc.call(self, cb.to_s, *args)
-            else
-                #puts "WARNING: callback #{cb} not found for #{self}, iv=#{iv} cb_proc=#{cb_proc.inspect}"
+        #   obj.fire_callback(:onChange, 'GROUPADDR', :arg1, :arg2, :arg3)
+        def fire_callback(event, target=nil, *args)
+            raise "cannot fire DEFAULT callback programmatically!" if event.to_s == "default"
+            #puts "fire_callback called by #{self}.#{event}, args: #{args.inspect}"
+            init_callbacks(event)
+            # array of callback Procs to get called
+            cb_procs = []
+            # first add callbacks for this specific event
+            if defined?(@callbacks) and @callbacks.is_a?Hash then
+                [@callbacks[event],  @callbacks[:default]].each { |hsh|
+                    if hsh.is_a?Hash then
+                        #puts "#{self}: callbacks for #{event} are: #{hsh.inspect}"
+                        if target.nil? then 
+                            # add all targets to the list of procs to call
+                            # including the default 
+                            cb_procs << [hsh.values, hsh.default].flatten
+                        else
+                            # only add target-specific procs to the list
+                            cb_procs << hsh[target]
+                        end
+                    end                    
+                }
             end
+            #puts cb_procs.inspect
+            # time to fire callbacks 
+            cb_procs.flatten.compact.each { |cb_proc|
+                raise "ooops, found a #{cb_proc.class} stored as a callback!" unless cb_proc.is_a?Proc                    
+                puts "firing #{event} callback, args: #{args.inspect}" 
+                cb_proc.call(self, event.to_s, *args)                    
+            }
         end
         
+        private
+        # initialize callback hash for a given event
+        def init_callbacks(event)
+            md = caller[1].match(/`(\w*)'/); clr = md and md[1] or caller[1]
+            raise "#{clr}: no event Symbol supplied!" unless event.is_a?Symbol
+            @callbacks = {} unless defined?(@callbacks) and @callbacks.is_a?Hash
+            @callbacks[event] = {} unless @callbacks[event].is_a?Hash            
+        end
     end
 
 end #module

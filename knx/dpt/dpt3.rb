@@ -33,7 +33,7 @@ module Ansible
             
             # Bitstruct to parse a DPT3 frame. 
             # Always 8-bit aligned.
-            class DPT3Struct < DPTStruct
+            class DPT3_Frame < DPTFrame
                 bit2    :apci_pad, :display_name => "APCI data"
                 bit2    :pad1
                 bit1    :decr_incr, :display_name => "Decrease(0) / Increase(1)"

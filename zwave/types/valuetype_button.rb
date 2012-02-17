@@ -28,22 +28,29 @@ module Ansible
         
         module ValueType_Button
 
-            def bind_type
-                @read_operation = nil 
-                @write_operation = :PressButton # FIXME: also: ReleaseButton
+            # define type-specific OZW::Manager API calls
+            def read_operation 
+                return nil # FIXME 
+            end
+                
+            def write_operation 
+                return :PressButton # FIXME: also: ReleaseButton
             end
              
+            #            
+            def as_canonical_value()
+                puts 'TODO:: zwave_button: as_canonical'
+                return (current_value > 0)
+            end
+            
+            #
             def to_protocol_value(new_val)
+                puts 'TODO:: zwave_button: to_protocol'
                 result = nil
                 if [TrueClass, FalseClass].include?(new_val.class)
                     result = new_val ? 1 : 0
                 end
             end 
-               
-            
-            def abstract_value
-                
-            end
             
             # return a human-readable representation of a ZWave frame
             def explain

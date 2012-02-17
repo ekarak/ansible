@@ -201,7 +201,8 @@ class EIBConnection
     if @readlen < 2
       maxlen = 2-@readlen
       result = block ? @fd.recv(maxlen) : @fd.recv_nonblock(maxlen)
-      #puts "__EIB_CheckRequest received #{result.length} bytes: #{result.hexdump})" if $DEBUG
+      raise Errno::ECONNRESET if block and (result.length == 0)
+      puts "__EIB_CheckRequest received #{result.length} bytes: #{result.inspect})" if $DEBUG
       if result.length > 0
         @head.concat(result.split('').collect{|c| c.unpack('c')[0]})
       end
@@ -215,7 +216,8 @@ class EIBConnection
     if @readlen < @datalen + 2
       maxlen = @datalen + 2 -@readlen
       result = block ? @fd.recv(maxlen) : @fd.recv_nonblock(maxlen)
-      #puts "__EIB_CheckRequest received #{result.length} bytes: #{result.hexdump})" if $DEBUG
+      raise Errno::ECONNRESET if block and (result.length == 0)
+      puts "__EIB_CheckRequest received #{result.length} bytes: #{result.inspect})" if $DEBUG
       if result.length > 0
         @data.concat(result.split('').collect{|c| c.unpack('c')[0]})
 	puts "__EIB_CheckRequest @data after recv. = #{@data.inspect})" if $DEBUG

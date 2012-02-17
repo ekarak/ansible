@@ -22,6 +22,8 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
+require 'config'
+
 # a generic Rexegp to parse C/C++ enums, must substitute %s in-place with enumeration name
 ENUM_RE = %q(.* 
     enum \s* %s \s* 
@@ -34,17 +36,15 @@ ENUM_RE = %q(.*
 ENUM_RE_LINE = /^ \s*  ([a-z_]+)  (\s*=\s*)* (\d*)  .*  \/\*\*\< \s (.*) \s \*\/$/ix
 #                        md[1]      md[2]    md[3]                  md[4]  
 #                       item name     =   default_index     textual_description
+    
+module OpenZWave
 
-def parse_ozw_headers(cpp_src)
-    notificationtypes, valuegenres, valuetypes = [], [], []
-    [   
-        [File.join(cpp_src, "Notification.h"), "NotificationType", notificationtypes],
-        [File.join(cpp_src, "value_classes", "ValueID.h"), "ValueGenre", valuegenres],
-        [File.join(cpp_src, "value_classes", "ValueID.h"), "ValueType", valuetypes]
-    ].each { | headerfile, enum_name, enum_array |
-        puts "Parsing #{headerfile} for enum #{enum_name}..."
+    # helper function to parse OpenZWave headers
+    def OpenZWave.parse_ozw_headers(headerfile, enum_name)
+        puts "Parsing enum #{enum_name}\tfrom #{headerfile} ..." if $DEBUG
         #~ puts enum_re % enum_name
         foo = File.open(headerfile).read
+        enum_array = {}
         if enum = Regexp.new(ENUM_RE % enum_name,  Regexp::EXTENDED | Regexp::IGNORECASE | Regexp::MULTILINE).match(foo) then
             index = 0
             #~ puts enum[1].inspect
@@ -55,10 +55,26 @@ def parse_ozw_headers(cpp_src)
                     index =  (md[2] and md[3].length > 0) ? md[3].to_i : index+1
                     key, value = md[1], md[4]
                     enum_array[index] = [key, value]
-                        #~ puts "#{enum_name}[#{index}] = [#{key}, #{value}]"
+                    # define back-reference to index as a module constant
+                    cname = enum_name+'_'+key.split('_')[1]
+                    #puts "defining constant OpenZWave::#{cname} == #{index}"
+                    const_set(key, index)
+                    puts "#{enum_name}[#{index}] = [#{key}, #{value}]" if $DEBUG
                 end
             }
+            return enum_array
         end
-    }
-    return notificationtypes, valuegenres, valuetypes
+    end
+    
+    # define OpenZWave global lookup tables
+    NotificationTypes = parse_ozw_headers( File.join(OZW_SRC, "Notification.h"), "NotificationType" )
+    ControllerCommands = parse_ozw_headers( File.join(OZW_SRC, "Driver.h"), "ControllerCommand" )
+    ControllerStates = parse_ozw_headers( File.join(OZW_SRC, "Driver.h"), "ControllerState" )
+    ValueGenres = parse_ozw_headers( File.join(OZW_SRC, "value_classes", "ValueID.h"), "ValueGenre" )
+    ValueTypes = parse_ozw_headers( File.join(OZW_SRC, "value_classes", "ValueID.h"), "ValueType" )
+    
 end
+    
+
+#CommandClassesByID defined in zwave_command_classes.rb
+

@@ -32,14 +32,19 @@ module Ansible
         #
         module Canonical_1bit
             
-            # map 0,1 to canonical form (boolean)
-            def to_canonical()
-                return (self.data == 1)
+            # DPT1 canonical values
+            # ---------------------
+            # Use Ruby convention for booleans in order to convert 
+            # input value of (nil, false) into 0, otherwise 1
+            
+            # data is 1 ==> true, false otherwise
+            def as_canonical_value()
+                return (current_value.data.eql?1)
             end
     
-            # convert a canonical value (boolean) back to its protocol-specific form 
-            def from_canonical(v)                
-                self.data = ([true, 1].include?(v)) ? 1 : 0
+            # v is true? 1 : 0 
+            def to_protocol_value(v)
+                return (v ? 1 : 0)
             end
     
         end

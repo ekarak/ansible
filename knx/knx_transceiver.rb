@@ -24,25 +24,13 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 
 require 'cgi'
 
+require 'config'
 require 'transceiver'
 require 'EIBConnection'
-
 require 'ansible_callback'
-
 require 'knx_protocol'
+require 'knx_value'
 require 'knx_tools'
-
-###################
-# KNX MONITOR TOPIC: 
-#   passes all KNX activity to STOMP
-#   KNX frame headers as defined in knx_protocol.rb
-KNX_MONITOR_TOPIC = "/queue/knx/monitor"
-
-#################
-# KNX COMMAND_TOPIC
-#   header "dest_addr" => KNX destination address (group/phys) in 16-bit unsigned integer format i.e. "1024" meaning "1/0/0" in 3-level fmt
-#   body => the raw APDU for transmission (command flags+data) in Marshal.dump(CGI.escape()) format
-KNX_COMMAND_TOPIC = "/queue/knx/command"
 
 module Ansible
 
@@ -59,32 +47,26 @@ module Ansible
             # initialize a KNXTranceiver
             # params:
             #   connURL = an eibd connection URL. see eibd --help for acceptable values
-            def initialize(connURL="local:/tmp/eib")
-                begin
-                    raise "Already initialized!" unless  Ansible::KNX::KNXValue.transceiver.nil?
-                    puts("KNX: init connection to #{connURL}")
-                    @monitor_conn = EIBConnection.new()
-                    @monitor_conn.EIBSocketURL(connURL)
-                    @send_conn = EIBConnection.new()
-                    @send_conn.EIBSocketURL(connURL)
-                    @send_mutex = Mutex.new()
-                    @knxbuf = EIBBuffer.new()
-                    super()
-                    # store reference to ourselves to the classes that use us
-                    Ansible::KNX::KNXValue.transceiver = self
-                rescue Exception => e
-                    puts "#{self}.initialize() EXCEPTION: #{e}\n\t" + e.backtrace.join("\n\t")
-                end
+            def initialize(connURL=KNX_URL)
+                raise "Already initialized!" unless  Ansible::KNX::KNXValue.transceiver.nil?
+                @connURL = connURL
+                @monitor_conn_ok, @send_conn_ok = false, false
+                @send_mutex = Mutex.new()
+                @knxbuf = EIBBuffer.new()
+                #
+                super()
+                # store reference to ourselves to the classes that use us
+                Ansible::KNX::KNXValue.transceiver = self
                 # register default handler for KNX frames
-                declare_callback(:onKNXtelegram) { | sender, cb, frame |
+                add_callback(:onKNXtelegram) { | sender, cb, frame |
                     puts(frame_inspect(frame)) if $DEBUG
                     case frame.apci.value
                     when 0 then # A_GroupValue_Read
                         puts "read request for knx address #{addr2str(frame.dst_addr, frame.daf)}"
-                        AnsibleValue[:groups => [frame.dst_addr]].each { |v| 
-                            if v.current_value then
-                                puts "==> responding with value #{val}"
-                                send_apdu_raw(frame.dst_addr, val.to_apdu(0x40))
+                        AnsibleValue[:groups => [frame.dst_addr]].each { |v|
+                            unless v.current_value.nil? then
+                                puts "==> responding with value #{v}"
+                                send_apdu_raw(frame.dst_addr, v.to_apdu(0x40))
                             end
                         }
                     when 1 then # A_GroupValue_Response
@@ -102,13 +84,43 @@ module Ansible
                 }
             end
             
+            # initialize eibd connection
+            def init_eibd(conn_symbol, conn_ok_symbol)
+                unless instance_variable_get(conn_ok_symbol)
+                    begin
+                        puts("KNX: init #{conn_symbol} to #{@connURL}")
+                        conn = EIBConnection.new()
+                        conn.EIBSocketURL(@connURL)
+                        instance_variable_set(conn_symbol, conn)
+                        instance_variable_set(conn_ok_symbol, true)
+                        return(conn)
+                    rescue Errno::ECONNRESET => e
+                        instance_variable_set(conn_ok_symbol, false)
+                        puts "init_eibd: Disconnected, retrying in 10 seconds..."
+                        sleep(10)
+                    end
+                end
+            end
+            
+            # get handle to eibd monitor connection
+            def eibd_connection(conn_symbol, conn_ok_symbol)
+                if instance_variable_get(conn_ok_symbol) then
+                    return(instance_variable_get(conn_symbol))
+                else
+                    init_eibd(conn_symbol, conn_ok_symbol)
+                end
+            end
+
+            def monitor_conn; return(eibd_connection(:@monitor_conn, :@monitor_conn_ok)); end
+            def send_conn; return(eibd_connection(:@send_conn, :@send_conn_ok)); end
+                
             # the main KNX transceiver thread
             def run()
                 puts("KNX Transceiver thread is running!")
                 @stomp = nil
                 begin
                     #### part 1: connect to STOMP broker
-                    @stomp = OnStomp.connect "stomp://localhost"
+                    @stomp = OnStomp.connect(STOMP_URL)
                     #### part 2: subscribe to command channel, listen for messages and pass them to KNX
                     # @stomp.subscribe KNX_COMMAND_TOPIC do |msg|
                         # dest = msg.headers['dest_addr'].to_i
@@ -117,11 +129,10 @@ module Ansible
                         # send_apdu_raw(dest, apdu)
                     # end
                     ##### part 3: monitor KNX bus, post all activity to /knx/monitor
-                    vbm = @monitor_conn.EIBOpenVBusmonitor()
+                    vbm = monitor_conn.EIBOpenVBusmonitor()
                     loop do
-                        src, dest ="", ""
-                        len = @monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
-                        #puts "knxbuffer=="+@knxbuf.buffer.inspect
+                        len = monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
+                        puts "knxbuffer=="+@knxbuf.buffer.inspect
                         frame = L_DATA_Frame.read(@knxbuf.buffer.pack('c*'))
                         #puts "frame:\n\t"
                         headers = {}
@@ -134,19 +145,25 @@ module Ansible
                         #puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
                         #  addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
                         #  "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
-                        fire_callback(:onKNXtelegram, frame)
+                        fire_callback(:onKNXtelegram, frame.dst_addr, frame)
                         # 
                     end
+                rescue Errno::ECONNRESET => e
+                    puts("EIBD disconnected! retrying in 10 seconds..")
+                    sleep(10)
+                    retry                    
                 rescue NormalExit => e
                     puts("KNX transceiver terminating gracefully...")
                 rescue Exception => e
                     puts("Exception in KNX server thread: #{e}")
                     puts("backtrace:\n  " << e.backtrace.join("\n  "))
-                    sleep(1)
+                    sleep(3)
                     retry
-                ensure
-                    @monitor_conn.EIBClose() if @monitor_conn
-                    @stomp.disconnect if @stomp
+#                ensure
+                    #puts "Closing EIB connection..."
+                    #@monitor_conn.EIBClose() if @monitor_conn
+                    #puts "Closing STOMP connection..."
+                    #@stomp.disconnect if @stomp
                 end
             end #def run()
         
@@ -156,12 +173,13 @@ module Ansible
             #   apdu:: raw APDU (binary string)       
             def send_apdu_raw(dest, apdu)
                 @send_mutex.synchronize {
+                    raise 'apdu must be a byte array!' unless apdu.is_a?Array
                     puts("KNX transceiver: sending to group address #{dest}, #{apdu.inspect}") if $DEBUG
-                    if (@send_conn.EIBOpenT_Group(dest, 1) == -1) then
+                    if (send_conn.EIBOpenT_Group(dest, 1) == -1) then
                         raise("KNX client: error setting socket mode")
                     end
-                    @send_conn.EIBSendAPDU(apdu)
-                    @send_conn.EIBReset()
+                    send_conn.EIBSendAPDU(apdu)
+                    send_conn.EIBReset()
                 }
             end
             
@@ -177,20 +195,20 @@ module Ansible
                 result = nil
                 @send_mutex.synchronize {
                     # query eibd for a cached value
-                    if (@send_conn.EIB_Cache_Read_Sync(ga, src, buf, 0) == -1) then
+                    if (send_conn.EIB_Cache_Read_Sync(ga, src, buf, 0) == -1) then
                         # value not found in cache
                         puts "groupaddress #{addr2str(ga, true)} not found in cache."
                         unless cache_only then
                             puts ".. requesting value on bus .."
-                            if (@send_conn.EIBOpenT_Group(ga, 1) == -1) then
+                            if (send_conn.EIBOpenT_Group(ga, 1) == -1) then
                                 raise("KNX client: error setting socket mode")
                             end
                             # send a read request to the bus
-                            @send_conn.EIBSendAPDU([0,0x00])
+                            send_conn.EIBSendAPDU([0,0x00])
                         end
-                        @send_conn.EIBReset()
+                        send_conn.EIBReset()
                     else
-                        @send_conn.EIBReset()
+                        send_conn.EIBReset()
                         # value found in cache..
                         puts "found in cache, last sender was #{addr2str(src.data)}"
                         result = buf.buffer
@@ -205,5 +223,3 @@ module Ansible
     
 end #module Ansible
 
-#KNX = Ansible::KNX_Transceiver.new("ip:192.168.0.10")
-#KNX.thread.join

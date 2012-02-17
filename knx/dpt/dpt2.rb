@@ -22,19 +22,20 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-#
-# DPT2: 2-bit control value
-#
+require 'knx/dpt/canonical_1bit'
 
 module Ansible
     
     module KNX
 
+        #
+        # DPT2: 2-bit control value
+        #
         module DPT2
             
             # DPT2 frame description. 
             # Always 8-bit aligned.
-            class DPT2Struct < DPTStruct
+            class DPT2_Frame < DPTFrame
                 bit2    :apci_pad, {
                     :display_name => "APCI info (not useful)"
                 }
@@ -45,6 +46,8 @@ module Ansible
                 bit1    :data, :display_name => "Value"
             end
             
+            include Canonical_1bit
+                        
             # DPT basetype info hash
             Basetype = {
                 :bitlength => 2,
@@ -134,8 +137,6 @@ module Ansible
                     :enc => { 0..1 => "No control", 2 => "Off", 3 => "On" }
                 }
             }
-            
-            include Canonical_1bit
              
         end #class
         

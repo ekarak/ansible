@@ -31,7 +31,7 @@ module Ansible
         #
         module DPT13
             
-            class DPT13Struct < DPTStruct
+            class DPT13_Frame < DPTFrame
                 int32 :data,  { 
                     :display_name => "32-bit signed value",
                     :range => -2**31..2**31-1

@@ -67,7 +67,7 @@ module Ansible
 
             # Bitstruct to parse a DPT9 frame. 
             # Always 8-bit aligned.
-            class DPT14Struct < BinData::Record
+            class DPT14_Frame < BinData::Record
                 dpt14_float :data
             end
 
