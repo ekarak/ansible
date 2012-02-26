@@ -25,10 +25,41 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'ansible_device'
 
 module Ansible
-        
+
+    # a Dimmer is a Switch with additional capabilites (duh)
     class Dimmer < Switch
         
-        def bind_dimming(zwave_dimm_val, knx_dimm_val, knx_dimmstatus_val=nil)
+        def link
+            dimming = @hashmap[:dimming]
+            status = @hashmap[:dimming_status]
+            master = @hashmap[:master_control]
+            unless dimming.is_a?AnsibleValue
+                raise "#{self}.link: must supply AnsibleValues for :dimming!"
+            end
+            # map dimming value updates to master_control 
+            dimming.add_callback(:onUpdate, self) { |sender, cb, args| 
+                puts "   (#{sender.class}) #{sender} input value updated! args=#{args}"
+                # convert value domains 
+                cv = sender.as_canonical_value
+                newval = master.to_protocol_value(cv)
+                puts "   #{self} setting output #{output} +++ cv=#{cv} newval=#{newval}"
+                target.set(newval)
+                # also update status value, if defined
+                status.set(newval) unless status.nil?                    
+            }
+            # also update dimming status value, if defined
+            master.add_callback(:onUpdate, self) { |sender, cb, args|
+                # convert value domains 
+                cv = sender.as_canonical_value
+                newval = master.to_protocol_value(cv)
+                #
+                status = @hashmap[:switch_status]
+                puts "   updating dimming status value (#{status}) new val=#{newval}!"
+                status.set(newval)
+            } if status.is_a?AnsibleValue
+            # call upstream linking method in Switch, if any
+            super()
+=begin
             knx_dimm_val.add_callback(:onUpdate) { |sender, cb, args| 
                 puts "KNX value #{sender} updated! args=#{args} canonical=#{sender.as_canonical_value}"
                 zwval = sender.current_value.data * 99 / 255 
@@ -41,6 +72,7 @@ module Ansible
                     knx_dimmstatus_val.set(knxval.round)
                 }
             end
+=end
         end
         
     end #class

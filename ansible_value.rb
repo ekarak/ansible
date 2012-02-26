@@ -26,6 +26,9 @@ require 'ansible_callback'
 
 module Ansible
     
+    # A base module for Ansible Values, which is the most basic form to declare a
+    # protocol-agnostic control endpoint, be it an input (a button or event), or
+    # an output (a device such as a relay or dimmer)
     module AnsibleValue
     
     include AnsibleCallback
@@ -90,7 +93,7 @@ module Ansible
                 puts "Adding a new value to @@AllValues (#{newvalue})" if $DEBUG
                 @@AllValues << (result = newvalue)
                 # get initial state
-                newvalue.get if newvalue.flags[:r]
+                newvalue.get 
             end
         }
         return(result)
@@ -100,9 +103,7 @@ module Ansible
     # get a value's current state
     # returns: the value, if found in eibd's cache or nil otherwise
     def get
-        unless @flags[:r] then
-            raise "#{self}: attempt to get a write-only value"
-        end
+        return if write_only?
         #
         puts "get() called for #{self.inspect} by:\n\t" + caller[1] if $DEBUG
         #
@@ -111,7 +112,7 @@ module Ansible
             fire_callback(:onAfterGetSuccess)
         else
             fire_callback(:onAfterGetFail)
-            raise "get value failed for #{self}"
+            #raise "get value failed for #{self}"
         end
     end
 
@@ -122,9 +123,7 @@ module Ansible
     #WARNING: a true return value doesn't mean the command actually succeeded, 
     # it only means that it was queued for delivery to the target node
     def set(new_val)
-        unless @flags[:w] then
-            raise "#{self}: attempt to set a read-only value"
-        end
+        return if read_only?
         #
         puts "set() called for #{self.inspect} by:\n\t" + caller[1] if $DEBUG
         #
@@ -144,7 +143,8 @@ module Ansible
         validate_ranges() if respond_to?(:validate_ranges)
         unless newval == @current_value then
             @last_update = Time.now
-            puts "==> updating value #{self}, with #{newval.class}:#{newval.inspect}"        
+            puts "+++ updating value #{self}, with #{newval.class}:#{newval.inspect}"
+            
             # previous value was different, update it and fire onUpdate handler
             @previous_value = @current_value if defined?(@current_value)
             @current_value = newval

@@ -28,8 +28,8 @@ module Ansible
     module KNX
         
         #
-        # 1-bit canonical values
-        #
+        # 1-bit canonical values for KNX
+        # implements value casting to/from the canonical type, a boolean value 
         module Canonical_1bit
             
             # DPT1 canonical values

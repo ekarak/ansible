@@ -26,6 +26,7 @@ module Ansible
 
     module ZWave 
         
+        # integer (32-bit) value type for OpenZWave
         module ValueType_Int
             
             # define type-specific OZW::Manager API calls

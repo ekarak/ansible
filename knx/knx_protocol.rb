@@ -22,21 +22,24 @@ for more information on the LGPL, see:
 http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
-require 'rubygems'
 require 'bindata'
 
 module Ansible
     
     module KNX
     
+        # the basic Control field structure for KNX/TP (Twisted Pair) telegrams
+        # contains only low-level transmission medium data
         class TP_ControlField < BinData::Record
             bit2    :lpdu_code, { :display_name => "LPDU (2bit) 2=L_DATA.req 3=L_Poll_data.req" }
             bit1    :rep_flag,  { :display_name => "Repeat flag"}
             bit1    :ack_not,   { :display_name => "0 = Acknowledge frame, 1 = standard frame"}
             bit2    :prio_class,{ :display_name => "Priority class (0=highest .. 3=lowest)"}
             bit2    :unused1,   { :display_name => "two unused bits (should be 00)"}
-            end
+        end
         
+        # same as TP_ControlField, plus network- and application-layer data 
+        # also known as APDU (Application Datagram Unit)
         class L_DATA_Frame < BinData::Record
             endian :big
             # octet 0: TP1 control field
@@ -67,14 +70,17 @@ module Ansible
     
         #########################################################
         
+        # APCI codes array
         APCICODES = "A_GroupValue_Read A_GroupValue_Response A_GroupValue_Write \
                 A_PhysicalAddress_Write A_PhysicalAddress_Read A_PhysicalAddress_Response \
                 A_ADC_Read A_ADC_Response A_Memory_Read A_Memory_Response A_Memory_Write \
                 A_UserMemory A_DeviceDescriptor_Read A_DeviceDescriptor_Response A_Restart \
                 A_OTHER".split()
         
+        # TPDU codes array
         TPDUCODES = "T_DATA_XXX_REQ T_DATA_CONNECTED_REQ T_DISCONNECT_REQ T_ACK".split()
         
+        # Priority classes
         PRIOCLASSES = "system alarm high low".split()
     
         #########################################################

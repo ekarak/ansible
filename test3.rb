@@ -35,6 +35,7 @@ Thread.new {
 $:.push(Dir.getwd)
 $:.push(File.join(Dir.getwd, 'knx'))
 $:.push(File.join(Dir.getwd, 'zwave'))
+$:.push(File.join(Dir.getwd, 'devices'))
 
 require 'transceiver'
 require 'zwave_transceiver'
@@ -50,6 +51,8 @@ require 'config'
 #
 
 include Ansible
+include Ansible::ZWave
+include Ansible::KNX
 
 begin
     
@@ -61,9 +64,6 @@ begin
         :_nodeId => 2,  
         :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic][0]
     ZWDimmer = AnsibleValue[ 
-        :_nodeId => 5,  
-        :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic][0]    
-    ZWDimmerAbsolute = AnsibleValue[ 
          :_nodeId => 5,  
          :_genre => OpenZWave::RemoteValueGenre::ValueGenre_User,
          :_commandClassId => 38, #SWITCH_MULTILEVEL
@@ -76,29 +76,40 @@ begin
     #KNX = Ansible::KNX::KNX_Transceiver.new("ip:192.168.0.10")
     KNX = KNX::KNX_Transceiver.new(KNX_URL)
     
-    KNX_1_0_20 = Ansible::KNX::KNXValue.new("1.001", "1/0/20")
-    KNX_1_0_21 = Ansible::KNX::KNXValue.new("1.001", "1/0/21")
-    KNX_1_0_40 = Ansible::KNX::KNXValue.new("1.001", "1/0/40")
-    KNX_1_0_41 = Ansible::KNX::KNXValue.new("1.001", "1/0/41")
-    KNX_1_0_42 = Ansible::KNX::KNXValue.new('5.001', "1/0/42")
-    KNX_1_0_43 = Ansible::KNX::KNXValue.new('5.001', "1/0/43")
-    KNX_1_0_60 = Ansible::KNX::KNXValue.new("1.001", "1/0/60")
-    KNX_1_0_61 = Ansible::KNX::KNXValue.new("1.001", "1/0/61")
-    KNX_1_0_62 = Ansible::KNX::KNXValue.new("1.001", "1/0/62")
-    KNX_1_0_63 = Ansible::KNX::KNXValue.new("1.001", "1/0/63")
+    # map my ACT HomePro Appliance module to KNX
+    SWITCH = Switch.new(
+        :master_control => ZWSwitch,
+        :switch         => KNXValue.new("1.001", "1/0/20"),
+        :switch_status  => KNXValue.new("1.001", "1/0/21") 
+    )
     
+    # map my ACT HomePro Lamp module to KNX
+    DIMMER = Dimmer.new(
+        :master_control => ZWDimmer,
+        :switch         => KNXValue.new("1.001", "1/0/40"), 
+        :switch_status  => KNXValue.new("1.001", "1/0/41"),
+        :dimming        => KNXValue.new('5.001', "1/0/42"), 
+        :dimming_status => KNXValue.new('5.001', "1/0/43"),
+        :scene          => KNXValue.new('18.001', "1/0/44")
+    )
     
-    SWITCH = Switch.new(ZWSwitch).input(KNX_1_0_20).output(KNX_1_0_21).bind_all
-    DIMMER = Dimmer.new(ZWDimmer).input(KNX_1_0_40).output(KNX_1_0_41).bind_all
-    #puts 'step 1'
-    #sleep 5
-    #DIMMER.bind_dimming(ZWDimmerAbsolute, KNX_1_0_42, KNX_1_0_43)
+    # map my garden lights to ZWave
+    GARDEN = Switch.new(
+        :master_control => KNXValue.new("1.001", "1/0/1"),
+        :switch         => ZWSwitch
+    )
     
-    #puts 'step 2'
-    #sleep 5
+    KOUZINA1 = Switch.new(
+        :master_control => ZWKouzina[0],
+        :switch         => KNXValue.new("1.001", "1/0/60"),
+        :switch_status  => KNXValue.new("1.001", "1/0/61")
+    )
     
-    KOUZINA1 = Switch.new(ZWKouzina[0]).input(KNX_1_0_60).output(KNX_1_0_61).bind_all   
-    KOUZINA2 = Switch.new(ZWKouzina[1]).input(KNX_1_0_62).output(KNX_1_0_63).bind_all
+    KOUZINA2 = Switch.new(
+        :master_control => ZWKouzina[1],
+        :switch         => KNXValue.new("1.001", "1/0/62"),
+        :switch_status  => KNXValue.new("1.001", "1/0/63")
+    )
 
 rescue Exception => e
     puts e.to_s+"\n\t"+e.backtrace.join("\n\t")

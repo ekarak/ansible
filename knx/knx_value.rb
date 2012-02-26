@@ -79,13 +79,16 @@ module Ansible
             attr_accessor :description
     
             # initialize a KNXValue
-            # params: 
-            #   dpt: string representing the DPT (datapoint type) of the value
-            #       e.g. "5.001" meaning DPT5 percentage value (8-bit unsigned)
-            #   groups: array of group addresses associated with this datapoint
-            #   flags: hash of symbol=>boolean flags regarding its behaviour
-            #       e.g. {:r => true} the value can only respond to read requests on the KNX bus.
-            #       default flags: READ and WRITE
+            # ===Arguments: 
+            # [dpt] 
+            #   string representing the DPT (datapoint type) of the value
+            #   e.g. "5.001" meaning DPT5 percentage value (8-bit unsigned)
+            # [groups] 
+            #   array of group addresses associated with this datapoint
+            # [flags]  
+            #   hash of symbol=>boolean flags regarding its behaviour
+            #   e.g. {:r => true} the value can only respond to read requests on the KNX bus.
+            #   default flags: READ and WRITE
             #       c => Communication
             #       r => Read
             #       w => Write
@@ -132,11 +135,13 @@ module Ansible
                     @@AllGroups[grp] = {:basetype => @dpt_basetype, :subtype => @dpt_subtype}
                 }
                 
-                unless flags.nil?
+                if flags.nil?
+                    # default flags: READ and WRITE
+                    @flags = {:r => true,:w => true}
+                else
                     raise "flags parameter must be a Hash!" unless flags.is_a?Hash
+                    @flags = flags
                 end
-                # default flags: READ and WRITE
-                @flags = flags or {:r => true,:w => true}
 
                 # TODO: physical address: set only for remote nodes we are monitoring
                 # when left to nil, it/ means a datapoint on this KNXTransceiver 
@@ -152,12 +157,19 @@ module Ansible
                 AnsibleValue.insert(self)
             end
 
+            # is this KNX datapoint read only?
+            def read_only?
+                return((defined? @flags) and (@flags[:r] and not @flags[:w]))
+            end
+
+            # is this KNX datapoint write only?
+            def write_only?
+                return((defined? @flags) and (@flags[:w] and not @flags[:r]))
+            end
             
-            #
-            #
-            #
-            #
-            #
+            # read value from eibd's group cache, or issue a read request,
+            # hoping that someone will respond with the last known status
+            # for this value
             def read_value()
                 if (not @groups.nil?) and (group = @groups[0]) then
                     if (data = @@transceiver.read_eibd_cache(group)) then
@@ -184,7 +196,6 @@ module Ansible
             #   all values get mapped using to_protocol_value() in AnsibleValue::update()
             # return true if successful, false otherwise
             def write_value(new_val)
-                puts "#{self}: Writing new value (#{new_val}) to #{addr2str(dest, true)}"
                 #write value to primary group address
                 dest, telegram = nil, nil
                 if @groups.length > 0 then 
@@ -207,7 +218,10 @@ module Ansible
                         end
                     end
                 end
-                if (@@transceiver.send_apdu_raw(dest, telegram.to_apdu(0x80) > -1)) then
+                #
+                puts "#{self}: Writing new value (#{new_val}) to #{addr2str(dest, true)}"
+                #
+                if (@@transceiver.send_apdu_raw(dest, to_apdu(telegram, 0x80)) > -1) then
                     update(telegram)
                     return(true)
                 else
@@ -239,14 +253,13 @@ module Ansible
             #   0x00 => Read
             #   0x40 => Response (default)
             #   0x80 => Write
-            def to_apdu(telegram, apci_code = 0x40)
-                # funny this pops up: a comma sent NASA's Mariner 1 out of orbit...
+            def to_apdu(frame, apci_code = 0x40)
                 apdu = if @dpt_mod::Basetype[:bitlength] <= 6 then
                     #[0, apci_code | @current_value]
-                    [0, apci_code | telegram.data]
+                    [0, apci_code | frame.data]
                 else
                     #[0, apci_code] + @current_value.to_a
-                    [0, apci_code] + telegram.to_binary_s.unpack('C*') 
+                    [0, apci_code] + frame.to_binary_s.unpack('C*') 
                 end
                 return apdu
             end
@@ -268,7 +281,7 @@ module Ansible
             # info from its DPT included module, if available.
             def to_s
                 dpt_name = (@dpt_subtype.nil?) ? '' : @dpt_subtype[:name] 
-                dpt_info = "[#{@dpt} #{dpt_name}]"
+                dpt_info = "KNXValue[#{@dpt} #{dpt_name}]"
                 # add field values explanation, if any
                 vstr = (defined?(@current_value) ? explain(@current_value) : '(value undefined)')
                 # return @dpt: values.explained

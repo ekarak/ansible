@@ -26,17 +26,36 @@ require 'ansible_device'
 
 module Ansible
 
+    #
     # a Switch is a device controlled by a boolean state: False/Off/0 and True/On/1
-    
-    class Switch < AbstractDevice
+    class Switch < Device
         
-        # initialize an Ansible::Switch.
-        # ctrl_value (control value) is the value controlling the end device
-        def initialize(ctrl_value)
-            super()
-            puts "Declaring new Ansible Switch: #{self}"
-            input(ctrl_value)
-            output(ctrl_value)
+        def link
+            switch = @hashmap[:switch]
+            status = @hashmap[:switch_status]
+            master = @hashmap[:master_control]
+            if [switch, master].find{|v| not v.is_a?AnsibleValue}
+                raise "#{self}.link: must supply AnsibleValues for :master_control and:switch!"
+            end
+            # map switch value updates to master_control 
+            switch.add_callback(:onUpdate, self) { |sender, cb, args| 
+                puts "   (#{sender.class}) #{sender} input value updated! args=#{args}"
+                # convert value domains 
+                cv = sender.as_canonical_value
+                newval = master.to_protocol_value(cv)
+                puts "   #{self} setting master #{master} +++ cv=#{cv} newval=#{newval}"
+                master.set(newval)
+            }
+            # also update status value, if defined
+            master.add_callback(:onUpdate, self) { |sender, cb, args|
+                # convert value domains 
+                cv = sender.as_canonical_value
+                newval = master.to_protocol_value(cv)
+                #
+                status = @hashmap[:switch_status]
+                puts "   updating on/off status value (#{status}) new val=#{newval}!"
+                status.set(newval)
+            } if status.is_a?AnsibleValue 
         end
         
     end

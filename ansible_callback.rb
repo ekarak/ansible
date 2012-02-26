@@ -25,26 +25,31 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'weakref'
 
 module Ansible
-    
+
+    #
+    # Callback module for project Ansible
+    #    
     module AnsibleCallback
     
-        #
-        # CALLBACKS
-        #
         
         # callback declaration mechanism.
-        # arguments:
-        # 1) event: a Symbol for the event (eg :onChange) 
+        #
+        # ===Arguments:
+        # [event]   a Symbol for the event (eg :onChange) 
         #           A special case is :default , this callback gets called at all events.
-        # 2) target: a unique hashable target (so as to register a target-specific callback
+        # [target]  a unique hashable target (so as to register a target-specific callback
         #           for an event) - you can pass any value, if it can be hashed. 
         #           TODO: use WeakRef,so that the target can be reclaimed by Ruby's GC 
-        #               when its fixed on Ruby1.9 (http://bugs.ruby-lang.org/issues/4168)
-        # 3) cb_body: a Proc to get called when a callback is fired.
-        #   the callback Proc always gets supplied these arguments:
-        #   1st argument to callback proc is the AnsibleValue instance
-        #   2nd argument is the callback symbol (eg :onChange)
-        #   3rd and later arguments: event-specific data
+        #           when its fixed on Ruby1.9 (http://bugs.ruby-lang.org/issues/4168)
+        # [cb_body] the Proc to call when a callback is fired.
+        #
+        # the callback Proc block always gets these arguments supplied:
+        # [obj]   1st argument to callback proc is the AnsibleValue instance 
+        #         which generated the callback
+        # [cb]    2nd argument is the callback symbol (eg :onChange)
+        #         Very useful when declaring a default callback
+        # [*args] 3rd and later arguments: event-specific data
+        #
         # examples:
         #   obj.add_callback(:onChange) { |o| puts "Object #{o} has changed!" }
         #   obj.add_callback(:onChange, 'SPECIAL') { |o| puts "Object #{o} has changed!" }
@@ -61,12 +66,14 @@ module Ansible
         end
         
         # remove a callback
-        # arguments:
-        # 1) event: a Symbol for the event (eg :onChange) 
-        #           A special case is :default , this callback gets called at all events.
-        # 2) target: a unique hashable target - you can pass any value
-        # examples:
         #
+        # ===Arguments:
+        # [event]    a Symbol for the event (eg :onChange) 
+        #            A special case is :default , this callback gets called at all events.
+        # [target]   a unique hashable target - you can pass any value
+        #
+        # ===Examples:
+        #   obj.remove_callback(:onUpdate)
         def remove_callback(event, target=nil)
             init_callbacks(event)
             @callbacks[event].delete(target)
@@ -78,16 +85,19 @@ module Ansible
         # with the object instance as its first argument,  the callback symbol 
         # as its second arg, and all other *args appended to the call
         #
-        # arguments:
-        # 1) event:  a Symbol for the event (eg :onChange) 
-        # 2) target: the unique id of target (so as to fire target-specific callbacks
-        #           for a specific event)        
-        # NOTE 1) its prohibited to fire the DEFAULT callback programmatically 
-        #           (it will get fired anyway at ANY event)
-        # NOTE 2) if a target_id is given, then try to fire target-specific callbacks.   
-        #           if none is found, fall-back to the generic callback for this event
-        # example:
+        # ===Arguments:
+        # [event]    a Symbol for the event (eg :onChange) 
+        # [target]  the unique id of target (so as to fire target-specific callbacks for a specific event)
+        #        
+        # ===Notes:
+        # 1) its prohibited to fire the DEFAULT callback programmatically (it will get fired 
+        # anyway at ANY event)
+        # 2) if a target_id is given, then try to fire target-specific callbacks. If none is found,
+        # fall-back to the generic callback for this event
+        #
+        # ===Example:
         #   obj.fire_callback(:onChange, 'GROUPADDR', :arg1, :arg2, :arg3)
+        #
         def fire_callback(event, target=nil, *args)
             raise "cannot fire DEFAULT callback programmatically!" if event.to_s == "default"
             #puts "fire_callback called by #{self}.#{event}, args: #{args.inspect}"
@@ -98,7 +108,7 @@ module Ansible
             if defined?(@callbacks) and @callbacks.is_a?Hash then
                 [@callbacks[event],  @callbacks[:default]].each { |hsh|
                     if hsh.is_a?Hash then
-                        #puts "#{self}: callbacks for #{event} are: #{hsh.inspect}"
+                        puts "#{self}.fire_callback, event #{event}: about to fire: #{hsh.inspect}"
                         if target.nil? then 
                             # add all targets to the list of procs to call
                             # including the default 

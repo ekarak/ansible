@@ -25,36 +25,39 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'rubygems'
 require 'onstomp'
 
-# Generic STOMP tranceiver
-
-class Transceiver
-    attr_reader :thread
+module Ansible
     
-    def initialize()
-        begin
-            @thread = Thread.new {
-                begin
-                    run()
-                rescue Exception => e
-                    puts "----#{self.class.name.upcase} EXCEPTION: #{e} ----"
-                    puts "backtrace:\n\t" + e.backtrace.join("\n\t")
-                end
-            }
-        rescue Exception => e
-            puts("Cannot spawn worker thread, #{e}")
-            puts("backtrace:\n\t" << e.backtrace.join("\n\t"))
-            exit(-1)
-        end
-    end
-    
-    def run
-        raise "Must override Tranceiver.run() method!!!"
-    end
-    
-    def stop()
-        @thread.stop
-    end
-            
-end
-    
+    # Generic Ansible tranceiver
+    # spawns a Ruby thread to call run()
+    class Transceiver
         
+        attr_reader :thread
+        
+        def initialize()
+            begin
+                @thread = Thread.new {
+                    begin
+                        run()
+                    rescue Exception => e
+                        puts "----#{self.class.name.upcase} EXCEPTION: #{e} ----"
+                        puts "backtrace:\n\t" + e.backtrace.join("\n\t")
+                    end
+                }
+            rescue Exception => e
+                puts("Cannot spawn worker thread, #{e}")
+                puts("backtrace:\n\t" << e.backtrace.join("\n\t"))
+                exit(-1)
+            end
+        end
+        
+        def run
+            raise "Must override Tranceiver.run() method!!!"
+        end
+        
+        def stop()
+            @thread.stop
+        end
+                
+    end
+    
+end        

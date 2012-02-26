@@ -26,6 +26,7 @@ module Ansible
     
     module KNX
         
+        # KNX Scene control module
         module Scene
             
             @scene_values = {}

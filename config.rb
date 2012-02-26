@@ -29,41 +29,57 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 module Ansible
         
     # STOMP Server URL
-    STOMP_URL = 'stomp://localhost'
+    STOMP_URL = 'stomp://192.168.0.51'
     
-    ###################
-    #ZWAVE MONITOR TOPIC: 
-    #   passes all ZWave activity to STOMP
-    #   ZWave frame headers as defined in zwave-protocol.rb
-    ZWAVE_MONITOR_TOPIC = "/queue/zwave/monitor"
+    #
+    # KNX subsystem configuration
+    #
+    module KNX
+        
+        # KNX eibd URL
+        #KNX_URL = "local:/tmp/eib"
+        #KNX_URL = "ip:localhost"
+        KNX_URL = "ip:192.168.0.100"
+        
+        ###################
+        # KNX MONITOR TOPIC: 
+        #   passes all KNX activity to STOMP
+        #   KNX frame headers as defined in knx_protocol.rb
+        KNX_MONITOR_TOPIC = "/queue/knx/monitor"
+    
+        #################
+        # KNX COMMAND_TOPIC
+        #   header "dest_addr" => KNX destination address (group/phys) in 16-bit unsigned integer format i.e. "1024" meaning "1/0/0" in 3-level fmt
+        #   body => the raw APDU for transmission (command flags+data) in Marshal.dump(CGI.escape()) format
+        KNX_COMMAND_TOPIC = "/queue/knx/command"
+    end
+    
+    #
+    # ZWave sybsustem configuration
+    #    
+    module ZWave
+        
+        ###################
+        #ZWAVE MONITOR TOPIC: 
+        #   passes all ZWave activity to STOMP
+        #   ZWave frame headers as defined in zwave-protocol.rb
+        ZWAVE_MONITOR_TOPIC = "/queue/zwave/monitor"
+    
+        #################
+        # ZWAVE_COMMAND_TOPIC
+        #   header =>
+        #   body => 
+        #ZWAVE_COMMAND_TOPIC = "/queue/knx/command"
+        
+        # OpenZWave Thrift Server URL
+        #THRIFT_URL = 'thrift://localhost'
+        THRIFT_URL = 'thrift://192.168.0.100'
 
-    #################
-    # ZWAVE_COMMAND_TOPIC
-    #   header =>
-    #   body => 
-    #ZWAVE_COMMAND_TOPIC = "/queue/knx/command"
+        ThriftPort = 9090
+        # HomeID is discovered automatically
+        # HomeID = 0x00006258
+    end
     
-    # OpenZWave Thrift Server URL
-    THRIFT_URL = 'thrift://localhost'
-    
-    # KNX eibd URL
-    #KNX_URL = "local:/tmp/eib" - local sockets do not generate disconnection events!
-    KNX_URL = "ip:localhost"
-    
-    ###################
-    # KNX MONITOR TOPIC: 
-    #   passes all KNX activity to STOMP
-    #   KNX frame headers as defined in knx_protocol.rb
-    KNX_MONITOR_TOPIC = "/queue/knx/monitor"
-
-    #################
-    # KNX COMMAND_TOPIC
-    #   header "dest_addr" => KNX destination address (group/phys) in 16-bit unsigned integer format i.e. "1024" meaning "1/0/0" in 3-level fmt
-    #   body => the raw APDU for transmission (command flags+data) in Marshal.dump(CGI.escape()) format
-    KNX_COMMAND_TOPIC = "/queue/knx/command"
-    
-    ThriftPort = 9090
-    HomeID = 0x00006258
 end
 
 #

@@ -33,7 +33,7 @@ module Ansible
         #
         module DPT1
             
-            # DPT1 frame description 
+            # DPT1 frame description.
             # Always 8-bit aligned.
             class DPT1_Frame < DPTFrame
                 bit2  :apci_pad, :display_name => "APCI info (not useful)"

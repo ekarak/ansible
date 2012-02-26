@@ -26,28 +26,43 @@ module Ansible
 
     module ZWave 
         
+        # boolean value type for OpenZWave
         module ValueType_Bool
             
             # define type-specific OZW::Manager API calls
-            def read_operation; return :GetValueAsBool; end 
-            def write_operation; return :SetValue_Bool; end
+            def read_operation 
+                return :GetValueAsBool 
+            end
+            
+            #
+            def write_operation
+                return :SetValue_Bool
+            end
 
             #            
             def as_canonical_value()
                 puts 'zwave_bool: as_canonical'
-                return (current_value > 0)
+                return (
+                    case 
+                    when [TrueClass, FalseClass].include?(current_value.class) then current_value
+                    else false
+                    end
+                )
             end
             
             #
             def to_protocol_value(new_val)
                 puts 'zwave_bool: to_protocol'
-                result = nil
-                if [TrueClass, FalseClass].include?(new_val.class)
-                    result = new_val ? 1 : 0
-                end
+                return (
+                    case
+                    when new_value.is_a?(Fixnum) then (new_value > 0)
+                    when [TrueClass, FalseClass].include?(new_val.class) then new_val
+                    when new_val.nil? then false
+                    else true
+                    end
+                )
             end 
-               
-                        
+
             # return a human-readable representation of a ZWave frame
             def explain
                 return(@current_value? "ON":"OFF")

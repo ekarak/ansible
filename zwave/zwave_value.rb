@@ -48,7 +48,6 @@ module Ansible
             #
             # ------ CLASS VARIABLES & METHODS
             #
-            @@NodesPolled = {}
             @@transceiver = nil
             def ValueID.transceiver; return @@transceiver; end
             def ValueID.transceiver=(other); 
@@ -67,7 +66,7 @@ module Ansible
             # ----- INSTANCE VARIABLES & METHODS
             #
             
-            attr_reader :valueId, :poll_delayed
+            attr_reader :valueId
             
             # equality checking
             def == (other)
@@ -100,12 +99,8 @@ module Ansible
                 
                 if @_homeId > 0 then
                     # fill in some useful info so as not to query OpenZWave all the time
-                    if @@transceiver.manager_send(:IsValueReadOnly, self) then
-                        @flags[:w] = false
-                    elsif @@transceiver.manager_send(:IsValueWriteOnly, self)
-                        puts "#{self}: WriteOnly value"
-                        @flags[:r] = false
-                    end
+                    @flags[:readonly] = @@transceiver.manager_send(:IsValueReadOnly, self)
+                    @flags[:writeonly] = @@transceiver.manager_send(:IsValueWriteOnly, self)
                 end
                 
                 # time of last update
@@ -124,7 +119,18 @@ module Ansible
                 # store this ZWave ValueID in the Ansible database
                 AnsibleValue.insert(self)
             end
-                        
+                    
+            
+            # is this ZWave value read only?
+            def read_only?
+                (defined?@flags) and @flags[:readonly]
+            end
+
+            # is this ZWave value write only?
+            def write_only?
+                (defined?@flags) and @flags[:writeonly]
+            end
+            
             #
             # ZWave-specific: read value from the bus
             #
@@ -132,7 +138,7 @@ module Ansible
                 return(false) unless respond_to? :read_operation
                 result = @@transceiver.manager_send(read_operation, self)
                 if result and result.retval then
-                    #puts "get() result=#{result.o_value}, curr=#{@current_value.inspect} Refreshed=#{RefreshedNodes[@_nodeId]}"
+                    puts "#{self}.read_value() result == #{result.o_value}, Refreshed=#{RefreshedNodes[@_nodeId]}"
                     update(result.o_value)
                     return(true)
                 else
@@ -141,7 +147,8 @@ module Ansible
             end
             
             #
-            # ZWave-specific: write value to OpenZWave
+            # ZWave-specific: write new value to OpenZWave
+            # new_val must be in protocol form
             # return true if successful, false otherwise
             def write_value(new_val)
                 return(false) unless respond_to? :write_operation
@@ -152,41 +159,26 @@ module Ansible
                     return(false)
                 end
             end
-                
-            # FIXME: obsoleted by Manager::RefreshValue
-            #
-            # Zwave value notification system only informs us about  a 
-            # value being changed (ie by manual operation or by an
-            # external command). 
-            def trigger_change_monitor
-                @poll_delayed = true
-                unless @@NodesPolled[@_nodeId] then
-                    @@NodesPolled[@_nodeId] = true
-                    # spawn new polling thread
-                    @poll_thread = Thread.new {
-                        puts "==> spawning trigger change monitor thread #{Thread.current} for node: #{@_nodeId}<=="
-                        begin
-                            fire_callback(:onChangeMonitorStart, @_nodeId) 
-                            # request node status update after 1 sec
-                            sleep(1)
-                            @@transceiver.manager_send(:RefreshValue, self)
-                            #@@transceiver.manager_send(:RequestNodeDynamic, Ansible::HomeID, @_nodeId)
-                            #@transceiver.manager_send(:RefreshNodeInfo, Ansible::HomeID, @_nodeId)
-                            #sleep(1)
-                            fire_callback(:onChangeMonitorComplete, @_nodeId)
-                            puts "==> trigger change monitor thread (#{Thread.current} ENDED<=="
-                            @@NodesPolled[@_nodeId] = false
-                            @poll_delayed = false
-                        rescue Exception => e
-                            puts "#{e}:\n\t" + e.backtrace.join("\n\t")
-                        end
-                    }
-                end
-            end
         
             # return a reasonable string representation of the ZWave value
             def to_s
-                return "n:#{@_nodeId} g:#{@_genre} cc:#{@_commandClassId} i:#{@_instance} vi:#{@_valueIndex} t:#{@_type} == #{@current_value}"
+                return "ZWaveValue[n:#{@_nodeId} g:#{@_genre} cc:#{@_commandClassId} i:#{@_instance} vi:#{@_valueIndex} t:#{@_type}]==#{@current_value}(#{@current_value.class})"
+            end
+            
+            # fetch all available ValueID info from OpenZWave
+            def explain
+                return(%Q{
+        Value Label: #{ @@transceiver.manager_send(:GetValueLabel, self)}
+        Value Help:  #{ @@transceiver.manager_send(:GetValueHelp, self)}
+        
+        Value Units: #{ @@transceiver.manager_send(:GetValueUnits, self)}
+        Value Min:   #{ @@transceiver.manager_send(:GetValueMin, self)}
+        Value Max:   #{ @@transceiver.manager_send(:GetValueMax, self)}
+        
+        Value read-only?  #{ @@transceiver.manager_send(:IsValueReadOnly, self)}
+        Value write-only? #{ @@transceiver.manager_send(:IsValueWriteOnly, self)}
+        Value set?        #{ @@transceiver.manager_send(:IsValueSet, self)}
+})
             end
             
         end # class

@@ -26,6 +26,8 @@ module Ansible
     
     module KNX
         
+        # KNX specification declares some special DPTs (5.001 and 5.003) that need
+        # scalar adjustment functions to get the true value contained in a DPT frame.
         module ScalarValue
             
             # convert value to its scalar representation

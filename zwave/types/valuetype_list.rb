@@ -26,6 +26,8 @@ module Ansible
 
     module ZWave 
         
+        # list value type for OpenZWave
+        # 
         module ValueType_List
             
             # define type-specific OZW::Manager API calls
@@ -36,18 +38,19 @@ module Ansible
             def write_operation
                 return :SetValueListSelection
             end
-             
+            
+            #
+            def as_canonical_value()
+                puts 'TODO'
+            end
+            
+            #
             def to_protocol_value(new_val)
                 result = nil
                 if [TrueClass, FalseClass].include?(new_val.class)
                     result = new_val ? 1 : 0
                 end
             end 
-               
-            
-            def abstract_value
-                
-            end
             
             # return a human-readable representation of a ZWave frame
             def explain

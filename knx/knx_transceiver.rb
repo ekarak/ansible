@@ -36,6 +36,9 @@ module Ansible
 
     module KNX
         
+        #
+        # The KNX Transceiver is an object responsible for i/o with the KNX bus. 
+        # It does so using eibd, part of BCU-SDK the open-source libary for KNX. 
         class KNX_Transceiver < Transceiver
             include AnsibleCallback
             
@@ -45,8 +48,9 @@ module Ansible
             attr_reader :stomp
             
             # initialize a KNXTranceiver
-            # params:
-            #   connURL = an eibd connection URL. see eibd --help for acceptable values
+            #
+            # *params:
+            #   [connURL] an eibd connection URL. see eibd --help for acceptable values
             def initialize(connURL=KNX_URL)
                 raise "Already initialized!" unless  Ansible::KNX::KNXValue.transceiver.nil?
                 @connURL = connURL
@@ -95,6 +99,7 @@ module Ansible
                         instance_variable_set(conn_ok_symbol, true)
                         return(conn)
                     rescue Errno::ECONNRESET => e
+                        conn.EIBClose
                         instance_variable_set(conn_ok_symbol, false)
                         puts "init_eibd: Disconnected, retrying in 10 seconds..."
                         sleep(10)
@@ -111,7 +116,10 @@ module Ansible
                 end
             end
 
+            # get handle to KNX monitoring connection, reconnecting if necessary
             def monitor_conn; return(eibd_connection(:@monitor_conn, :@monitor_conn_ok)); end
+               
+            # get handle to KNX sending connection, reconnecting if necessary
             def send_conn; return(eibd_connection(:@send_conn, :@send_conn_ok)); end
                 
             # the main KNX transceiver thread
@@ -132,7 +140,7 @@ module Ansible
                     vbm = monitor_conn.EIBOpenVBusmonitor()
                     loop do
                         len = monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
-                        puts "knxbuffer=="+@knxbuf.buffer.inspect
+                        #puts "knxbuffer=="+@knxbuf.buffer.inspect
                         frame = L_DATA_Frame.read(@knxbuf.buffer.pack('c*'))
                         #puts "frame:\n\t"
                         headers = {}
@@ -149,6 +157,7 @@ module Ansible
                         # 
                     end
                 rescue Errno::ECONNRESET => e
+                    @monitor_conn_ok = false
                     puts("EIBD disconnected! retrying in 10 seconds..")
                     sleep(10)
                     retry                    
@@ -168,9 +177,10 @@ module Ansible
             end #def run()
         
             # send a raw APDU to the KNX bus.
-            # Arguments: 
-            #   dest:: destination (16-bit integer)
-            #   apdu:: raw APDU (binary string)       
+            #
+            # * Arguments: 
+            #   [dest]  destination (16-bit integer)
+            #   [apdu] raw APDU (binary string)       
             def send_apdu_raw(dest, apdu)
                 @send_mutex.synchronize {
                     raise 'apdu must be a byte array!' unless apdu.is_a?Array
@@ -184,11 +194,13 @@ module Ansible
             end
             
             # (Try to) read a groupaddr from eibd cache.
+            #
             # return it if found, otherwise query the bus. In the latter case, 
             # the main receiver thread (in run()) will act on the response.
-            # params: 
-            #   ga: group address (Fixnum)
-            #   cache_only: when true, do not query the bus   
+            #
+            # * Arguments: 
+            #   [ga]    Fixnum: group address (0-65535)
+            #   [cache_only] boolean: when true, do not query the bus   
             def read_eibd_cache(ga, cache_only=false)
                 src = EIBAddr.new()
                 buf = EIBBuffer.new()

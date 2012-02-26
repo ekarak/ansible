@@ -26,6 +26,7 @@ module Ansible
 
     module ZWave 
         
+        # string value type for OpenZWave
         module ValueType_String
             
             # define type-specific OZW::Manager API calls

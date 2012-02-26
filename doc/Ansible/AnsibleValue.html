@@ -80,13 +80,19 @@
     
     <li><a href="#method-c-insert">::insert</a>
     
-    <li><a href="#method-i-from_canonical">#from_canonical</a>
+    <li><a href="#method-i-as_canonical_value">#as_canonical_value</a>
+    
+    <li><a href="#method-i-get">#get</a>
     
     <li><a href="#method-i-matches-3F">#matches?</a>
     
-    <li><a href="#method-i-to_canonical">#to_canonical</a>
+    <li><a href="#method-i-set">#set</a>
+    
+    <li><a href="#method-i-to_protocol_value">#to_protocol_value</a>
     
     <li><a href="#method-i-update">#update</a>
+    
+    <li><a href="#method-i-write_value">#write_value</a>
     
   </ul>
 </nav>
@@ -121,99 +127,99 @@
   
     <li><a href="../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
   
-    <li><a href="../Ansible/AnsibleDevice.html">Ansible::AnsibleDevice</a>
-  
-    <li><a href="../Ansible/AnsibleDevice/AbstractDevice.html">Ansible::AnsibleDevice::AbstractDevice</a>
-  
-    <li><a href="../Ansible/AnsibleDevice/Dimmer.html">Ansible::AnsibleDevice::Dimmer</a>
-  
-    <li><a href="../Ansible/AnsibleDevice/Switch.html">Ansible::AnsibleDevice::Switch</a>
-  
     <li><a href="../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
   
+    <li><a href="../Ansible/Device.html">Ansible::Device</a>
+  
+    <li><a href="../Ansible/Dimmer.html">Ansible::Dimmer</a>
+  
     <li><a href="../Ansible/KNX.html">Ansible::KNX</a>
+  
+    <li><a href="../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a>
   
     <li><a href="../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
   
     <li><a href="../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
   
-    <li><a href="../Ansible/KNX/DPT10/DPT10Struct.html">Ansible::KNX::DPT10::DPT10Struct</a>
+    <li><a href="../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
   
-    <li><a href="../Ansible/KNX/DPT11/DPT11Struct.html">Ansible::KNX::DPT11::DPT11Struct</a>
+    <li><a href="../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
   
-    <li><a href="../Ansible/KNX/DPT12/DPT12Struct.html">Ansible::KNX::DPT12::DPT12Struct</a>
+    <li><a href="../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
   
-    <li><a href="../Ansible/KNX/DPT13/DPT13Struct.html">Ansible::KNX::DPT13::DPT13Struct</a>
+    <li><a href="../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
   
-    <li><a href="../Ansible/KNX/DPT14/DPT14Struct.html">Ansible::KNX::DPT14::DPT14Struct</a>
-  
     <li><a href="../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
+  
+    <li><a href="../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
   
-    <li><a href="../Ansible/KNX/DPT15/DPT15Struct.html">Ansible::KNX::DPT15::DPT15Struct</a>
+    <li><a href="../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
   
-    <li><a href="../Ansible/KNX/DPT16/DPT16Struct.html">Ansible::KNX::DPT16::DPT16Struct</a>
+    <li><a href="../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
   
-    <li><a href="../Ansible/KNX/DPT17/DPT17Struct.html">Ansible::KNX::DPT17::DPT17Struct</a>
+    <li><a href="../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
   
-    <li><a href="../Ansible/KNX/DPT18/DPT18Struct.html">Ansible::KNX::DPT18::DPT18Struct</a>
+    <li><a href="../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
   
-    <li><a href="../Ansible/KNX/DPT19/DPT19Struct.html">Ansible::KNX::DPT19::DPT19Struct</a>
+    <li><a href="../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a>
   
-    <li><a href="../Ansible/KNX/DPT1/DPT1Struct.html">Ansible::KNX::DPT1::DPT1Struct</a>
+    <li><a href="../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
   
-    <li><a href="../Ansible/KNX/DPT2/DPT2Struct.html">Ansible::KNX::DPT2::DPT2Struct</a>
+    <li><a href="../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
   
-    <li><a href="../Ansible/KNX/DPT3/DPT3Struct.html">Ansible::KNX::DPT3::DPT3Struct</a>
+    <li><a href="../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
   
-    <li><a href="../Ansible/KNX/DPT4/DPT4Struct.html">Ansible::KNX::DPT4::DPT4Struct</a>
+    <li><a href="../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
   
-    <li><a href="../Ansible/KNX/DPT5/DPT5Struct.html">Ansible::KNX::DPT5::DPT5Struct</a>
+    <li><a href="../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
   
-    <li><a href="../Ansible/KNX/DPT6/DPT6Struct.html">Ansible::KNX::DPT6::DPT6Struct</a>
+    <li><a href="../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
   
-    <li><a href="../Ansible/KNX/DPT7/DPT7Struct.html">Ansible::KNX::DPT7::DPT7Struct</a>
+    <li><a href="../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
   
-    <li><a href="../Ansible/KNX/DPT8/DPT8Struct.html">Ansible::KNX::DPT8::DPT8Struct</a>
+    <li><a href="../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a>
   
     <li><a href="../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
   
-    <li><a href="../Ansible/KNX/DPT9/DPT9Struct.html">Ansible::KNX::DPT9::DPT9Struct</a>
-  
     <li><a href="../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
   
-    <li><a href="../Ansible/KNX/DPTStruct.html">Ansible::KNX::DPTStruct</a>
+    <li><a href="../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a>
+  
+    <li><a href="../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a>
+  
+    <li><a href="../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a>
   
     <li><a href="../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
   
@@ -225,15 +231,39 @@
   
     <li><a href="../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
   
+    <li><a href="../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a>
+  
     <li><a href="../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
   
     <li><a href="../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
   
+    <li><a href="../Ansible/Switch.html">Ansible::Switch</a>
+  
+    <li><a href="../Ansible/Transceiver.html">Ansible::Transceiver</a>
+  
     <li><a href="../Ansible/ZWave.html">Ansible::ZWave</a>
+  
+    <li><a href="../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a>
   
     <li><a href="../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
   
-    <li><a href="../Ansible/ZWave_Transceiver.html">Ansible::ZWave_Transceiver</a>
+    <li><a href="../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a>
+  
+    <li><a href="../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a>
+  
+    <li><a href="../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a>
   
     <li><a href="../DPT10.html">DPT10</a>
   
@@ -253,9 +283,9 @@
   
     <li><a href="../EIBInt8.html">EIBInt8</a>
   
-    <li><a href="../OZW_EventID_id.html">OZW_EventID_id</a>
+    <li><a href="../OZW_ValueID_id.html">OZW_ValueID_id</a>
   
-    <li><a href="../OZW_EventID_id1.html">OZW_EventID_id1</a>
+    <li><a href="../OZW_ValueID_id1.html">OZW_ValueID_id1</a>
   
     <li><a href="../Object.html">Object</a>
   
@@ -263,9 +293,9 @@
   
     <li><a href="../OrbiterProxy.html">OrbiterProxy</a>
   
-    <li><a href="../Test.html">Test</a>
+    <li><a href="../String.html">String</a>
   
-    <li><a href="../Transceiver.html">Transceiver</a>
+    <li><a href="../Test.html">Test</a>
   
   </ul>
 </nav>
@@ -278,6 +308,11 @@
 
   <div id="description" class="description">
     
+<p>A base module for <a href="../Ansible.html">Ansible</a> Values, which is
+the most basic form to declare a protocol-agnostic control endpoint, be it
+an input (a button or event), or an output (a device such as a relay or
+dimmer)</p>
+
   </div><!-- description -->
 
   
@@ -299,6 +334,19 @@
       <div id="attribute-i-current_value" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">current_value</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-flags" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">flags</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -361,16 +409,19 @@ returns an array of matching values</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 64</span>
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">filter_hash</span>)
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;AnsibleValue[] called, filter_hash=#{filter_hash}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
     <span class="ruby-identifier">result_set</span> = []
-    <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;ooops! @@AllValues contains a non-AnsibleValue!&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">AnsibleValue</span>)
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">filter_hash</span>) <span class="ruby-keyword">then</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Found a matching value! #{v}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
-            <span class="ruby-identifier">result_set</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
-        <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">@@AllValuesMutex</span>.<span class="ruby-identifier">synchronize</span> {
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;AnsibleValue[] called, filter_hash=#{filter_hash}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+        <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;ooops! @@AllValues contains a non-AnsibleValue!&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">AnsibleValue</span>)
+            <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>.<span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">filter_hash</span>) <span class="ruby-keyword">then</span>
+                <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Found a matching value! #{v}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+                <span class="ruby-identifier">result_set</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+            <span class="ruby-keyword">end</span>
+        }
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;AnsibleValue[] returns=#{result_set}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
     }
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">result_set</span>
 <span class="ruby-keyword">end</span></pre>
@@ -396,23 +447,25 @@ returns an array of matching values</p>
         <div class="method-description">
           
           <p>add an <a href="AnsibleValue.html">AnsibleValue</a> to the singleton
-@@AllValues returns the newvalue</p>
+@@AllValues returns the newvalue, or the existing value (using equality
+test ==), if found</p>
           
 
           
           <div class="method-source-code" id="insert-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 80</span>
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 88</span>
 <span class="ruby-keyword">def</span> <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">newvalue</span>)
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">newvalue</span>) <span class="ruby-keyword">then</span>
-        <span class="ruby-comment"># newvalue is already stored in @@AllValues, find it and return it</span>
-        <span class="ruby-keyword">return</span>( <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">find</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-identifier">newvalue</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">val</span>} )
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Adding a new value to @@AllValues (#{newvalue})&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
-        <span class="ruby-identifier">@@AllValues</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">newvalue</span>
-        <span class="ruby-comment"># get initial state</span>
-        <span class="ruby-identifier">newvalue</span>.<span class="ruby-identifier">get</span>
-        <span class="ruby-keyword">return</span>(<span class="ruby-identifier">newvalue</span>)
-    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">@@AllValuesMutex</span>.<span class="ruby-identifier">synchronize</span> {
+        <span class="ruby-comment"># check if newvalue is already stored in @@AllValues, find it and return it</span>
+        <span class="ruby-keyword">if</span>  (<span class="ruby-identifier">result</span> = <span class="ruby-identifier">@@AllValues</span>.<span class="ruby-identifier">find</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span> <span class="ruby-identifier">newvalue</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">val</span>}).<span class="ruby-identifier">nil?</span> <span class="ruby-keyword">then</span>
+            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Adding a new value to @@AllValues (#{newvalue})&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+            <span class="ruby-identifier">@@AllValues</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">result</span> = <span class="ruby-identifier">newvalue</span>)
+            <span class="ruby-comment"># get initial state</span>
+            <span class="ruby-identifier">newvalue</span>.<span class="ruby-identifier">get</span> 
+        <span class="ruby-keyword">end</span>
+    }
+    <span class="ruby-keyword">return</span>(<span class="ruby-identifier">result</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- insert-source -->
           
@@ -430,34 +483,76 @@ returns an array of matching values</p>
       <h3 class="section-header">Public Instance Methods</h3>
 
     
-      <div id="method-i-from_canonical" class="method-detail ">
+      <div id="method-i-as_canonical_value" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">from_canonical</span><span
-            class="method-args">(v)</span>
+          <span class="method-name">as_canonical_value</span><span
+            class="method-args">()</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>convert a canonical value back to its protocol-specific form</p>
+          <p>value convertion from protocol-specific to its canonical form must be
+overriden by protocol value subclass</p>
           
 
           
-          <div class="method-source-code" id="from_canonical-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">from_canonical</span>(<span class="ruby-identifier">v</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self}.from_canonical must be overriden!!!&quot;</span>
+          <div class="method-source-code" id="as_canonical_value-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 167</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">as_canonical_value</span>()
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}.as_canonical_value() must be overriden!!!&quot;</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- from_canonical-source -->
+          </div><!-- as_canonical_value-source -->
           
         </div>
 
         
 
         
-      </div><!-- from_canonical-method -->
+      </div><!-- as_canonical_value-method -->
+
+    
+      <div id="method-i-get" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>get a value’s current state returns: the value, if found in eibd’s
+cache or nil otherwise</p>
+          
+
+          
+          <div class="method-source-code" id="get-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 105</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">write_only?</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;get() called for #{self.inspect} by:\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">caller</span>[<span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onBeforeGet</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">read_value</span>() <span class="ruby-keyword">then</span> 
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onAfterGetSuccess</span>)
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onAfterGetFail</span>)
+        <span class="ruby-comment">#raise &quot;get value failed for #{self}&quot;</span>
+    <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get-method -->
 
     
       <div id="method-i-matches-3F" class="method-detail ">
@@ -478,14 +573,14 @@ matches a filter value (as a regexp) e.g. value.matches?(:name =&gt;
 
           
           <div class="method-source-code" id="matches-3F-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 38</span>
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 42</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">matches?</span>(<span class="ruby-identifier">hash</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}: AnsibleValue.match? single argument must be a hash..&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
-    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">result</span> = <span class="ruby-keyword">true</span> 
     <span class="ruby-identifier">hash</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">iv_symbol</span>, <span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}: AnsibleValue.match?(hash)'s keys must be Symbols..&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">iv_symbol</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Symbol</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> = <span class="ruby-identifier">instance_eval</span>(<span class="ruby-string">'@'</span><span class="ruby-operator">+</span><span class="ruby-identifier">iv_symbol</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-keyword">then</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;match.val(#{iv_symbol}) == #{val.inspect}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">iv_symbol</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">val</span> = <span class="ruby-identifier">instance_eval</span>(<span class="ruby-identifier">iv_symbol</span>.<span class="ruby-identifier">to_s</span>)) <span class="ruby-keyword">then</span>
+            <span class="ruby-comment">#puts &quot;match.val(#{iv_symbol}) == #{val.inspect}&quot; if $DEBUG</span>
             <span class="ruby-identifier">result</span> = <span class="ruby-identifier">result</span> &amp; <span class="ruby-keyword">case</span> <span class="ruby-identifier">filter</span>
             <span class="ruby-comment"># if the filter is a regular expression, use it to match the instance value</span>
             <span class="ruby-keyword">when</span> <span class="ruby-constant">Regexp</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_s</span>)
@@ -509,35 +604,81 @@ matches a filter value (as a regexp) e.g. value.matches?(:name =&gt;
       </div><!-- matches-3F-method -->
 
     
-      <div id="method-i-to_canonical" class="method-detail ">
+      <div id="method-i-set" class="method-detail ">
         
         <div class="method-heading">
-          <span class="method-name">to_canonical</span><span
-            class="method-args">()</span>
+          <span class="method-name">set</span><span
+            class="method-args">(new_val)</span>
           <span class="method-click-advice">click to toggle source</span>
         </div>
         
 
         <div class="method-description">
           
-          <p>convert a value to its canonical form must be overriden by
-protocol-specific subclass</p>
+          <pre>set a value 
+new_val: the new value, must be ruby-castable to OpenZWave's type system
+returns: true on success, raises exception on error</pre>
+
+<p>WARNING: a true return value doesn’t mean the command actually succeeded,</p>
+
+<pre>it only means that it was queued for delivery to the target node</pre>
           
 
           
-          <div class="method-source-code" id="to_canonical-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 110</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_canonical</span>()
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self}.to_canonical must be overriden!!!&quot;</span>
+          <div class="method-source-code" id="set-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">set</span>(<span class="ruby-identifier">new_val</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">read_only?</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;set() called for #{self.inspect} by:\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">caller</span>[<span class="ruby-value">1</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onBeforeSet</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">write_value</span>(<span class="ruby-identifier">new_val</span>) <span class="ruby-keyword">then</span> 
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onSetSuccess</span>)
+    <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onSetFail</span>)
+        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;set value #{self}: call to #{write_operation} failed!!&quot;</span>
+    <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- to_canonical-source -->
+          </div><!-- set-source -->
           
         </div>
 
         
 
         
-      </div><!-- to_canonical-method -->
+      </div><!-- set-method -->
+
+    
+      <div id="method-i-to_protocol_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_protocol_value</span><span
+            class="method-args">(v)</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>convert a canonical value back to its protocol-specific form must be
+overriden by protocol value subclass</p>
+          
+
+          
+          <div class="method-source-code" id="to_protocol_value-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 173</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_protocol_value</span>(<span class="ruby-identifier">v</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}.to_protocol_value() must be overriden!!!&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_protocol_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_protocol_value-method -->
 
     
       <div id="method-i-update" class="method-detail ">
@@ -552,22 +693,24 @@ protocol-specific subclass</p>
         <div class="method-description">
           
           <p>update internal instance variable representing the current state of the
-value</p>
+value called by read_value() and <a
+href="AnsibleValue.html#method-i-write_value">#write_value</a>()</p>
           
 
           
           <div class="method-source-code" id="update-source">
-            <pre><span class="ruby-comment"># File ansible_value.rb, line 94</span>
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 142</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update</span>(<span class="ruby-identifier">newval</span>)
-    <span class="ruby-identifier">validate_ranges</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:validate_ranges</span>)
-    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">newval</span> <span class="ruby-keyword">then</span>
+    <span class="ruby-identifier">validate_ranges</span>() <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-value">:validate_ranges</span>)
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">newval</span> <span class="ruby-operator">==</span> <span class="ruby-ivar">@current_value</span> <span class="ruby-keyword">then</span>
         <span class="ruby-ivar">@last_update</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;==&gt; updating value #{self}, with #{newval.class}:#{newval.inspect}&quot;</span>        
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;+++ updating value #{self}, with #{newval.class}:#{newval.inspect}&quot;</span>
+        
         <span class="ruby-comment"># previous value was different, update it and fire onUpdate handler</span>
-        <span class="ruby-ivar">@previous_value</span> = <span class="ruby-ivar">@current_value</span>
+        <span class="ruby-ivar">@previous_value</span> = <span class="ruby-ivar">@current_value</span> <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span>(<span class="ruby-ivar">@current_value</span>)
         <span class="ruby-ivar">@current_value</span> = <span class="ruby-identifier">newval</span>
         <span class="ruby-comment"># trigger onUpdate callback, if any</span>
-        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onUpdate</span>, <span class="ruby-ivar">@current_value</span>)
+        <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onUpdate</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">newval</span>)
     <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">return</span>(<span class="ruby-ivar">@current_value</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -579,6 +722,36 @@ value</p>
 
         
       </div><!-- update-method -->
+
+    
+      <div id="method-i-write_value" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_value</span><span
+            class="method-args">()</span>
+          <span class="method-click-advice">click to toggle source</span>
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>write value to the protocol</p>
+          
+
+          
+          <div class="method-source-code" id="write_value-source">
+            <pre><span class="ruby-comment"># File ansible_value.rb, line 161</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_value</span>()
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self.class}.write_value() must be overriden!!!&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_value-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_value-method -->
 
     
     </section><!-- public-instance-method-details -->

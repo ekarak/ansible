@@ -26,6 +26,7 @@ module Ansible
 
     module ZWave 
         
+        # button value type for OpenZWave
         module ValueType_Button
 
             # define type-specific OZW::Manager API calls

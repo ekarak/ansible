@@ -23,6 +23,7 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 =end
 
 require 'bindata'
+
 #~ // ID Packing:
 #~ // Bits
 #~ // 24-31:	8 bits. Node ID of device

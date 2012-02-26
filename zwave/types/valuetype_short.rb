@@ -26,6 +26,7 @@ module Ansible
 
     module ZWave 
         
+        # short integer (16-bit) value type for OpenZWave
         module ValueType_Short
             
             # define type-specific OZW::Manager API calls

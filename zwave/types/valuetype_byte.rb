@@ -26,6 +26,7 @@ module Ansible
 
     module ZWave 
         
+        # byte value type for OpenZWave (0-255)
         module ValueType_Byte
 
             # define type-specific OZW::Manager API calls
@@ -36,24 +37,40 @@ module Ansible
             def write_operation 
                 return :SetValue_UInt8 
             end 
-            #            
+            
+            # ZWave 1-byte values canonical form is a Fixnum between 0 and 255     
             def as_canonical_value()
-                puts 'TODO:: zwave_byte: as_canonical'
-                return (current_value > 0)
+                return( case current_value
+                when 0..255 then current_value
+                    else raise "#{self}: value #{current value} out of bounds 0..255"
+                    end
+                )
             end
             
-            #
+            # ZWave 1-byte values protocol form is a Fixnum between 0 and 255
             def to_protocol_value(new_val)
-                puts 'TODO:: zwave_byte: to_protocol'
-                result = nil
-                if [TrueClass, FalseClass].include?(new_val.class)
-                    result = new_val ? 1 : 0
-                end
+                return( case new_val
+                    when TrueClass then 255
+                    when FalseClass then 0
+                    when 0..255 then new_val
+                    else raise "#{self}: value #{current value} out of bounds 0..255"
+                    end
+                )
             end 
             
             # return a human-readable representation of a ZWave frame
             def explain
+                result = case @_commandClassId
+                when 38 then 
+                    case @current_value
+                    when 0..99 then "#{@current_value} %"
+                    else "Off"
+                    end
+                else "#{@current_value}"
+                end    
+                return(result)
             end
+            
         end
         
     end

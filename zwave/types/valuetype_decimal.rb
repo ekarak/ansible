@@ -26,8 +26,8 @@ module Ansible
 
     module ZWave 
         
-        # Decimal: string representation of floating points 
-        # in order to avoid rounding errors 
+        # Decimal value type for OpenZWave: special form for string representation 
+        # of floating point values in order to avoid rounding errors 
         module ValueType_Decimal
             
             # define type-specific OZW::Manager API calls

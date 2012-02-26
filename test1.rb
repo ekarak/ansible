@@ -34,11 +34,13 @@ require 'zwave_value'
 
 include Ansible
 
-ZWT = ZWave::ZWave_Transceiver.new(Ansible::STOMP_URL, Ansible::THRIFT_URL)
+ZWT = ZWave::ZWave_Transceiver.new(Ansible::STOMP_URL, Ansible::ZWave::THRIFT_URL)
 ZWT.manager.SendAllValues
 sleep(3)
 
-K = AnsibleValue[:_nodeId => 6, :_genre=>1]
+S = AnsibleValue[:_nodeId => 2, :_genre => 1]
+D = AnsibleValue[:_nodeId => 5, :_genre => 1]
+K = AnsibleValue[:_nodeId => 6, :_genre => 1]
 
 =begin
 Tree = AnsibleValue[ 
