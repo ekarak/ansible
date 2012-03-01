@@ -41,16 +41,14 @@ module Ansible
             #            
             def as_canonical_value()
                 puts 'TODO:: zwave_string: as_canonical'
-                return (current_value > 0)
+                return (current_value)
             end
             
             #
             def to_protocol_value(new_val)
                 puts 'TODO:: zwave_string: to_protocol'
                 result = nil
-                if [TrueClass, FalseClass].include?(new_val.class)
-                    result = new_val ? 1 : 0
-                end
+                result = new_val.to_s if [TrueClass, FalseClass].include?(new_val.class) 
             end 
             
             # return a human-readable representation of a ZWave frame

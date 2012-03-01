@@ -41,7 +41,6 @@ module Ansible
 
             #            
             def as_canonical_value()
-                puts 'zwave_bool: as_canonical'
                 return (
                     case 
                     when [TrueClass, FalseClass].include?(current_value.class) then current_value
@@ -50,12 +49,11 @@ module Ansible
                 )
             end
             
-            #
+            # map any ruby value to boolean
             def to_protocol_value(new_val)
-                puts 'zwave_bool: to_protocol'
                 return (
                     case
-                    when new_value.is_a?(Fixnum) then (new_value > 0)
+                    when [Fixnum].include?(new_val.class) then (new_val > 0)
                     when [TrueClass, FalseClass].include?(new_val.class) then new_val
                     when new_val.nil? then false
                     else true
@@ -65,6 +63,7 @@ module Ansible
 
             # return a human-readable representation of a ZWave frame
             def explain
+                puts "cv = #{@current_value}"
                 return(@current_value? "ON":"OFF")
             end
         end

@@ -81,7 +81,7 @@ begin
         :master_control => ZWSwitch,
         :switch         => KNXValue.new("1.001", "1/0/20"),
         :switch_status  => KNXValue.new("1.001", "1/0/21") 
-    )
+        ) if ZWSwitch
     
     # map my ACT HomePro Lamp module to KNX
     DIMMER = Dimmer.new(
@@ -97,7 +97,7 @@ begin
     GARDEN = Switch.new(
         :master_control => KNXValue.new("1.001", "1/0/1"),
         :switch         => ZWSwitch
-    )
+        ) if ZWSwitch
     
     KOUZINA1 = Switch.new(
         :master_control => ZWKouzina[0],
@@ -108,6 +108,7 @@ begin
     KOUZINA2 = Switch.new(
         :master_control => ZWKouzina[1],
         :switch         => KNXValue.new("1.001", "1/0/62"),
+        #:switch         => KNXValue.new("1.001", "5/0/2"), # fancy radar
         :switch_status  => KNXValue.new("1.001", "1/0/63")
     )
 

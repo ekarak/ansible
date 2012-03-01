@@ -158,14 +158,14 @@ module Ansible
                         result = manager.method(meth).call(*args)
                     rescue Thrift::TransportException => e
                         @thrift_ok = false
-                        puts "Thrift transport exception: retrying in 1 sec..."
-                        puts "... meth=#{meth.inspect}, callers=\n\t" + caller.join("\n\t")
+                        puts "Thrift transport exception, in method #{meth.inspect}"
+                        puts "--------------------------, callers=\n\t\t" + caller[0..2].join("\n\t\t")
                         sleep(1)
                         retry
                      rescue Exception => e
-                         @thrift_ok = false
-                         puts "Other exception: #{e}"
-                         puts "... meth=#{meth.inspect}, callers=\n\t" + caller.join("\n\t")
+                        @thrift_ok = false
+                        puts "OpenZWave exception: #{e}, in method #{meth.inspect}"
+                        puts "--------------------, callers=\n\t\t" + caller[0..2].join("\n\t\t")
                     end
                 }
                 return(result)
@@ -253,12 +253,17 @@ module Ansible
                 # reported by OpenZWave is unchanged. Thus we need to poll the
                 # device using :RequestNodeDynamic, wait for NodeQueriesComplete
                 # then re-get the value
-                trigger_value_monitor(value)
+                #trigger_value_monitor(value)
+                #
+                # as of r471 ValueChanged behaves correctly
+                AnsibleValue[:_nodeId => nodeId, :_gerne => 1].each { |v|
+                    v.get
+                }
             end
             
             #  A node value has been refreshed from the Z-Wave network.
             def notification_ValueRefreshed(nodeId, byte, value) 
-                puts "Value #{value} refreshed!!!"
+                #value.get unless value.nil?
             end
             
             # The associations for the node have changed. The application 
@@ -297,7 +302,7 @@ module Ansible
                 
             # One of the node names has changed (name, manufacturer, product).
             def notification_NodeNaming(nodeId, byte, value) 
-                ptus 'TODO'
+                puts 'TODO'
             end
                 
             # A node has triggered an event.  This is commonly caused when a node 
@@ -346,13 +351,13 @@ module Ansible
             # The queries on a node that are essential to its operation have 
             # been completed. The node can now handle incoming messages.
             def notification_EssentialNodeQueriesComplete(nodeId, byte, value) 
-                puts "==> marking node #{nodeId} as refreshed"
                 #OpenZWave::RefreshedNodes[nodeId] = true
             end
                 
             # All the initialisation queries on a node have been completed.
             def notification_NodeQueriesComplete(nodeId, byte, value)
                 # node monitor phase 2:
+=begin                
                 @ValueMonitorMutex.synchronize do
                     sleep(2)
                     AnsibleValue[:_nodeId => nodeId].each { |val|    
@@ -363,6 +368,7 @@ module Ansible
                     fire_callback(:onMonitorStop)
                     puts "==> trigger change monitor ENDED<=="
                 end
+=end
             end
                 
             # All awake nodes have been queried, so client application can 
@@ -399,7 +405,8 @@ ControllerState_Completed: The command has completed successfully.
     # TODO: remove all AnsibleValues upon completion of 
     
     
-            #
+=begin
+DEPRECATED since OZW rev.477
             # Zwave value notification system only informs us about a _manual_
             # operation of a ZWave node using a ValueChanged notification.
             # We need to monitor that node in order to get the actual device status. 
@@ -420,7 +427,7 @@ ControllerState_Completed: The command has completed successfully.
                     end # unless 
                 end # do
             end
-            
+=end
         end #class
     
     end

@@ -29,17 +29,16 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 module Ansible
         
     # STOMP Server URL
-    STOMP_URL = 'stomp://192.168.0.51'
+    STOMP_URL = 'stomp://localhost'
     
     #
     # KNX subsystem configuration
     #
     module KNX
         
-        # KNX eibd URL
-        #KNX_URL = "local:/tmp/eib"
+        # KNX eibd server URL (not the actual KNX interface URL!)
+        KNX_URL = "local:/tmp/eib"
         #KNX_URL = "ip:localhost"
-        KNX_URL = "ip:192.168.0.100"
         
         ###################
         # KNX MONITOR TOPIC: 
@@ -70,14 +69,14 @@ module Ansible
         #   header =>
         #   body => 
         #ZWAVE_COMMAND_TOPIC = "/queue/knx/command"
-        
+
+        #################        
         # OpenZWave Thrift Server URL
-        #THRIFT_URL = 'thrift://localhost'
-        THRIFT_URL = 'thrift://192.168.0.100'
+        THRIFT_URL = 'thrift://localhost'
+        #THRIFT_URL = 'thrift://192.168.0.100'
 
         ThriftPort = 9090
-        # HomeID is discovered automatically
-        # HomeID = 0x00006258
+
     end
     
 end

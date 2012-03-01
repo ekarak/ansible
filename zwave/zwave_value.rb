@@ -153,7 +153,8 @@ module Ansible
             def write_value(new_val)
                 return(false) unless respond_to? :write_operation
                 if @@transceiver.manager_send(write_operation, self, new_val) then
-                    update(new_val)
+                    # value can also be updated by ValueChanged notification
+                    update(new_val) 
                     return(true)
                 else
                     return(false)
