@@ -1,802 +1,877 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
-
-<title>Class: Ansible::ZWave::ValueID</title>
-
-<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
-
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../../";
-</script>
-
-<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
-
-
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../../index.html">Home</a>
-    <a href="../../table_of_contents.html#classes">Classes</a>
-    <a href="../../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
-
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
-
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>zwave/zwave_value.rb
-  </ul>
-</nav>
-
-    
-  </div>
-
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link">OpenZWave::RemoteValueID
-  
-</nav>
-
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
-
-  <ul class="link-list">
-  
-  
-    <li><a class="include" href="../AnsibleValue.html">Ansible::AnsibleValue</a>
-  
-  
-  
-    <li><a class="include" href="../AnsibleCallback.html">Ansible::AnsibleCallback</a>
-  
-  
-  </ul>
-</nav>
-
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li><a href="#method-c-get_or_create">::get_or_create</a>
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-c-transceiver">::transceiver</a>
-    
-    <li><a href="#method-c-transceiver-3D">::transceiver=</a>
-    
-    <li><a href="#method-i-3D-3D">#==</a>
-    
-    <li><a href="#method-i-explain">#explain</a>
-    
-    <li><a href="#method-i-read_only-3F">#read_only?</a>
-    
-    <li><a href="#method-i-read_value">#read_value</a>
-    
-    <li><a href="#method-i-to_s">#to_s</a>
-    
-    <li><a href="#method-i-write_only-3F">#write_only?</a>
-    
-    <li><a href="#method-i-write_value">#write_value</a>
-    
-  </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../../README.html">README</a>
-  
-    <li class="file"><a href="../../license/LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../../license/gpl_txt.html">gpl</a>
-  
-    <li class="file"><a href="../../license/lgpl_txt.html">lgpl</a>
-  
-    <li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../../Ansible.html">Ansible</a>
-  
-    <li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
-  
-    <li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
-  
-    <li><a href="../../Ansible/Device.html">Ansible::Device</a>
-  
-    <li><a href="../../Ansible/Dimmer.html">Ansible::Dimmer</a>
-  
-    <li><a href="../../Ansible/KNX.html">Ansible::KNX</a>
-  
-    <li><a href="../../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a>
-  
-    <li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
-  
-    <li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
-  
-    <li><a href="../../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
-  
-    <li><a href="../../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
-  
-    <li><a href="../../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
-  
-    <li><a href="../../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
-  
-    <li><a href="../../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
-  
-    <li><a href="../../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
-  
-    <li><a href="../../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
-  
-    <li><a href="../../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
-  
-    <li><a href="../../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
-  
-    <li><a href="../../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
-  
-    <li><a href="../../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
-  
-    <li><a href="../../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
-  
-    <li><a href="../../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
-  
-    <li><a href="../../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
-  
-    <li><a href="../../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
-  
-    <li><a href="../../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a>
-  
-    <li><a href="../../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a>
-  
-    <li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
-  
-    <li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a>
-  
-    <li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a>
-  
-    <li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a>
-  
-    <li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a>
-  
-    <li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
-  
-    <li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
-  
-    <li><a href="../../Ansible/Switch.html">Ansible::Switch</a>
-  
-    <li><a href="../../Ansible/Transceiver.html">Ansible::Transceiver</a>
-  
-    <li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a>
-  
-    <li><a href="../../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a>
-  
-    <li><a href="../../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a>
-  
-    <li><a href="../../DPT10.html">DPT10</a>
-  
-    <li><a href="../../DPT9.html">DPT9</a>
-  
-    <li><a href="../../DPT9_Float.html">DPT9_Float</a>
-  
-    <li><a href="../../EIBAddr.html">EIBAddr</a>
-  
-    <li><a href="../../EIBBuffer.html">EIBBuffer</a>
-  
-    <li><a href="../../EIBConnection.html">EIBConnection</a>
-  
-    <li><a href="../../EIBInt16.html">EIBInt16</a>
-  
-    <li><a href="../../EIBInt32.html">EIBInt32</a>
-  
-    <li><a href="../../EIBInt8.html">EIBInt8</a>
-  
-    <li><a href="../../OZW_ValueID_id.html">OZW_ValueID_id</a>
-  
-    <li><a href="../../OZW_ValueID_id1.html">OZW_ValueID_id1</a>
-  
-    <li><a href="../../Object.html">Object</a>
-  
-    <li><a href="../../OpenZWave.html">OpenZWave</a>
-  
-    <li><a href="../../OrbiterProxy.html">OrbiterProxy</a>
-  
-    <li><a href="../../String.html">String</a>
-  
-    <li><a href="../../Test.html">Test</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class Ansible::ZWave::ValueID</h1>
-
-  <div id="description" class="description">
-    
-<p>extend the Thrift <a href="ValueID.html">ValueID</a> interface with some
-interesting stuff</p>
-
-  </div><!-- description -->
-
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
-
-    
-
-    
-
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
-
-      
-      <div id="attribute-i-poll_delayed" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">poll_delayed</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-valueId" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">valueId</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        <p>—– INSTANCE VARIABLES &amp; METHODS</p>
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
-    
-
-    <!-- Methods -->
-    
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-get_or_create" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_or_create</span><span
-            class="method-args">(homeid_str, valueid_str)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>get existing <a href="ValueID.html">ValueID</a> object, or else create it</p>
-          
-
-          
-          <div class="method-source-code" id="get_or_create-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">get_or_create</span>(<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
-    <span class="ruby-identifier">query</span> = <span class="ruby-constant">AnsibleValue</span>[<span class="ruby-value">:_homeId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">homeid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>), <span class="ruby-value">:valueId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)]
-    <span class="ruby-identifier">value</span> = (<span class="ruby-identifier">query</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">query</span>[<span class="ruby-value">0</span>]) <span class="ruby-keyword">or</span> 
-            <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">value</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- get_or_create-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- get_or_create-method -->
-
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">( homeid_str, valueid_str)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>initialize <a href="ValueID.html">ValueID</a> by home and value id (both
-hex strings)</p>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 81</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">'both arguments must be strings'</span> <span class="ruby-keyword">if</span> [<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>].<span class="ruby-identifier">find</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-keyword">not</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">String</span>}
-    
-    <span class="ruby-comment"># wARNING: instance variable naming must be consistent with ozw_types.rb (Thrift interface)</span>
-    <span class="ruby-ivar">@_homeId</span> = <span class="ruby-identifier">homeid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
-    <span class="ruby-ivar">@valueId</span>  = <span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
-    <span class="ruby-comment"># parse all fields</span>
-    <span class="ruby-identifier">m_id</span> = <span class="ruby-constant">OZW_ValueID_id</span>.<span class="ruby-identifier">read</span>([<span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">' '</span>)[<span class="ruby-value">-8</span><span class="ruby-operator">..</span><span class="ruby-value">-1</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;N&quot;</span>))
-    <span class="ruby-identifier">m_id1</span> = <span class="ruby-constant">OZW_ValueID_id1</span>.<span class="ruby-identifier">read</span>([<span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-string">' '</span>)[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">-9</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-string">&quot;N&quot;</span>))
-    <span class="ruby-comment"># and store them</span>
-    <span class="ruby-ivar">@_nodeId</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">node_id</span>
-    <span class="ruby-ivar">@_genre</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_genre</span>
-    <span class="ruby-ivar">@_type</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_type</span>
-    <span class="ruby-ivar">@_valueIndex</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_idx</span>
-    <span class="ruby-ivar">@_commandClassId</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">cmd_class</span>
-    <span class="ruby-ivar">@_instance</span> = <span class="ruby-identifier">m_id1</span>.<span class="ruby-identifier">cmd_class_instance</span>
-    <span class="ruby-comment"># access flags, default R/W</span>
-    <span class="ruby-ivar">@flags</span> = {<span class="ruby-value">:r</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:w</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;NEW ZWAVE VALUE CREATED: #{self.inspect}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
-    
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@_homeId</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-comment"># fill in some useful info so as not to query OpenZWave all the time</span>
-        <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:readonly</span>] = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:IsValueReadOnly</span>, <span class="ruby-keyword">self</span>)
-        <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:writeonly</span>] = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:IsValueWriteOnly</span>, <span class="ruby-keyword">self</span>)
-    <span class="ruby-keyword">end</span>
-    
-    <span class="ruby-comment"># time of last update</span>
-    <span class="ruby-ivar">@last_update</span> = <span class="ruby-keyword">nil</span>
-    
-    <span class="ruby-comment"># a boolean flag set to true so as to know all subsequent notifications</span>
-    <span class="ruby-comment"># by OpenZWave regarding this value have been caused by us</span>
-    <span class="ruby-ivar">@poll_delayed</span> = <span class="ruby-keyword">false</span>
-    
-    <span class="ruby-comment"># dynamic binding to the corresponding OpenZWave data type</span>
-    <span class="ruby-ivar">@typename</span>, <span class="ruby-ivar">@typedescr</span> = <span class="ruby-constant">OpenZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueTypes</span>[<span class="ruby-ivar">@_type</span>]
-    <span class="ruby-ivar">@typemod</span> = <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-ivar">@typename</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared ZWave type module #{@typename}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@typemod</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Module</span>
-    <span class="ruby-comment"># extend this ValueID with type-specific module</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@typemod</span>)
-    <span class="ruby-comment"># store this ZWave ValueID in the Ansible database</span>
-    <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-keyword">self</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-      <div id="method-c-transceiver" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">transceiver</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="transceiver-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 52</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">transceiver</span>; <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@transceiver</span>; <span class="ruby-keyword">end</span></pre>
-          </div><!-- transceiver-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- transceiver-method -->
-
-    
-      <div id="method-c-transceiver-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">transceiver=</span><span
-            class="method-args">(other)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="transceiver-3D-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 53</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">transceiver=</span>(<span class="ruby-identifier">other</span>); 
-    <span class="ruby-identifier">@@transceiver</span> = <span class="ruby-identifier">other</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave_Transceiver</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- transceiver-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- transceiver-3D-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-3D-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">==</span><span
-            class="method-args">(other)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>equality checking</p>
-          
-
-          
-          <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">other</span>)
-    <span class="ruby-keyword">return</span> (
-        <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ValueID</span>) <span class="ruby-keyword">and</span>
-        (<span class="ruby-ivar">@_homeId</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">_homeId</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@valueId</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">valueId</span>)
-    )
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- 3D-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- 3D-3D-method -->
-
-    
-      <div id="method-i-explain" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">explain</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>fetch all available <a href="ValueID.html">ValueID</a> info from <a
-href="../../OpenZWave.html">OpenZWave</a></p>
-          
-
-          
-          <div class="method-source-code" id="explain-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 170</span>
-            <span class="ruby-keyword">def</span> <span class="ruby-identifier">explain</span>
-                <span class="ruby-keyword">return</span>(<span class="ruby-node">%Q{
-        Value Label: #{ @@transceiver.manager_send(:GetValueLabel, self)}
-        Value Help:  #{ @@transceiver.manager_send(:GetValueHelp, self)}
-        
-        Value Units: #{ @@transceiver.manager_send(:GetValueUnits, self)}
-        Value Min:   #{ @@transceiver.manager_send(:GetValueMin, self)}
-        Value Max:   #{ @@transceiver.manager_send(:GetValueMax, self)}
-        
-        Value read-only?  #{ @@transceiver.manager_send(:IsValueReadOnly, self)}
-        Value write-only? #{ @@transceiver.manager_send(:IsValueWriteOnly, self)}
-        Value set?        #{ @@transceiver.manager_send(:IsValueSet, self)}
-}</span>)
-            <span class="ruby-keyword">end</span></pre>
-          </div><!-- explain-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- explain-method -->
-
-    
-      <div id="method-i-read_only-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">read_only?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>is this <a href="../ZWave.html">ZWave</a> value read only?</p>
-          
-
-          
-          <div class="method-source-code" id="read_only-3F-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 126</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_only?</span>
-    (<span class="ruby-keyword">defined?</span><span class="ruby-ivar">@flags</span>) <span class="ruby-keyword">and</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:readonly</span>]
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- read_only-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- read_only-3F-method -->
-
-    
-      <div id="method-i-read_value" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">read_value</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>ZWave-specific: read value from the bus</p>
-          
-
-          
-          <div class="method-source-code" id="read_value-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 138</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_value</span>()
-    <span class="ruby-keyword">return</span>(<span class="ruby-keyword">false</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:read_operation</span>
-    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">read_operation</span>, <span class="ruby-keyword">self</span>)
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">retval</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self}.read_value() result == #{result.o_value}, Refreshed=#{RefreshedNodes[@_nodeId]}&quot;</span>
-        <span class="ruby-identifier">update</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">o_value</span>)
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">true</span>)
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">false</span>)
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- read_value-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- read_value-method -->
-
-    
-      <div id="method-i-to_s" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_s</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>return a reasonable string representation of the <a
-href="../ZWave.html">ZWave</a> value</p>
-          
-
-          
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 165</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;ZWaveValue[n:#{@_nodeId} g:#{@_genre} cc:#{@_commandClassId} i:#{@_instance} vi:#{@_valueIndex} t:#{@_type}]==#{@current_value}(#{@current_value.class})&quot;</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- to_s-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- to_s-method -->
-
-    
-      <div id="method-i-write_only-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write_only?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>is this <a href="../ZWave.html">ZWave</a> value write only?</p>
-          
-
-          
-          <div class="method-source-code" id="write_only-3F-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 131</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_only?</span>
-    (<span class="ruby-keyword">defined?</span><span class="ruby-ivar">@flags</span>) <span class="ruby-keyword">and</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:writeonly</span>]
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- write_only-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- write_only-3F-method -->
-
-    
-      <div id="method-i-write_value" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write_value</span><span
-            class="method-args">(new_val)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>ZWave-specific: write new value to <a
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Ansible::ZWave::ValueID</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../zwave/zwave_value_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="zwave/zwave_value.rb">zwave/zwave_value.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link">OpenZWave::RemoteValueID</p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-get_or_create">::get_or_create</a></li>
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-c-transceiver">::transceiver</a></li>
+					
+					<li><a href="#method-c-transceiver%3D">::transceiver=</a></li>
+					
+					<li><a href="#method-i-%3D%3D">#==</a></li>
+					
+					<li><a href="#method-i-explain">#explain</a></li>
+					
+					<li><a href="#method-i-read_only%3F">#read_only?</a></li>
+					
+					<li><a href="#method-i-read_value">#read_value</a></li>
+					
+					<li><a href="#method-i-to_s">#to_s</a></li>
+					
+					<li><a href="#method-i-write_only%3F">#write_only?</a></li>
+					
+					<li><a href="#method-i-write_value">#write_value</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">AnsibleValue</span></li>
+				
+				
+				
+					<li><span class="include">AnsibleCallback</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../README.html">README</a></li>
+				
+					<li class="file"><a href="../../license/LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../../license/gpl_txt.html">gpl.txt</a></li>
+				
+					<li class="file"><a href="../../license/lgpl_txt.html">lgpl.txt</a></li>
+				
+					<li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../Ansible.html">Ansible</a></li>
+				
+					<li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a></li>
+				
+					<li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a></li>
+				
+					<li><a href="../../Ansible/Device.html">Ansible::Device</a></li>
+				
+					<li><a href="../../Ansible/Dimmer.html">Ansible::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX.html">Ansible::KNX</a></li>
+				
+					<li><a href="../../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a></li>
+				
+					<li><a href="../../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a></li>
+				
+					<li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a></li>
+				
+					<li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a></li>
+				
+					<li><a href="../../Ansible/PLC.html">Ansible::PLC</a></li>
+				
+					<li><a href="../../Ansible/Switch.html">Ansible::Switch</a></li>
+				
+					<li><a href="../../Ansible/Transceiver.html">Ansible::Transceiver</a></li>
+				
+					<li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a></li>
+				
+					<li><a href="../../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a></li>
+				
+					<li><a href="../../AutoReload.html">AutoReload</a></li>
+				
+					<li><a href="../../DPT10.html">DPT10</a></li>
+				
+					<li><a href="../../DPT9.html">DPT9</a></li>
+				
+					<li><a href="../../DPT9_Float.html">DPT9_Float</a></li>
+				
+					<li><a href="../../EIBAddr.html">EIBAddr</a></li>
+				
+					<li><a href="../../EIBBuffer.html">EIBBuffer</a></li>
+				
+					<li><a href="../../EIBConnection.html">EIBConnection</a></li>
+				
+					<li><a href="../../EIBInt16.html">EIBInt16</a></li>
+				
+					<li><a href="../../EIBInt32.html">EIBInt32</a></li>
+				
+					<li><a href="../../EIBInt8.html">EIBInt8</a></li>
+				
+					<li><a href="../../OZW_ValueID_id.html">OZW_ValueID_id</a></li>
+				
+					<li><a href="../../OZW_ValueID_id1.html">OZW_ValueID_id1</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../OpenZWave.html">OpenZWave</a></li>
+				
+					<li><a href="../../OrbiterProxy.html">OrbiterProxy</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Ansible::ZWave::ValueID</h1>
+
+		<div id="description">
+			<p>
+extend the Thrift <a href="ValueID.html">ValueID</a> interface with some
+interesting stuff
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="value-d-attribute-method" class="method-detail">
+				<a name="valueId"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">valueId</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				<p>
+&#8212;&#8212; INSTANCE VARIABLES &amp; METHODS
+</p>
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="get-or-create-method" class="method-detail ">
+				<a name="method-c-get_or_create"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">get_or_create</span><span
+						class="method-args">(homeid_str, valueid_str)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+get existing <a href="ValueID.html">ValueID</a> object, or else create it
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="get-or-create-source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 58</span>
+58:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">get_or_create</span>(<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
+59:                 <span class="ruby-identifier">query</span> = <span class="ruby-constant">AnsibleValue</span>[<span class="ruby-value">:_homeId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">homeid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>), <span class="ruby-value">:valueId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)]
+60:                 <span class="ruby-identifier">value</span> = (<span class="ruby-identifier">query</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">query</span>.<span class="ruby-identifier">size</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">query</span>[<span class="ruby-value">0</span>]) <span class="ruby-keyword kw">or</span> 
+61:                         <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
+62:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">value</span>
+63:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">( homeid_str, valueid_str)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+initialize <a href="ValueID.html">ValueID</a> by home and value id (both
+hex strings)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 80</span>
+ 80:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>( <span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>)
+ 81:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">'both arguments must be strings'</span> <span class="ruby-keyword kw">if</span> [<span class="ruby-identifier">homeid_str</span>, <span class="ruby-identifier">valueid_str</span>].<span class="ruby-identifier">find</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">not</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">String</span>}
+ 82:                 
+ 83:                 <span class="ruby-comment cmt"># wARNING: instance variable naming must be consistent with ozw_types.rb (Thrift interface)</span>
+ 84:                 <span class="ruby-ivar">@_homeId</span> = <span class="ruby-identifier">homeid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+ 85:                 <span class="ruby-ivar">@valueId</span>  = <span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+ 86:                 <span class="ruby-comment cmt"># parse all fields</span>
+ 87:                 <span class="ruby-identifier">m_id</span> = <span class="ruby-constant">OZW_ValueID_id</span>.<span class="ruby-identifier">read</span>([<span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">' '</span>)[<span class="ruby-value">8</span><span class="ruby-operator">..</span><span class="ruby-value">1</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;N&quot;</span>))
+ 88:                 <span class="ruby-identifier">m_id1</span> = <span class="ruby-constant">OZW_ValueID_id1</span>.<span class="ruby-identifier">read</span>([<span class="ruby-identifier">valueid_str</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value str">' '</span>)[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">9</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">&quot;N&quot;</span>))
+ 89:                 <span class="ruby-comment cmt"># and store them</span>
+ 90:                 <span class="ruby-ivar">@_nodeId</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">node_id</span>
+ 91:                 <span class="ruby-ivar">@_genre</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_genre</span>
+ 92:                 <span class="ruby-ivar">@_type</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_type</span>
+ 93:                 <span class="ruby-ivar">@_valueIndex</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">value_idx</span>
+ 94:                 <span class="ruby-ivar">@_commandClassId</span> = <span class="ruby-identifier">m_id</span>.<span class="ruby-identifier">cmd_class</span>
+ 95:                 <span class="ruby-ivar">@_instance</span> = <span class="ruby-identifier">m_id1</span>.<span class="ruby-identifier">cmd_class_instance</span>
+ 96:                 <span class="ruby-comment cmt"># access flags, default R/W</span>
+ 97:                 <span class="ruby-ivar">@flags</span> = {<span class="ruby-value">:r</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>, <span class="ruby-value">:w</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}
+ 98:                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;NEW ZWAVE VALUE CREATED: #{self.inspect}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+ 99:                 
+100:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@_homeId</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span>
+101:                     <span class="ruby-comment cmt"># fill in some useful info so as not to query OpenZWave all the time</span>
+102:                     <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:readonly</span>] = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:IsValueReadOnly</span>, <span class="ruby-keyword kw">self</span>)
+103:                     <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:writeonly</span>] = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:IsValueWriteOnly</span>, <span class="ruby-keyword kw">self</span>)
+104:                 <span class="ruby-keyword kw">end</span>
+105:                 
+106:                 <span class="ruby-comment cmt"># time of last update</span>
+107:                 <span class="ruby-ivar">@last_update</span> = <span class="ruby-keyword kw">nil</span>
+108:                 
+109:                 <span class="ruby-comment cmt"># a boolean flag set to true so as to know all subsequent notifications</span>
+110:                 <span class="ruby-comment cmt"># by OpenZWave regarding this value have been caused by us</span>
+111:                 <span class="ruby-ivar">@poll_delayed</span> = <span class="ruby-keyword kw">false</span>
+112:                 
+113:                 <span class="ruby-comment cmt"># dynamic binding to the corresponding OpenZWave data type</span>
+114:                 <span class="ruby-ivar">@typename</span>, <span class="ruby-ivar">@typedescr</span> = <span class="ruby-constant">OpenZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueTypes</span>[<span class="ruby-ivar">@_type</span>]
+115:                 <span class="ruby-ivar">@typemod</span> = <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-ivar">@typename</span>)
+116:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared ZWave type module #{@typename}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@typemod</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Module</span>
+117:                 <span class="ruby-comment cmt"># extend this ValueID with type-specific module</span>
+118:                 <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@typemod</span>)
+119:                 <span class="ruby-comment cmt"># store this ZWave ValueID in the Ansible database</span>
+120:                 <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-keyword kw">self</span>)
+121:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="transceiver-method" class="method-detail ">
+				<a name="method-c-transceiver"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">transceiver</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="transceiver-source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 52</span>
+52:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">transceiver</span>; <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">@@transceiver</span>; <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="transceiver--method" class="method-detail ">
+				<a name="method-c-transceiver%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">transceiver=</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="transceiver--source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 53</span>
+53:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">transceiver=</span>(<span class="ruby-identifier">other</span>); 
+54:                 <span class="ruby-identifier">@@transceiver</span> = <span class="ruby-identifier">other</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave_Transceiver</span>
+55:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="method-i-%3D%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">==</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+equality checking
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 72</span>
+72:             <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">other</span>)
+73:                 <span class="ruby-keyword kw">return</span> (
+74:                     <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">ValueID</span>) <span class="ruby-keyword kw">and</span>
+75:                     (<span class="ruby-ivar">@_homeId</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">_homeId</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-ivar">@valueId</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">valueId</span>)
+76:                 )
+77:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="explain-method" class="method-detail ">
+				<a name="method-i-explain"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">explain</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+fetch all available <a href="ValueID.html">ValueID</a> info from <a
+href="../../OpenZWave.html">OpenZWave</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="explain-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 170</span>
+170:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">explain</span>
+171:                 <span class="ruby-keyword kw">return</span>(<span class="ruby-node">%{
+172:         Value Label: #{ @@transceiver.manager_send(:GetValueLabel, self)}
+173:         Value Help:  #{ @@transceiver.manager_send(:GetValueHelp, self)}
+174:         
+175:         Value Units: #{ @@transceiver.manager_send(:GetValueUnits, self)}
+176:         Value Min:   #{ @@transceiver.manager_send(:GetValueMin, self)}
+177:         Value Max:   #{ @@transceiver.manager_send(:GetValueMax, self)}
+178:         
+179:         Value read-only?  #{ @@transceiver.manager_send(:IsValueReadOnly, self)}
+180:         Value write-only? #{ @@transceiver.manager_send(:IsValueWriteOnly, self)}
+181:         Value set?        #{ @@transceiver.manager_send(:IsValueSet, self)}
+182: }</span>)
+183:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-only--method" class="method-detail ">
+				<a name="method-i-read_only%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_only?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+is this <a href="../ZWave.html">ZWave</a> value read only?
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-only--source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 125</span>
+125:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_only?</span>
+126:                 (<span class="ruby-keyword kw">defined?</span><span class="ruby-ivar">@flags</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:readonly</span>]
+127:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-value-method" class="method-detail ">
+				<a name="method-i-read_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+ZWave-specific: read value from the bus
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 137</span>
+137:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_value</span>()
+138:                 <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">false</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:read_operation</span>
+139:                 <span class="ruby-identifier">result</span> = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">read_operation</span>, <span class="ruby-keyword kw">self</span>)
+140:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">retval</span> <span class="ruby-keyword kw">then</span>
+141:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self}.read_value() result == #{result.o_value}, Refreshed=#{RefreshedNodes[@_nodeId]}&quot;</span>
+142:                     <span class="ruby-identifier">update</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">o_value</span>)
+143:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">true</span>)
+144:                 <span class="ruby-keyword kw">else</span>
+145:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">false</span>)
+146:                 <span class="ruby-keyword kw">end</span>
+147:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="method-i-to_s"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return a reasonable string representation of the <a
+href="../ZWave.html">ZWave</a> value
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 165</span>
+165:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+166:                 <span class="ruby-keyword kw">return</span> <span class="ruby-node">&quot;ZWaveValue[n:#{@_nodeId} g:#{@_genre} cc:#{@_commandClassId} i:#{@_instance} vi:#{@_valueIndex} t:#{@_type}]==#{@current_value}(#{@current_value.class})&quot;</span>
+167:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="write-only--method" class="method-detail ">
+				<a name="method-i-write_only%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">write_only?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+is this <a href="../ZWave.html">ZWave</a> value write only?
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="write-only--source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 130</span>
+130:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_only?</span>
+131:                 (<span class="ruby-keyword kw">defined?</span><span class="ruby-ivar">@flags</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:writeonly</span>]
+132:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="write-value-method" class="method-detail ">
+				<a name="method-i-write_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">write_value</span><span
+						class="method-args">(new_val)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+ZWave-specific: write new value to <a
 href="../../OpenZWave.html">OpenZWave</a> new_val must be in protocol form
-return true if successful, false otherwise</p>
-          
+return true if successful, false otherwise
+</p>
+					
 
-          
-          <div class="method-source-code" id="write_value-source">
-            <pre><span class="ruby-comment"># File zwave/zwave_value.rb, line 154</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_value</span>(<span class="ruby-identifier">new_val</span>)
-    <span class="ruby-keyword">return</span>(<span class="ruby-keyword">false</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:write_operation</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">write_operation</span>, <span class="ruby-keyword">self</span>, <span class="ruby-identifier">new_val</span>) <span class="ruby-keyword">then</span>
-        <span class="ruby-identifier">update</span>(<span class="ruby-identifier">new_val</span>)
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">true</span>)
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">false</span>)
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- write_value-source -->
-          
-        </div>
+					
+					<div class="method-source-code"
+						id="write-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_value.rb, line 153</span>
+153:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_value</span>(<span class="ruby-identifier">new_val</span>)
+154:                 <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">false</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:write_operation</span>
+155:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">write_operation</span>, <span class="ruby-keyword kw">self</span>, <span class="ruby-identifier">new_val</span>) <span class="ruby-keyword kw">then</span>
+156:                     <span class="ruby-comment cmt"># value can also be updated by ValueChanged notification</span>
+157:                     <span class="ruby-identifier">update</span>(<span class="ruby-identifier">new_val</span>) 
+158:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">true</span>)
+159:                 <span class="ruby-keyword kw">else</span>
+160:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">false</span>)
+161:                 <span class="ruby-keyword kw">end</span>
+162:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
 
-        
+				
 
-        
-      </div><!-- write_value-method -->
+				
+			</div>
 
-    
-    </section><!-- public-instance-method-details -->
-  
-  </section><!-- 5Buntitled-5D -->
+		
+		</div>
+	
 
-</div><!-- documentation -->
+	</div>
 
 
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
 

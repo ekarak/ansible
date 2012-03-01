@@ -1,382 +1,387 @@
-<!DOCTYPE html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-<title>README</title>
+	<title>File: monitrc-ansible [RDoc Documentation]</title>
 
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+	<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../";
-</script>
-
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
-
+	<script src="../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+</head>
 
 <body class="file">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
-    <a href="../table_of_contents.html#classes">Classes</a>
-    <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
 
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../README.html">README</a></li>
+				
+					<li class="file"><a href="../license/LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../license/gpl_txt.html">gpl.txt</a></li>
+				
+					<li class="file"><a href="../license/lgpl_txt.html">lgpl.txt</a></li>
+				
+					<li class="file"><a href="../monit/monitrc-ansible.html">monitrc-ansible</a></li>
+				
+				</ul>
+			</div>
+			
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+				<ul class="link-list">
+				
+					<li><a href="../Ansible.html">Ansible</a></li>
+				
+					<li><a href="../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a></li>
+				
+					<li><a href="../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a></li>
+				
+					<li><a href="../Ansible/Device.html">Ansible::Device</a></li>
+				
+					<li><a href="../Ansible/Dimmer.html">Ansible::Dimmer</a></li>
+				
+					<li><a href="../Ansible/KNX.html">Ansible::KNX</a></li>
+				
+					<li><a href="../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a></li>
+				
+					<li><a href="../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a></li>
+				
+					<li><a href="../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a></li>
+				
+					<li><a href="../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a></li>
+				
+					<li><a href="../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a></li>
+				
+					<li><a href="../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a></li>
+				
+					<li><a href="../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a></li>
+				
+					<li><a href="../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a></li>
+				
+					<li><a href="../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a></li>
+				
+					<li><a href="../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a></li>
+				
+					<li><a href="../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a></li>
+				
+					<li><a href="../Ansible/PLC.html">Ansible::PLC</a></li>
+				
+					<li><a href="../Ansible/Switch.html">Ansible::Switch</a></li>
+				
+					<li><a href="../Ansible/Transceiver.html">Ansible::Transceiver</a></li>
+				
+					<li><a href="../Ansible/ZWave.html">Ansible::ZWave</a></li>
+				
+					<li><a href="../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a></li>
+				
+					<li><a href="../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a></li>
+				
+					<li><a href="../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a></li>
+				
+					<li><a href="../AutoReload.html">AutoReload</a></li>
+				
+					<li><a href="../DPT10.html">DPT10</a></li>
+				
+					<li><a href="../DPT9.html">DPT9</a></li>
+				
+					<li><a href="../DPT9_Float.html">DPT9_Float</a></li>
+				
+					<li><a href="../EIBAddr.html">EIBAddr</a></li>
+				
+					<li><a href="../EIBBuffer.html">EIBBuffer</a></li>
+				
+					<li><a href="../EIBConnection.html">EIBConnection</a></li>
+				
+					<li><a href="../EIBInt16.html">EIBInt16</a></li>
+				
+					<li><a href="../EIBInt32.html">EIBInt32</a></li>
+				
+					<li><a href="../EIBInt8.html">EIBInt8</a></li>
+				
+					<li><a href="../OZW_ValueID_id.html">OZW_ValueID_id</a></li>
+				
+					<li><a href="../OZW_ValueID_id1.html">OZW_ValueID_id1</a></li>
+				
+					<li><a href="../Object.html">Object</a></li>
+				
+					<li><a href="../OpenZWave.html">OpenZWave</a></li>
+				
+					<li><a href="../OrbiterProxy.html">OrbiterProxy</a></li>
+				
+					<li><a href="../String.html">String</a></li>
+				
+					<li><a href="../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
 
+			
+		</div>
+	</div>
 
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../README.html">README</a>
-  
-    <li class="file"><a href="../license/LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../license/gpl_txt.html">gpl</a>
-  
-    <li class="file"><a href="../license/lgpl_txt.html">lgpl</a>
-  
-    <li class="file"><a href="../monit/monitrc-ansible.html">monitrc-ansible</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Ansible.html">Ansible</a>
-  
-    <li><a href="../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
-  
-    <li><a href="../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
-  
-    <li><a href="../Ansible/Device.html">Ansible::Device</a>
-  
-    <li><a href="../Ansible/Dimmer.html">Ansible::Dimmer</a>
-  
-    <li><a href="../Ansible/KNX.html">Ansible::KNX</a>
-  
-    <li><a href="../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a>
-  
-    <li><a href="../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
-  
-    <li><a href="../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
-  
-    <li><a href="../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
-  
-    <li><a href="../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
-  
-    <li><a href="../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
-  
-    <li><a href="../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
-  
-    <li><a href="../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
-  
-    <li><a href="../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
-  
-    <li><a href="../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
-  
-    <li><a href="../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
-  
-    <li><a href="../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
-  
-    <li><a href="../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
-  
-    <li><a href="../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
-  
-    <li><a href="../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
-  
-    <li><a href="../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
-  
-    <li><a href="../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
-  
-    <li><a href="../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
-  
-    <li><a href="../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
-  
-    <li><a href="../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
-  
-    <li><a href="../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
-  
-    <li><a href="../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
-  
-    <li><a href="../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a>
-  
-    <li><a href="../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a>
-  
-    <li><a href="../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a>
-  
-    <li><a href="../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
-  
-    <li><a href="../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a>
-  
-    <li><a href="../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a>
-  
-    <li><a href="../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a>
-  
-    <li><a href="../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
-  
-    <li><a href="../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a>
-  
-    <li><a href="../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
-  
-    <li><a href="../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
-  
-    <li><a href="../Ansible/Switch.html">Ansible::Switch</a>
-  
-    <li><a href="../Ansible/Transceiver.html">Ansible::Transceiver</a>
-  
-    <li><a href="../Ansible/ZWave.html">Ansible::ZWave</a>
-  
-    <li><a href="../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a>
-  
-    <li><a href="../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a>
-  
-    <li><a href="../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a>
-  
-    <li><a href="../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a>
-  
-    <li><a href="../DPT10.html">DPT10</a>
-  
-    <li><a href="../DPT9.html">DPT9</a>
-  
-    <li><a href="../DPT9_Float.html">DPT9_Float</a>
-  
-    <li><a href="../EIBAddr.html">EIBAddr</a>
-  
-    <li><a href="../EIBBuffer.html">EIBBuffer</a>
-  
-    <li><a href="../EIBConnection.html">EIBConnection</a>
-  
-    <li><a href="../EIBInt16.html">EIBInt16</a>
-  
-    <li><a href="../EIBInt32.html">EIBInt32</a>
-  
-    <li><a href="../EIBInt8.html">EIBInt8</a>
-  
-    <li><a href="../OZW_ValueID_id.html">OZW_ValueID_id</a>
-  
-    <li><a href="../OZW_ValueID_id1.html">OZW_ValueID_id1</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../OpenZWave.html">OpenZWave</a>
-  
-    <li><a href="../OrbiterProxy.html">OrbiterProxy</a>
-  
-    <li><a href="../String.html">String</a>
-  
-    <li><a href="../Test.html">Test</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation" class="description">
-  
-<p>###############################################################################</p>
-<dl class="rdoc-list note-list"><dt>## Project <a href="../Ansible.html">Ansible</a>
-<dd>
-<p>Monit control file</p>
-</dd></dl>
-
-<p>###############################################################################</p>
-
-<p>## Global section</p>
-
-<p>## Start Monit in the background (run as a daemon): set daemon  10         
+	<div id="documentation">
+		<p>
+###############################################################################
+</p>
+<table>
+<tr><td valign="top">## Project <a href="../Ansible.html">Ansible</a></td><td><p>
+Monit control file
+</p>
+</td></tr>
+</table>
+<p>
+###############################################################################
+</p>
+<p>
+## Global section
+</p>
+<p>
+## Start Monit in the background (run as a daemon): set daemon  10         
 # check services at 10-second intervals set logfile syslog facility
-log_daemon</p>
-
-<p>set idfile      /home/ekarak/ansible/monit.id set statefile
-/opt/ansible/monit.state # set mailserver mail.bar.baz,               #
-primary mailserver #                backup.bar.baz port 10025,  # backup
-mailserver on port 10025 #                localhost                   #
-fallback relay set eventqueue</p>
-
-<pre>basedir /opt/ansible/monit  # set the base directory where events will be stored
-slots 100           # optionally limit the queue size</pre>
-
-<p># # ## Send status and events to M/Monit (for more informations about
+log_daemon                        set idfile     
+/home/ekarak/ansible/monit.id set statefile /opt/ansible/monit.state # set
+mailserver mail.bar.baz,               # primary mailserver #              
+backup.bar.baz port 10025,  # backup mailserver on port 10025 #            
+localhost                   # fallback relay set eventqueue
+</p>
+<pre>
+     basedir /opt/ansible/monit  # set the base directory where events will be stored
+     slots 100           # optionally limit the queue size
+</pre>
+<p>
+# # ## Send status and events to M/Monit (for more informations about
 M/Monit  ## see <a href="http://mmonit.com/">mmonit.com/</a>). By default
 Monit registers credentials with  ## M/Monit so M/Monit can smoothly
-communicate back to Monit and you don’t ## have to register Monit
+communicate back to Monit and you don&#8217;t ## have to register Monit
 credentials manually in M/Monit. It is possible to ## disable credential
 registration using the commented out option below.  ## Though, if safety is
 a concern we recommend instead using https when ## communicating with
 M/Monit and send credentials encrypted. # # set mmonit <a
 href="http://monit:monit@192.168.1.10:8080/collector">monit:monit@192.168.1.10:8080/collector</a>
-#     # and register without credentials     # Don’t register credentials
-# # # ## Monit by default uses the following alert mail format: ## ##
-–8&lt;– ## From: monit@$HOST                         # sender ##
-Subject: monit alert –  $EVENT $SERVICE  # subject ## ## $EVENT Service
-$SERVICE                   # ##                                           #
-##      Date:        $DATE                   # ##      Action:      $ACTION
-# ##      Host:        $HOST                   # body ##      Description:
-$DESCRIPTION            # ##                                           # ##
-Your faithful employee,                   # ## Monit                       
-# ## –8&lt;– ## ## You can override this message format or parts of it,
-such as subject ## or sender using the MAIL-FORMAT statement. Macros such
-as $DATE, etc. ## are expanded at runtime. For example, to override the
-sender, use: # # set mail-format { from: monit@foo.bar } # # ## You can set
-alert recipients whom will receive alerts if/when a  ## service defined in
-this file has errors. Alerts may be restricted on  ## events by using a
+#     # and register without credentials     # Don&#8217;t register
+credentials # # # ## Monit by default uses the following alert mail format:
+## ## &#8212;8<&#8212; ## From: monit@$HOST                         #
+sender ## Subject: monit alert &#8212;  $EVENT $SERVICE  # subject ## ##
+$EVENT Service $SERVICE                   # ##                             
+# ##      Date:        $DATE                   # ##      Action:     
+$ACTION                 # ##      Host:        $HOST                   #
+body ##      Description: $DESCRIPTION            # ##                     
+# ## Your faithful employee,                   # ## Monit                  
+# ## &#8212;8<&#8212; ## ## You can override this message format or parts
+of it, such as subject ## or sender using the MAIL-FORMAT statement. Macros
+such as $DATE, etc. ## are expanded at runtime. For example, to override
+the sender, use: # # set mail-format { from: monit@foo.bar } # # ## You can
+set alert recipients whom will receive alerts if/when a  ## service defined
+in this file has errors. Alerts may be restricted on  ## events by using a
 filter as in the second example below.  # # set alert sysadm@foo.bar       
 # receive all alerts # set alert manager@foo.bar only on { timeout }  #
 receive just service- #                                                #
 timeout alert # # ## Monit has an embedded web server which can be used to
 view status of  ## services monitored and manage services from a web
 interface. See the ## Monit Wiki if you want to enable SSL for the web
-server.  #</p>
-
-<pre>set httpd port 2812 and
-    use address localhost  # only accept connection from localhost
-    allow localhost        # allow localhost to connect to the server and</pre>
-
-<p>#     allow admin:monit      # require user ‘admin’ with password
-‘monit’ #     allow @monit           # allow users of group ‘monit’
-to connect (rw) #     allow @users readonly  # allow users of group
-‘users’ to connect readonly # #
+server.  #
+</p>
+<pre>
+ set httpd port 2812 and
+     use address localhost  # only accept connection from localhost
+     allow localhost        # allow localhost to connect to the server and
+</pre>
+<p>
+#     allow admin:monit      # require user &#8216;admin&#8217; with
+password &#8216;monit&#8217; #     allow @monit           # allow users of
+group &#8216;monit&#8217; to connect (rw) #     allow @users readonly  #
+allow users of group &#8216;users&#8217; to connect readonly # #
 ###############################################################################
 ## Services
 ###############################################################################
 ## ## Check general system resources such as load average, cpu and memory
 ## usage. Each test specifies a resource, conditions and the action to be
 ## performed should a test fail. # #  check system myhost.mydomain.tld #   
-if loadavg (1min) &gt; 4 then alert #    if loadavg (5min) &gt; 2 then
-alert #    if memory usage &gt; 75% then alert #    if swap usage &gt; 25%
-then alert #    if cpu usage (user) &gt; 70% then alert #    if cpu usage
-(system) &gt; 30% then alert #    if cpu usage (wait) &gt; 20% then alert #
-#</p>
-
-<p>## Check if a file exists, checksum, permissions, uid and gid. In addition
-## to alert recipients in the global section, customized alert can be sent
-to  ## additional recipients by specifying a local alert handler. The
-service may  ## be grouped using the GROUP option. More than one group can
-be specified by ## repeating the ‘group name’ statement. #</p>
-
-<p>#  check file apache_bin with path /usr/local/apache/bin/httpd #    if
-failed checksum and  #       expect the sum
-8f7f419955cefa0b33a2ba316cba3659 then unmonitor #    if failed permission
-755 then unmonitor #    if failed uid root then unmonitor #    if failed
-gid root then unmonitor #    alert security@foo.bar on { #          
-checksum, permission, uid, gid, unmonitor #        } with the mail-format {
-subject: Alarm! } #    group server # #</p>
-
-<p>## Check that a process is running, in this case Apache, and that it
+if loadavg (1min) > 4 then alert #    if loadavg (5min) > 2 then alert #   
+if memory usage > 75% then alert #    if swap usage > 25% then alert #   
+if cpu usage (user) > 70% then alert #    if cpu usage (system) > 30% then
+alert #    if cpu usage (wait) > 20% then alert # #     ## Check if a file
+exists, checksum, permissions, uid and gid. In addition ## to alert
+recipients in the global section, customized alert can be sent to  ##
+additional recipients by specifying a local alert handler. The service may 
+## be grouped using the GROUP option. More than one group can be specified
+by ## repeating the &#8216;group name&#8217; statement. #     #  check file
+apache_bin with path /usr/local/apache/bin/httpd #    if failed checksum
+and  #       expect the sum 8f7f419955cefa0b33a2ba316cba3659 then unmonitor
+#    if failed permission 755 then unmonitor #    if failed uid root then
+unmonitor #    if failed gid root then unmonitor #    alert
+security@foo.bar on { #           checksum, permission, uid, gid, unmonitor
+#        } with the mail-format { subject: Alarm! } #    group server # #  
+## Check that a process is running, in this case Apache, and that it
 respond ## to HTTP and HTTPS requests. Check its resource usage such as cpu
 and memory, ## and number of children. If the process is not running, Monit
 will restart  ## it by default. In case the service is restarted very often
 and the  ## problem remains, it is possible to disable monitoring using the
 TIMEOUT ## statement. This service depends on another service (apache_bin)
-which ## is defined above. #</p>
-
-<p>#  check process apache with pidfile /usr/local/apache/logs/httpd.pid #   
-start program = “/etc/init.d/httpd start” with timeout 60 seconds #   
-stop program  = “/etc/init.d/httpd stop” #    if cpu &gt; 60% for 2
-cycles then alert #    if cpu &gt; 80% for 5 cycles then restart #    if
-totalmem &gt; 200.0 MB for 5 cycles then restart #    if children &gt; 250
-then restart #    if loadavg(5min) greater than 10 for 8 cycles then stop #
+which ## is defined above. #     #  check process apache with pidfile
+/usr/local/apache/logs/httpd.pid #    start program =
+&#8220;/etc/init.d/httpd start&#8221; with timeout 60 seconds #    stop
+program  = &#8220;/etc/init.d/httpd stop&#8221; #    if cpu > 60% for 2
+cycles then alert #    if cpu > 80% for 5 cycles then restart #    if
+totalmem > 200.0 MB for 5 cycles then restart #    if children > 250 then
+restart #    if loadavg(5min) greater than 10 for 8 cycles then stop #   
 if failed host <a href="http://www.tildeslash.com">www.tildeslash.com</a>
-port 80 protocol http #       and request “/somefile.html” #       then
-restart #    if failed port 443 type tcpssl protocol http #       with
+port 80 protocol http #       and request &#8220;/somefile.html&#8220; #   
+then restart #    if failed port 443 type tcpssl protocol http #       with
 timeout 15 seconds #       then restart #    if 3 restarts within 5 cycles
-then timeout #    depends on apache_bin #    group server #</p>
-
-<p>#</p>
-
-<p>## Check filesystem permissions, uid, gid, space and inode usage. Other
+then timeout #    depends on apache_bin #    group server #     #     ##
+Check filesystem permissions, uid, gid, space and inode usage. Other
 services, ## such as databases, may depend on this resource and an
 automatically graceful ## stop may be cascaded to them before the
 filesystem will become full and data ## lost. # #  check filesystem datafs
-with path /dev/sdb1 #    start program  = “/bin/mount /data” #    stop
-program  = “/bin/umount /data” #    if failed permission 660 then
-unmonitor #    if failed uid root then unmonitor #    if failed gid disk
-then unmonitor #    if space usage &gt; 80% for 5 times within 15 cycles
-then alert #    if space usage &gt; 99% then stop #    if inode usage &gt;
-30000 then alert #    if inode usage &gt; 99% then stop #    group server #
-# ## Check a file’s timestamp. In this example, we test if a file is
+with path /dev/sdb1 #    start program  = &#8220;/bin/mount /data&#8221; # 
+stop program  = &#8220;/bin/umount /data&#8221; #    if failed permission
+660 then unmonitor #    if failed uid root then unmonitor #    if failed
+gid disk then unmonitor #    if space usage > 80% for 5 times within 15
+cycles then alert #    if space usage > 99% then stop #    if inode usage >
+30000 then alert #    if inode usage > 99% then stop #    group server # #
+## Check a file&#8217;s timestamp. In this example, we test if a file is
 older  ## than 15 minutes and assume something is wrong if its not updated.
 Also, ## if the file size exceed a given limit, execute a script # #  check
 file database with path /data/mydatabase.db #    if failed permission 700
 then alert #    if failed uid data then alert #    if failed gid data then
-alert #    if timestamp &gt; 15 minutes then alert #    if size &gt; 100 MB
-then exec “/my/cleanup/script” as uid dba and gid dba # # ## Check
+alert #    if timestamp > 15 minutes then alert #    if size > 100 MB then
+exec &#8220;/my/cleanup/script&#8220; as uid dba and gid dba # # ## Check
 directory permission, uid and gid.  An event is triggered if the  ##
 directory does not belong to the user with uid 0 and gid 0.  In addition, 
 ## the permissions have to match the octal description of 755 (see
@@ -390,23 +395,25 @@ address 192.168.1.1 #    if failed icmp type echo count 3 with timeout 3
 seconds then alert #    if failed port 3306 protocol mysql with timeout 15
 seconds then alert #    if failed url <a
 href="http://user:password@192.168.1.1:8080/?querystring">user:password@192.168.1.1:8080/?querystring</a>
-#       and content == ‘action=“j_security_check”’ #       then
-alert # #
+#       and content == &#8216;action=&#8220;j_security_check&#8220;&#8217;
+#       then alert # #
 ###############################################################################
 ## Includes
 ###############################################################################
 ## ## It is possible to include additional configuration parts from other
-files or ## directories. #</p>
+files or ## directories. #
+</p>
+<p>
+include /etc/monit/conf.d/*
+</p>
 
-<p>include /etc/monit/conf.d/*</p>
+	</div>
 
-</div>
-
-
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+</body>
+</html>
 

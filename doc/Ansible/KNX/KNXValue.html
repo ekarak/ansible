@@ -1,1163 +1,1296 @@
-<!DOCTYPE html>
-
-<html>
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
 
-<title>Class: Ansible::KNX::KNXValue</title>
+	<title>Class: Ansible::KNX::KNXValue</title>
 
-<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
 
-<script type="text/javascript">
-  var rdoc_rel_prefix = "../../";
-</script>
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
 
-<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+</head>
+<body class="class">
 
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../../index.html">Home</a>
-    <a href="../../table_of_contents.html#classes">Classes</a>
-    <a href="../../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../knx/knx_value_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="knx/knx_value.rb">knx/knx_value.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
 
+			
+		</div>
 
-  <nav id="search-section" class="section project-section" class="initially-hidden">
-  <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
-             title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
-  </form>
+		<div id="class-metadata">
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="../../Object.html">Object</a></p>
+				
+			</div>
+			
 
+			<!-- Namespace Contents -->
+			
 
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>knx/knx_value.rb
-  </ul>
-</nav>
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-id_generator">::id_generator</a></li>
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-c-transceiver">::transceiver</a></li>
+					
+					<li><a href="#method-c-transceiver%3D">::transceiver=</a></li>
+					
+					<li><a href="#method-i-%3D%3D">#==</a></li>
+					
+					<li><a href="#method-i-explain">#explain</a></li>
+					
+					<li><a href="#method-i-getparam">#getparam</a></li>
+					
+					<li><a href="#method-i-group_primary%3D">#group_primary=</a></li>
+					
+					<li><a href="#method-i-groups%3D">#groups=</a></li>
+					
+					<li><a href="#method-i-read_only%3F">#read_only?</a></li>
+					
+					<li><a href="#method-i-read_value">#read_value</a></li>
+					
+					<li><a href="#method-i-to_apdu">#to_apdu</a></li>
+					
+					<li><a href="#method-i-to_s">#to_s</a></li>
+					
+					<li><a href="#method-i-update_from_frame">#update_from_frame</a></li>
+					
+					<li><a href="#method-i-validate_ranges">#validate_ranges</a></li>
+					
+					<li><a href="#method-i-write_only%3F">#write_only?</a></li>
+					
+					<li><a href="#method-i-write_value">#write_value</a></li>
+					
+				</ul>
+			</div>
+			
 
-    
-  </div>
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">AnsibleValue</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
 
-  <div id="class-metadata">
-    
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
-  
-  <p class="link"><a href="../../Object.html">Object</a>
-  
-</nav>
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../README.html">README</a></li>
+				
+					<li class="file"><a href="../../license/LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../../license/gpl_txt.html">gpl.txt</a></li>
+				
+					<li class="file"><a href="../../license/lgpl_txt.html">lgpl.txt</a></li>
+				
+					<li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a></li>
+				
+				</ul>
+			</div>
+			
 
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
 
-  <ul class="link-list">
-  
-  
-    <li><a class="include" href="../AnsibleValue.html">Ansible::AnsibleValue</a>
-  
-  
-  </ul>
-</nav>
+				<ul class="link-list">
+				
+					<li><a href="../../Ansible.html">Ansible</a></li>
+				
+					<li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a></li>
+				
+					<li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a></li>
+				
+					<li><a href="../../Ansible/Device.html">Ansible::Device</a></li>
+				
+					<li><a href="../../Ansible/Dimmer.html">Ansible::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX.html">Ansible::KNX</a></li>
+				
+					<li><a href="../../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a></li>
+				
+					<li><a href="../../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a></li>
+				
+					<li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a></li>
+				
+					<li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a></li>
+				
+					<li><a href="../../Ansible/PLC.html">Ansible::PLC</a></li>
+				
+					<li><a href="../../Ansible/Switch.html">Ansible::Switch</a></li>
+				
+					<li><a href="../../Ansible/Transceiver.html">Ansible::Transceiver</a></li>
+				
+					<li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a></li>
+				
+					<li><a href="../../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a></li>
+				
+					<li><a href="../../AutoReload.html">AutoReload</a></li>
+				
+					<li><a href="../../DPT10.html">DPT10</a></li>
+				
+					<li><a href="../../DPT9.html">DPT9</a></li>
+				
+					<li><a href="../../DPT9_Float.html">DPT9_Float</a></li>
+				
+					<li><a href="../../EIBAddr.html">EIBAddr</a></li>
+				
+					<li><a href="../../EIBBuffer.html">EIBBuffer</a></li>
+				
+					<li><a href="../../EIBConnection.html">EIBConnection</a></li>
+				
+					<li><a href="../../EIBInt16.html">EIBInt16</a></li>
+				
+					<li><a href="../../EIBInt32.html">EIBInt32</a></li>
+				
+					<li><a href="../../EIBInt8.html">EIBInt8</a></li>
+				
+					<li><a href="../../OZW_ValueID_id.html">OZW_ValueID_id</a></li>
+				
+					<li><a href="../../OZW_ValueID_id1.html">OZW_ValueID_id1</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../OpenZWave.html">OpenZWave</a></li>
+				
+					<li><a href="../../OrbiterProxy.html">OrbiterProxy</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
 
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+			
+		</div>
+	</div>
 
-  <ul class="link-list">
-    
-    <li><a href="#method-c-id_generator">::id_generator</a>
-    
-    <li><a href="#method-c-new">::new</a>
-    
-    <li><a href="#method-c-transceiver">::transceiver</a>
-    
-    <li><a href="#method-c-transceiver-3D">::transceiver=</a>
-    
-    <li><a href="#method-i-3D-3D">#==</a>
-    
-    <li><a href="#method-i-explain">#explain</a>
-    
-    <li><a href="#method-i-getparam">#getparam</a>
-    
-    <li><a href="#method-i-group_primary-3D">#group_primary=</a>
-    
-    <li><a href="#method-i-groups-3D">#groups=</a>
-    
-    <li><a href="#method-i-read_only-3F">#read_only?</a>
-    
-    <li><a href="#method-i-read_value">#read_value</a>
-    
-    <li><a href="#method-i-to_apdu">#to_apdu</a>
-    
-    <li><a href="#method-i-to_s">#to_s</a>
-    
-    <li><a href="#method-i-update_from_frame">#update_from_frame</a>
-    
-    <li><a href="#method-i-validate_ranges">#validate_ranges</a>
-    
-    <li><a href="#method-i-write_only-3F">#write_only?</a>
-    
-    <li><a href="#method-i-write_value">#write_value</a>
-    
-  </ul>
-</nav>
+	<div id="documentation">
+		<h1 class="class">Ansible::KNX::KNXValue</h1>
 
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../../README.html">README</a>
-  
-    <li class="file"><a href="../../license/LICENSE.html">LICENSE</a>
-  
-    <li class="file"><a href="../../license/gpl_txt.html">gpl</a>
-  
-    <li class="file"><a href="../../license/lgpl_txt.html">lgpl</a>
-  
-    <li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../../Ansible.html">Ansible</a>
-  
-    <li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a>
-  
-    <li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a>
-  
-    <li><a href="../../Ansible/Device.html">Ansible::Device</a>
-  
-    <li><a href="../../Ansible/Dimmer.html">Ansible::Dimmer</a>
-  
-    <li><a href="../../Ansible/KNX.html">Ansible::KNX</a>
-  
-    <li><a href="../../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a>
-  
-    <li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a>
-  
-    <li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a>
-  
-    <li><a href="../../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a>
-  
-    <li><a href="../../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a>
-  
-    <li><a href="../../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a>
-  
-    <li><a href="../../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a>
-  
-    <li><a href="../../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a>
-  
-    <li><a href="../../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a>
-  
-    <li><a href="../../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a>
-  
-    <li><a href="../../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a>
-  
-    <li><a href="../../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a>
-  
-    <li><a href="../../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a>
-  
-    <li><a href="../../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a>
-  
-    <li><a href="../../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a>
-  
-    <li><a href="../../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a>
-  
-    <li><a href="../../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a>
-  
-    <li><a href="../../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a>
-  
-    <li><a href="../../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a>
-  
-    <li><a href="../../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a>
-  
-    <li><a href="../../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a>
-  
-    <li><a href="../../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a>
-  
-    <li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a>
-  
-    <li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a>
-  
-    <li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a>
-  
-    <li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a>
-  
-    <li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a>
-  
-    <li><a href="../../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a>
-  
-    <li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a>
-  
-    <li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a>
-  
-    <li><a href="../../Ansible/Switch.html">Ansible::Switch</a>
-  
-    <li><a href="../../Ansible/Transceiver.html">Ansible::Transceiver</a>
-  
-    <li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a>
-  
-    <li><a href="../../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a>
-  
-    <li><a href="../../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a>
-  
-    <li><a href="../../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a>
-  
-    <li><a href="../../DPT10.html">DPT10</a>
-  
-    <li><a href="../../DPT9.html">DPT9</a>
-  
-    <li><a href="../../DPT9_Float.html">DPT9_Float</a>
-  
-    <li><a href="../../EIBAddr.html">EIBAddr</a>
-  
-    <li><a href="../../EIBBuffer.html">EIBBuffer</a>
-  
-    <li><a href="../../EIBConnection.html">EIBConnection</a>
-  
-    <li><a href="../../EIBInt16.html">EIBInt16</a>
-  
-    <li><a href="../../EIBInt32.html">EIBInt32</a>
-  
-    <li><a href="../../EIBInt8.html">EIBInt8</a>
-  
-    <li><a href="../../OZW_ValueID_id.html">OZW_ValueID_id</a>
-  
-    <li><a href="../../OZW_ValueID_id1.html">OZW_ValueID_id1</a>
-  
-    <li><a href="../../Object.html">Object</a>
-  
-    <li><a href="../../OpenZWave.html">OpenZWave</a>
-  
-    <li><a href="../../OrbiterProxy.html">OrbiterProxy</a>
-  
-    <li><a href="../../String.html">String</a>
-  
-    <li><a href="../../Test.html">Test</a>
-  
-  </ul>
-</nav>
-
-  </div>
-</nav>
-
-<div id="documentation">
-  <h1 class="class">class Ansible::KNX::KNXValue</h1>
-
-  <div id="description" class="description">
-    
-<p>a <a href="KNXValue.html">KNXValue</a> is a device-dependant datapoint. It
-is initialized by a</p>
-
-<p>DPT type name (e.g. “1.001” for binary switch) and is extended  by the
-initializer with the corresponding DPT module (e.g. <a
-href="DPT1.html">KNX::DPT1</a>) so as to handle <a
+		<div id="description">
+			<p>
+a <a href="KNXValue.html">KNXValue</a> is a device-dependant datapoint. It
+is initialized by a   DPT type name (e.g. &#8220;1.001&#8220; for binary
+switch) and is extended  by the initializer with the corresponding DPT
+module (e.g. <a href="DPT1.html">KNX::DPT1</a>) so as to handle <a
 href="DPT1.html">DPT1</a> frames. Each <a href="KNXValue.html">KNXValue</a>
 is linked to zero or more group addresses, the first of which will be the
-“update” value</p>
+&#8220;update&#8221; value
+</p>
 
-  </div><!-- description -->
+		</div>
 
-  
-  
-  
-  <section id="5Buntitled-5D" class="documentation-section">
-    
+		<!-- Constants -->
+		
 
-    
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
 
-    
+			
+			<div id="flags-attribute-method" class="method-detail">
+				<a name="flags"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">flags</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
 
-    
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+				<div class="method-description">
+				
+				<p>
+set flag: knxvalue.flags[:r] = true get flag: knxvalue.flags[:r] 
+(evaluates to true, meaning the read flag is set)
+</p>
+				
+				</div>
+			</div>
+			
+			<div id="groups-attribute-method" class="method-detail">
+				<a name="groups"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">groups</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
 
-      
-      <div id="attribute-i-description" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">description</span><span
-            class="attribute-access-type">[RW]</span>
-        </div>
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="dpt-basetype-attribute-method" class="method-detail">
+				<a name="dpt_basetype"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">dpt_basetype</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
 
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-dpt_basetype" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">dpt_basetype</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="dpt-subtype-attribute-method" class="method-detail">
+				<a name="dpt_subtype"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">dpt_subtype</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
 
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-dpt_subtype" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">dpt_subtype</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="id-attribute-method" class="method-detail">
+				<a name="id"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">id</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
 
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-flags" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">flags</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="description-attribute-method" class="method-detail">
+				<a name="description"></a>
+				
+				<a name="description="></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">description</span><span
+						class="attribute-access-type">[RW]</span>
+				</div>
 
-        <div class="method-description">
-        
-        <p>set flag: <a href="http://:r">knxvalue.flags</a> = true get flag: <a
-href="http://:r">knxvalue.flags</a>  (evaluates to true, meaning the read
-flag is set)</p>
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-groups" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">groups</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
 
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-id" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">id</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
 
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-    </section><!-- attribute-method-details -->
-    
+		
+			<div id="id-generator-method" class="method-detail ">
+				<a name="method-c-id_generator"></a>
 
-    <!-- Methods -->
-    
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+				<div class="method-heading">
+				
+					<span class="method-name">id_generator</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
 
-    
-      <div id="method-c-id_generator" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">id_generator</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
+				<div class="method-description">
+					
+					
+					
 
-        <div class="method-description">
-          
-          
-          
+					
+					<div class="method-source-code"
+						id="id-generator-source">
+<pre>
+    <span class="ruby-comment cmt"># File knx/knx_value.rb, line 50</span>
+50:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">id_generator</span>
+51:                 <span class="ruby-identifier">@@ids</span> = <span class="ruby-identifier">@@ids</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+52:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">@@ids</span>
+53:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
 
-          
-          <div class="method-source-code" id="id_generator-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">id_generator</span>
-    <span class="ruby-identifier">@@ids</span> = <span class="ruby-identifier">@@ids</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@ids</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- id_generator-source -->
-          
-        </div>
+				
 
-        
+				
+			</div>
 
-        
-      </div><!-- id_generator-method -->
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
 
-    
-      <div id="method-c-new" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">new</span><span
-            class="method-args">(dpt, groups=[], flags=nil)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(dpt, groups=[], flags=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
 
-        <div class="method-description">
-          
-          <p>initialize a <a href="KNXValue.html">KNXValue</a></p>
+				<div class="method-description">
+					
+					<p>
+initialize a <a href="KNXValue.html">KNXValue</a>
+</p>
+<h3>Arguments: </h3>
+<dl>
+<dt>dpt</dt><dd><p>
+string representing the DPT (datapoint type) of the value e.g.
+&#8220;5.001&#8220; meaning <a href="DPT5.html">DPT5</a> percentage value
+(8-bit unsigned)
+</p>
+</dd>
+<dt>groups</dt><dd><p>
+array of group addresses associated with this datapoint
+</p>
+</dd>
+<dt>flags</dt><dd><p>
+hash of symbol=>boolean flags regarding its behaviour e.g. {:r => true} the
+value can only respond to read requests on the <a
+href="../KNX.html">KNX</a> bus. default flags: READ and WRITE
+</p>
+<pre>
+    c =&gt; Communication
+    r =&gt; Read
+    w =&gt; Write
+    t =&gt; Transmit
+    u =&gt; Update
+    i =&gt; read on Init</pre>
+</dd>
+</dl>
+					
 
-<h3 id="method-c-new-label-Arguments%3A+">Arguments: </h3>
-<dl class="rdoc-list label-list"><dt>dpt
-<dd>
-<p>string representing the DPT (datapoint type) of the value e.g. “5.001”
-meaning <a href="DPT5.html">DPT5</a> percentage value (8-bit unsigned)</p>
-</dd><dt>groups
-<dd>
-<p>array of group addresses associated with this datapoint</p>
-</dd><dt>flags
-<dd>
-<p>hash of symbol=&gt;boolean flags regarding its behaviour e.g. {:r =&gt;
-true} the value can only respond to read requests on the <a
-href="../KNX.html">KNX</a> bus. default flags: READ and WRITE</p>
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 98</span>
+ 98:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">dpt</span>, <span class="ruby-identifier">groups</span>=[], <span class="ruby-identifier">flags</span>=<span class="ruby-keyword kw">nil</span>)
+ 99:                 
+100:                 <span class="ruby-comment cmt"># init DPT info</span>
+101:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/(\d*)\.(\d*)/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">dpt</span>) <span class="ruby-keyword kw">then</span>
+102:                     <span class="ruby-ivar">@dpt</span> = <span class="ruby-identifier">dpt</span>
+103:                     <span class="ruby-ivar">@dpt_mod</span> = <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;DPT#{md[1]}&quot;</span>)
+104:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared DPT module #{dpt}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@dpt_mod</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Module</span>
+105:                     <span class="ruby-ivar">@parserclass</span> = <span class="ruby-ivar">@dpt_mod</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;DPT#{md[1]}_Frame&quot;</span>)
+106:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared parser for DPT #{dpt}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">DPTFrame</span>)
+107:                     <span class="ruby-ivar">@dpt_basetype</span> = <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>
+108:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;missing Basetype info for #{dpt}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@dpt_basetype</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
+109:                     <span class="ruby-ivar">@dpt_subtype</span> = <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Subtypes</span>[<span class="ruby-identifier">md</span>[<span class="ruby-value">2</span>]]
+110:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;missing sybtype info for #{dpt}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@dpt_subtype</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
+111:                     <span class="ruby-comment cmt"># extend this object with DPT-specific module </span>
+112:                     <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@dpt_mod</span>)
+113:                     <span class="ruby-comment cmt"># print out some useful debug info                    </span>
+114:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;  dpt_basetype = #{@dpt_basetype},  dpt_subtype = #{@dpt_subtype}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+115:                 <span class="ruby-keyword kw">else</span>
+116:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid datapoint type (#{dpt})&quot;</span>
+117:                 <span class="ruby-keyword kw">end</span>
+118:                 
+119:                 <span class="ruby-comment cmt"># array of GroupAddress objects associated with this datapoint</span>
+120:                 <span class="ruby-comment cmt"># only the first address is used in a  write operation (TODO: CHECKME)</span>
+121:                 <span class="ruby-ivar">@groups</span> = <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">groups</span>
+122:                     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword kw">then</span> <span class="ruby-constant">Array</span>[<span class="ruby-identifier">group</span>]
+123:                     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">String</span> <span class="ruby-keyword kw">then</span> <span class="ruby-constant">Array</span>[<span class="ruby-identifier">str2addr</span>(<span class="ruby-identifier">groups</span>)] 
+124:                     <span class="ruby-keyword kw">when</span> <span class="ruby-constant">Array</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">groups</span>
+125:                 <span class="ruby-keyword kw">end</span>
+126:                 
+127:                 <span class="ruby-comment cmt"># store DPT info about these group addresses</span>
+128:                 <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">grp</span><span class="ruby-operator">|</span>
+129:                     <span class="ruby-comment cmt"># sanity check: is this groupaddr already decaled as a different basetype?</span>
+130:                     <span class="ruby-comment cmt"># FIXME: specs dont forbid it, only check required is datalength compatibility</span>
+131:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>] <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">old_dpt</span> = <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>][<span class="ruby-value">:dpt_basetype</span>]) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> (<span class="ruby-identifier">old_dpt</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-ivar">@dpt_basetype</span>))                           
+132:                         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Group address #{addr2str(grp)} is already declared as DPT basetype #{old_dpt}!&quot;</span>
+133:                     <span class="ruby-keyword kw">end</span>
+134:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;adding groupaddr #{addr2str(grp,true) } (#{@dpt}: #{@dpt_subtype[:name]}), to global hash&quot;</span>
+135:                     <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>] = {<span class="ruby-value">:basetype</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dpt_basetype</span>, <span class="ruby-value">:subtype</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dpt_subtype</span>}
+136:                 }
+137:                 
+138:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">nil?</span>
+139:                     <span class="ruby-comment cmt"># default flags: READ and WRITE</span>
+140:                     <span class="ruby-ivar">@flags</span> = {<span class="ruby-value">:r</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>,<span class="ruby-value">:w</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}
+141:                 <span class="ruby-keyword kw">else</span>
+142:                     <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;flags parameter must be a Hash!&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
+143:                     <span class="ruby-ivar">@flags</span> = <span class="ruby-identifier">flags</span>
+144:                 <span class="ruby-keyword kw">end</span>
+145: 
+146:                 <span class="ruby-comment cmt"># TODO: physical address: set only for remote nodes we are monitoring</span>
+147:                 <span class="ruby-comment cmt"># when left to nil, it/ means a datapoint on this KNXTransceiver </span>
+148:                 <span class="ruby-ivar">@physaddr</span> = <span class="ruby-keyword kw">nil</span>
+149:                 
+150:                 <span class="ruby-comment cmt"># id of datapoint</span>
+151:                 <span class="ruby-comment cmt"># initialized by class method KNXValue.id_generator</span>
+152:                 <span class="ruby-ivar">@id</span> = <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">id_generator</span>()
+153:                 
+154:                 <span class="ruby-ivar">@description</span> = <span class="ruby-value str">''</span>
+155:                 
+156:                 <span class="ruby-comment cmt"># store this KNXValue in the Ansible database</span>
+157:                 <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-keyword kw">self</span>)
+158:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
 
-<pre class="ruby"><span class="ruby-identifier">c</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Communication</span>
-<span class="ruby-identifier">r</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Read</span>
-<span class="ruby-identifier">w</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Write</span>
-<span class="ruby-identifier">t</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Transmit</span>
-<span class="ruby-identifier">u</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Update</span>
-<span class="ruby-identifier">i</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">read</span> <span class="ruby-identifier">on</span> <span class="ruby-constant">Init</span>
+				
+
+				
+			</div>
+
+		
+			<div id="transceiver-method" class="method-detail ">
+				<a name="method-c-transceiver"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">transceiver</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="transceiver-source">
+<pre>
+    <span class="ruby-comment cmt"># File knx/knx_value.rb, line 60</span>
+60:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">transceiver</span>; <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">@@transceiver</span>; <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="transceiver--method" class="method-detail ">
+				<a name="method-c-transceiver%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">transceiver=</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="transceiver--source">
+<pre>
+    <span class="ruby-comment cmt"># File knx/knx_value.rb, line 61</span>
+61:             <span class="ruby-keyword kw">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">transceiver=</span>(<span class="ruby-identifier">other</span>); 
+62:                 <span class="ruby-identifier">@@transceiver</span> = <span class="ruby-identifier">other</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX_Transceiver</span>
+63:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="--method" class="method-detail ">
+				<a name="method-i-%3D%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">==</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+equality checking
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="--source">
+<pre>
+    <span class="ruby-comment cmt"># File knx/knx_value.rb, line 70</span>
+70:             <span class="ruby-keyword kw">def</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">other</span>)
+71:                 <span class="ruby-keyword kw">return</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">KNXValue</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-ivar">@id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">id</span>))
+72:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="explain-method" class="method-detail ">
+				<a name="method-i-explain"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">explain</span><span
+						class="method-args">(frame)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+return a human-readable representation of a DPT frame
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="explain-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 293</span>
+293:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">explain</span>(<span class="ruby-identifier">frame</span>)
+294:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;explain() expects a DPTFrame, got a #{frame.class}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">DPTFrame</span>
+295:                 <span class="ruby-identifier">fielddata</span> = []
+296:                 <span class="ruby-comment cmt"># iterate over all available DPT fields</span>
+297:                 <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">field_names</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">fieldname</span><span class="ruby-operator">|</span>
+298:                     <span class="ruby-comment cmt"># skip padding fields</span>
+299:                     <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">if</span> <span class="ruby-regexp re">/pad/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">fieldname</span>)
+300:                     <span class="ruby-identifier">field</span> = <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">fieldname</span>)
+301:                     <span class="ruby-identifier">fval</span> = <span class="ruby-identifier">field</span>.<span class="ruby-identifier">value</span>
+302:                     <span class="ruby-comment cmt"># get value encoding hashmap, if any</span>
+303:                     <span class="ruby-identifier">vhash</span> = <span class="ruby-identifier">getparam</span>(<span class="ruby-value">:enc</span>, <span class="ruby-identifier">field</span>)
+304:                     <span class="ruby-comment cmt"># get value units</span>
+305:                     <span class="ruby-identifier">units</span> = <span class="ruby-identifier">getparam</span>(<span class="ruby-value">:unit</span>, <span class="ruby-identifier">field</span>) 
+306:                     <span class="ruby-identifier">fval</span> = <span class="ruby-identifier">as_canonical_value</span>()
+307:                     <span class="ruby-comment cmt"># add field value, according to encoding hashtable</span>
+308:                     <span class="ruby-identifier">fielddata</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{(vhash.is_a?Hash) ? vhash[fval] : fval} #{units}&quot;</span>
+309:                 } 
+310:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">fielddata</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+311:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="getparam-method" class="method-detail ">
+				<a name="method-i-getparam"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">getparam</span><span
+						class="method-args">(param, field=nil)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+get a DPT parameter, trying to locate it in the following order:
+</p>
+<pre>
+  1) in the DPTFrame field definition 
+  2) in the DPT subtype definition
+  3) in the DPT basetype definition</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="getparam-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 317</span>
+317:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">getparam</span>(<span class="ruby-identifier">param</span>, <span class="ruby-identifier">field</span>=<span class="ruby-keyword kw">nil</span>)
+318:                 <span class="ruby-keyword kw">return</span> ((<span class="ruby-identifier">field</span> <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">field</span>.<span class="ruby-identifier">get_parameter</span>(<span class="ruby-identifier">param</span>)) <span class="ruby-keyword kw">or</span> 
+319:                         (<span class="ruby-ivar">@dpt_subtype</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@dpt_subtype</span>[<span class="ruby-identifier">param</span>]) <span class="ruby-keyword kw">or</span> 
+320:                         (<span class="ruby-ivar">@dpt_basetype</span> <span class="ruby-keyword kw">and</span> <span class="ruby-ivar">@dpt_basetype</span>[<span class="ruby-identifier">param</span>]))
+321:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="group-primary--method" class="method-detail ">
+				<a name="method-i-group_primary%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">group_primary=</span><span
+						class="method-args">(grpaddr)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+set primary group address
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="group-primary--source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 233</span>
+233:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">group_primary=</span>(<span class="ruby-identifier">grpaddr</span>)
+234:                 <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">grpaddr</span>)
+235:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="groups--method" class="method-detail ">
+				<a name="method-i-groups%3D"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">groups=</span><span
+						class="method-args">(other)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+assign a new array of group addresses for this datapoint
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="groups--source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 238</span>
+238:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">groups=</span>(<span class="ruby-identifier">other</span>)
+239:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;KNXValue.groups= requires an array of at least one group addresses&quot;</span> <span class="ruby-keyword kw">unless</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
+240:                 <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">other</span>)
+241:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-only--method" class="method-detail ">
+				<a name="method-i-read_only%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_only?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+is this <a href="../KNX.html">KNX</a> datapoint read only?
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-only--source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 161</span>
+161:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_only?</span>
+162:                 <span class="ruby-keyword kw">return</span>((<span class="ruby-keyword kw">defined?</span> <span class="ruby-ivar">@flags</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-ivar">@flags</span>[<span class="ruby-value">:r</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:w</span>]))
+163:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="read-value-method" class="method-detail ">
+				<a name="method-i-read_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">read_value</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+read value from eibd&#8217;s group cache, or issue a read request, hoping
+that someone will respond with the last known status for this value
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="read-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 173</span>
+173:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_value</span>()
+174:                 <span class="ruby-keyword kw">if</span> (<span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-identifier">group</span> = <span class="ruby-ivar">@groups</span>[<span class="ruby-value">0</span>]) <span class="ruby-keyword kw">then</span>
+175:                     <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">data</span> = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">read_eibd_cache</span>(<span class="ruby-identifier">group</span>)) <span class="ruby-keyword kw">then</span>
+176:                         <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onReadCacheHit</span>)
+177:                         <span class="ruby-comment cmt"># update the value</span>
+178:                         <span class="ruby-identifier">update</span>(<span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">data</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'c*'</span>)))
+179:                     <span class="ruby-keyword kw">else</span>
+180:                         <span class="ruby-comment cmt"># value not found in cache, maybe some other</span>
+181:                         <span class="ruby-comment cmt"># device on the bus will respond...</span>
+182:                         <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onReadCacheMiss</span>)
+183:                         <span class="ruby-keyword kw">nil</span>
+184:                     <span class="ruby-keyword kw">end</span>
+185:                 <span class="ruby-keyword kw">else</span>
+186:                     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+187:                 <span class="ruby-keyword kw">end</span>
+188:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="to-apdu-method" class="method-detail ">
+				<a name="method-i-to_apdu"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_apdu</span><span
+						class="method-args">(frame, apci_code = 0x40)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+create apdu for this <a href="KNXValue.html">KNXValue</a> APDU types are:
+</p>
+<pre>
+  0x00 =&gt; Read
+  0x40 =&gt; Response (default)
+  0x80 =&gt; Write</pre>
+					
+
+					
+					<div class="method-source-code"
+						id="to-apdu-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 256</span>
+256:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_apdu</span>(<span class="ruby-identifier">frame</span>, <span class="ruby-identifier">apci_code</span> = <span class="ruby-value">0x40</span>)
+257:                 <span class="ruby-identifier">apdu</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:bitlength</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">6</span> <span class="ruby-keyword kw">then</span>
+258:                     <span class="ruby-comment cmt">#[0, apci_code | @current_value]</span>
+259:                     [<span class="ruby-value">0</span>, <span class="ruby-identifier">apci_code</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">data</span>]
+260:                 <span class="ruby-keyword kw">else</span>
+261:                     <span class="ruby-comment cmt">#[0, apci_code] + @current_value.to_a</span>
+262:                     [<span class="ruby-value">0</span>, <span class="ruby-identifier">apci_code</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">to_binary_s</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-value str">'C*'</span>) 
+263:                 <span class="ruby-keyword kw">end</span>
+264:                 <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">apdu</span>
+265:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="to-s-method" class="method-detail ">
+				<a name="method-i-to_s"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">to_s</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+human-readable representation of the value. Uses all field info from its
+DPT included module, if available.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="to-s-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 282</span>
+282:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_s</span>
+283:                 <span class="ruby-identifier">dpt_name</span> = (<span class="ruby-ivar">@dpt_subtype</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> <span class="ruby-value str">''</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@dpt_subtype</span>[<span class="ruby-value">:name</span>] 
+284:                 <span class="ruby-identifier">dpt_info</span> = <span class="ruby-node">&quot;KNXValue[#{@dpt} #{dpt_name}]&quot;</span>
+285:                 <span class="ruby-comment cmt"># add field values explanation, if any</span>
+286:                 <span class="ruby-identifier">vstr</span> = (<span class="ruby-keyword kw">defined?</span>(<span class="ruby-ivar">@current_value</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">explain</span>(<span class="ruby-ivar">@current_value</span>) <span class="ruby-operator">:</span> <span class="ruby-value str">'(value undefined)'</span>)
+287:                 <span class="ruby-comment cmt"># return @dpt: values.explained</span>
+288:                 <span class="ruby-identifier">gaddrs</span> = <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">ga</span><span class="ruby-operator">|</span> <span class="ruby-identifier">addr2str</span>(<span class="ruby-identifier">ga</span>, <span class="ruby-keyword kw">true</span>)}.<span class="ruby-identifier">join</span>(<span class="ruby-value str">', '</span>)
+289:                 <span class="ruby-keyword kw">return</span> [<span class="ruby-ivar">@description</span>, <span class="ruby-identifier">gaddrs</span>, <span class="ruby-identifier">dpt_info</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">' '</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot; : #{vstr}&quot;</span> 
+290:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="update-from-frame-method" class="method-detail ">
+				<a name="method-i-update_from_frame"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">update_from_frame</span><span
+						class="method-args">(rawframe)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+update internal state from raw <a href="../KNX.html">KNX</a> frame
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="update-from-frame-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 268</span>
+268:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_from_frame</span>(<span class="ruby-identifier">rawframe</span>)
+269:                 <span class="ruby-identifier">data</span> = <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:bitlength</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">6</span> <span class="ruby-keyword kw">then</span>
+270:                     <span class="ruby-comment cmt"># bindata always expects a binary string</span>
+271:                     [<span class="ruby-identifier">rawframe</span>.<span class="ruby-identifier">apci_data</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-value str">'c'</span>)
+272:                 <span class="ruby-keyword kw">else</span>
+273:                     <span class="ruby-identifier">rawframe</span>.<span class="ruby-identifier">data</span>
+274:                 <span class="ruby-keyword kw">end</span>
+275:                 <span class="ruby-identifier">foo</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">data</span>)
+276:                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;update_from_frame: #{foo.class} = #{foo.inspect}&quot;</span>
+277:                 <span class="ruby-identifier">update</span>(<span class="ruby-identifier">foo</span>)
+278:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="validate-ranges-method" class="method-detail ">
+				<a name="method-i-validate_ranges"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">validate_ranges</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+make sure all frame fields are valid (within min,max range) see <a
+href="../AnsibleValue.html#method-i-update">Ansible::AnsibleValue.update</a>
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="validate-ranges-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 245</span>
+245:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_ranges</span>
+246:                 <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">defined?</span> <span class="ruby-ivar">@current_value</span> <span class="ruby-keyword kw">then</span>  
+247:                     <span class="ruby-ivar">@current_value</span>.<span class="ruby-identifier">validate_ranges</span>
+248:                 <span class="ruby-keyword kw">end</span>
+249:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="write-only--method" class="method-detail ">
+				<a name="method-i-write_only%3F"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">write_only?</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+is this <a href="../KNX.html">KNX</a> datapoint write only?
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="write-only--source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 166</span>
+166:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_only?</span>
+167:                 <span class="ruby-keyword kw">return</span>((<span class="ruby-keyword kw">defined?</span> <span class="ruby-ivar">@flags</span>) <span class="ruby-keyword kw">and</span> (<span class="ruby-ivar">@flags</span>[<span class="ruby-value">:w</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">not</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:r</span>]))
+168:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="write-value-method" class="method-detail ">
+				<a name="method-i-write_value"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">write_value</span><span
+						class="method-args">(new_val)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+write value to the bus argument: new_val according to DPT 
+</p>
+<pre>
+  if :basic, then new_val is plain data value   
+  else (:composite) new_val is a hash of 
+      field_name =&gt; field_value pairs
+  all values get mapped using to_protocol_value() in AnsibleValue::update()
 </pre>
-</dd></dl>
-          
-
-          
-          <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 98</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">dpt</span>, <span class="ruby-identifier">groups</span>=[], <span class="ruby-identifier">flags</span>=<span class="ruby-keyword">nil</span>)
-    
-    <span class="ruby-comment"># init DPT info</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp">/(\d*)\.(\d*)/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">dpt</span>) <span class="ruby-keyword">then</span>
-        <span class="ruby-ivar">@dpt</span> = <span class="ruby-identifier">dpt</span>
-        <span class="ruby-ivar">@dpt_mod</span> = <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;DPT#{md[1]}&quot;</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared DPT module #{dpt}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dpt_mod</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Module</span>
-        <span class="ruby-ivar">@parserclass</span> = <span class="ruby-ivar">@dpt_mod</span>.<span class="ruby-identifier">module_eval</span>(<span class="ruby-node">&quot;DPT#{md[1]}_Frame&quot;</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;unknown/undeclared parser for DPT #{dpt}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">ancestors</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-constant">DPTFrame</span>)
-        <span class="ruby-ivar">@dpt_basetype</span> = <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;missing Basetype info for #{dpt}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dpt_basetype</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
-        <span class="ruby-ivar">@dpt_subtype</span> = <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Subtypes</span>[<span class="ruby-identifier">md</span>[<span class="ruby-value">2</span>]]
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;missing sybtype info for #{dpt}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@dpt_subtype</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
-        <span class="ruby-comment"># extend this object with DPT-specific module </span>
-        <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extend</span>(<span class="ruby-ivar">@dpt_mod</span>)
-        <span class="ruby-comment"># print out some useful debug info                    </span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;  dpt_basetype = #{@dpt_basetype},  dpt_subtype = #{@dpt_subtype}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">$DEBUG</span>
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid datapoint type (#{dpt})&quot;</span>
-    <span class="ruby-keyword">end</span>
-    
-    <span class="ruby-comment"># array of GroupAddress objects associated with this datapoint</span>
-    <span class="ruby-comment"># only the first address is used in a  write operation (TODO: CHECKME)</span>
-    <span class="ruby-ivar">@groups</span> = <span class="ruby-keyword">case</span> <span class="ruby-identifier">groups</span>
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Fixnum</span> <span class="ruby-keyword">then</span> <span class="ruby-constant">Array</span>[<span class="ruby-identifier">group</span>]
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">String</span> <span class="ruby-keyword">then</span> <span class="ruby-constant">Array</span>[<span class="ruby-identifier">str2addr</span>(<span class="ruby-identifier">groups</span>)] 
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span> <span class="ruby-keyword">then</span> <span class="ruby-identifier">groups</span>
-    <span class="ruby-keyword">end</span>
-    
-    <span class="ruby-comment"># store DPT info about these group addresses</span>
-    <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">grp</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment"># sanity check: is this groupaddr already decaled as a different basetype?</span>
-        <span class="ruby-comment"># FIXME: specs dont forbid it, only check required is datalength compatibility</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>] <span class="ruby-keyword">and</span> (<span class="ruby-identifier">old_dpt</span> = <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>][<span class="ruby-value">:dpt_basetype</span>]) <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> (<span class="ruby-identifier">old_dpt</span>.<span class="ruby-identifier">eql?</span>(<span class="ruby-ivar">@dpt_basetype</span>))                           
-            <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Group address #{addr2str(grp)} is already declared as DPT basetype #{old_dpt}!&quot;</span>
-        <span class="ruby-keyword">end</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;adding groupaddr #{addr2str(grp,true) } (#{@dpt}: #{@dpt_subtype[:name]}), to global hash&quot;</span>
-        <span class="ruby-identifier">@@AllGroups</span>[<span class="ruby-identifier">grp</span>] = {<span class="ruby-value">:basetype</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dpt_basetype</span>, <span class="ruby-value">:subtype</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dpt_subtype</span>}
-    }
-    
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">nil?</span>
-        <span class="ruby-comment"># default flags: READ and WRITE</span>
-        <span class="ruby-ivar">@flags</span> = {<span class="ruby-value">:r</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,<span class="ruby-value">:w</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;flags parameter must be a Hash!&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span>
-        <span class="ruby-ivar">@flags</span> = <span class="ruby-identifier">flags</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-comment"># TODO: physical address: set only for remote nodes we are monitoring</span>
-    <span class="ruby-comment"># when left to nil, it/ means a datapoint on this KNXTransceiver </span>
-    <span class="ruby-ivar">@physaddr</span> = <span class="ruby-keyword">nil</span>
-    
-    <span class="ruby-comment"># id of datapoint</span>
-    <span class="ruby-comment"># initialized by class method KNXValue.id_generator</span>
-    <span class="ruby-ivar">@id</span> = <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">id_generator</span>()
-    
-    <span class="ruby-ivar">@description</span> = <span class="ruby-string">''</span>
-    
-    <span class="ruby-comment"># store this KNXValue in the Ansible database</span>
-    <span class="ruby-constant">AnsibleValue</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-keyword">self</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- new-method -->
-
-    
-      <div id="method-c-transceiver" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">transceiver</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="transceiver-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 60</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">transceiver</span>; <span class="ruby-keyword">return</span> <span class="ruby-identifier">@@transceiver</span>; <span class="ruby-keyword">end</span></pre>
-          </div><!-- transceiver-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- transceiver-method -->
-
-    
-      <div id="method-c-transceiver-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">transceiver=</span><span
-            class="method-args">(other)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          
-          
-
-          
-          <div class="method-source-code" id="transceiver-3D-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 61</span>
-<span class="ruby-keyword">def</span> <span class="ruby-constant">KNXValue</span>.<span class="ruby-identifier">transceiver=</span>(<span class="ruby-identifier">other</span>); 
-    <span class="ruby-identifier">@@transceiver</span> = <span class="ruby-identifier">other</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX</span><span class="ruby-operator">::</span><span class="ruby-constant">KNX_Transceiver</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- transceiver-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- transceiver-3D-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
-
-    
-      <div id="method-i-3D-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">==</span><span
-            class="method-args">(other)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>equality checking</p>
-          
-
-          
-          <div class="method-source-code" id="3D-3D-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 70</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">==</span> (<span class="ruby-identifier">other</span>)
-    <span class="ruby-keyword">return</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">KNXValue</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">other</span>.<span class="ruby-identifier">id</span>))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- 3D-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- 3D-3D-method -->
-
-    
-      <div id="method-i-explain" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">explain</span><span
-            class="method-args">(frame)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>return a human-readable representation of a DPT frame</p>
-          
-
-          
-          <div class="method-source-code" id="explain-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 293</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">explain</span>(<span class="ruby-identifier">frame</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;explain() expects a DPTFrame, got a #{frame.class}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">DPTFrame</span>
-    <span class="ruby-identifier">fielddata</span> = []
-    <span class="ruby-comment"># iterate over all available DPT fields</span>
-    <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">field_names</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">fieldname</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment"># skip padding fields</span>
-        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-regexp">/pad/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">fieldname</span>)
-        <span class="ruby-identifier">field</span> = <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">fieldname</span>)
-        <span class="ruby-identifier">fval</span> = <span class="ruby-identifier">field</span>.<span class="ruby-identifier">value</span>
-        <span class="ruby-comment"># get value encoding hashmap, if any</span>
-        <span class="ruby-identifier">vhash</span> = <span class="ruby-identifier">getparam</span>(<span class="ruby-value">:enc</span>, <span class="ruby-identifier">field</span>)
-        <span class="ruby-comment"># get value units</span>
-        <span class="ruby-identifier">units</span> = <span class="ruby-identifier">getparam</span>(<span class="ruby-value">:unit</span>, <span class="ruby-identifier">field</span>) 
-        <span class="ruby-identifier">fval</span> = <span class="ruby-identifier">as_canonical_value</span>()
-        <span class="ruby-comment"># add field value, according to encoding hashtable</span>
-        <span class="ruby-identifier">fielddata</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{(vhash.is_a?Hash) ? vhash[fval] : fval} #{units}&quot;</span>
-    } 
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">fielddata</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">', '</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- explain-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- explain-method -->
-
-    
-      <div id="method-i-getparam" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">getparam</span><span
-            class="method-args">(param, field=nil)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>get a DPT parameter, trying to locate it in the following order:</p>
-
-<pre>1) in the DPTFrame field definition 
-2) in the DPT subtype definition
-3) in the DPT basetype definition</pre>
-          
-
-          
-          <div class="method-source-code" id="getparam-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 317</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">getparam</span>(<span class="ruby-identifier">param</span>, <span class="ruby-identifier">field</span>=<span class="ruby-keyword">nil</span>)
-    <span class="ruby-keyword">return</span> ((<span class="ruby-identifier">field</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">field</span>.<span class="ruby-identifier">get_parameter</span>(<span class="ruby-identifier">param</span>)) <span class="ruby-keyword">or</span> 
-            (<span class="ruby-ivar">@dpt_subtype</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@dpt_subtype</span>[<span class="ruby-identifier">param</span>]) <span class="ruby-keyword">or</span> 
-            (<span class="ruby-ivar">@dpt_basetype</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@dpt_basetype</span>[<span class="ruby-identifier">param</span>]))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- getparam-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- getparam-method -->
-
-    
-      <div id="method-i-group_primary-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">group_primary=</span><span
-            class="method-args">(grpaddr)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>set primary group address</p>
-          
-
-          
-          <div class="method-source-code" id="group_primary-3D-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 233</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">group_primary=</span>(<span class="ruby-identifier">grpaddr</span>)
-    <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">unshift</span>(<span class="ruby-identifier">grpaddr</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- group_primary-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- group_primary-3D-method -->
-
-    
-      <div id="method-i-groups-3D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">groups=</span><span
-            class="method-args">(other)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>assign a new array of group addresses for this datapoint</p>
-          
-
-          
-          <div class="method-source-code" id="groups-3D-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 238</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">groups=</span>(<span class="ruby-identifier">other</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;KNXValue.groups= requires an array of at least one group addresses&quot;</span> <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Array</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">other</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
-    <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">replace</span>(<span class="ruby-identifier">other</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- groups-3D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- groups-3D-method -->
-
-    
-      <div id="method-i-read_only-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">read_only?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>is this <a href="../KNX.html">KNX</a> datapoint read only?</p>
-          
-
-          
-          <div class="method-source-code" id="read_only-3F-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 161</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_only?</span>
-    <span class="ruby-keyword">return</span>((<span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@flags</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@flags</span>[<span class="ruby-value">:r</span>] <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:w</span>]))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- read_only-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- read_only-3F-method -->
-
-    
-      <div id="method-i-read_value" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">read_value</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>read value from eibd’s group cache, or issue a read request, hoping that
-someone will respond with the last known status for this value</p>
-          
-
-          
-          <div class="method-source-code" id="read_value-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 173</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_value</span>()
-    <span class="ruby-keyword">if</span> (<span class="ruby-keyword">not</span> <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-keyword">and</span> (<span class="ruby-identifier">group</span> = <span class="ruby-ivar">@groups</span>[<span class="ruby-value">0</span>]) <span class="ruby-keyword">then</span>
-        <span class="ruby-keyword">if</span> (<span class="ruby-identifier">data</span> = <span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">read_eibd_cache</span>(<span class="ruby-identifier">group</span>)) <span class="ruby-keyword">then</span>
-            <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onReadCacheHit</span>)
-            <span class="ruby-comment"># update the value</span>
-            <span class="ruby-identifier">update</span>(<span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">data</span>.<span class="ruby-identifier">pack</span>(<span class="ruby-string">'c*'</span>)))
-        <span class="ruby-keyword">else</span>
-            <span class="ruby-comment"># value not found in cache, maybe some other</span>
-            <span class="ruby-comment"># device on the bus will respond...</span>
-            <span class="ruby-identifier">fire_callback</span>(<span class="ruby-value">:onReadCacheMiss</span>)
-            <span class="ruby-keyword">nil</span>
-        <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- read_value-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- read_value-method -->
-
-    
-      <div id="method-i-to_apdu" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_apdu</span><span
-            class="method-args">(frame, apci_code = 0x40)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>create apdu for this <a href="KNXValue.html">KNXValue</a> APDU types are:</p>
-
-<pre class="ruby"><span class="ruby-value">0x00</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Read</span>
-<span class="ruby-value">0x40</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Response</span> (<span class="ruby-identifier">default</span>)
-<span class="ruby-value">0x80</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Write</span>
-</pre>
-          
-
-          
-          <div class="method-source-code" id="to_apdu-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 256</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_apdu</span>(<span class="ruby-identifier">frame</span>, <span class="ruby-identifier">apci_code</span> = <span class="ruby-value">0x40</span>)
-    <span class="ruby-identifier">apdu</span> = <span class="ruby-keyword">if</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:bitlength</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">6</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-comment">#[0, apci_code | @current_value]</span>
-        [<span class="ruby-value">0</span>, <span class="ruby-identifier">apci_code</span> <span class="ruby-operator">|</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">data</span>]
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-comment">#[0, apci_code] + @current_value.to_a</span>
-        [<span class="ruby-value">0</span>, <span class="ruby-identifier">apci_code</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">frame</span>.<span class="ruby-identifier">to_binary_s</span>.<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'C*'</span>) 
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">apdu</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- to_apdu-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- to_apdu-method -->
-
-    
-      <div id="method-i-to_s" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">to_s</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>human-readable representation of the value. Uses all field info from its
-DPT included module, if available.</p>
-          
-
-          
-          <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 282</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-    <span class="ruby-identifier">dpt_name</span> = (<span class="ruby-ivar">@dpt_subtype</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> <span class="ruby-string">''</span> <span class="ruby-operator">:</span> <span class="ruby-ivar">@dpt_subtype</span>[<span class="ruby-value">:name</span>] 
-    <span class="ruby-identifier">dpt_info</span> = <span class="ruby-node">&quot;KNXValue[#{@dpt} #{dpt_name}]&quot;</span>
-    <span class="ruby-comment"># add field values explanation, if any</span>
-    <span class="ruby-identifier">vstr</span> = (<span class="ruby-keyword">defined?</span>(<span class="ruby-ivar">@current_value</span>) <span class="ruby-operator">?</span> <span class="ruby-identifier">explain</span>(<span class="ruby-ivar">@current_value</span>) <span class="ruby-operator">:</span> <span class="ruby-string">'(value undefined)'</span>)
-    <span class="ruby-comment"># return @dpt: values.explained</span>
-    <span class="ruby-identifier">gaddrs</span> = <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">ga</span><span class="ruby-operator">|</span> <span class="ruby-identifier">addr2str</span>(<span class="ruby-identifier">ga</span>, <span class="ruby-keyword">true</span>)}.<span class="ruby-identifier">join</span>(<span class="ruby-string">', '</span>)
-    <span class="ruby-keyword">return</span> [<span class="ruby-ivar">@description</span>, <span class="ruby-identifier">gaddrs</span>, <span class="ruby-identifier">dpt_info</span>].<span class="ruby-identifier">compact</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">' '</span>) <span class="ruby-operator">+</span> <span class="ruby-node">&quot; : #{vstr}&quot;</span> 
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- to_s-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- to_s-method -->
-
-    
-      <div id="method-i-update_from_frame" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">update_from_frame</span><span
-            class="method-args">(rawframe)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>update internal state from raw <a href="../KNX.html">KNX</a> frame</p>
-          
-
-          
-          <div class="method-source-code" id="update_from_frame-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 268</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_from_frame</span>(<span class="ruby-identifier">rawframe</span>)
-    <span class="ruby-identifier">data</span> = <span class="ruby-keyword">if</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:bitlength</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">6</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-comment"># bindata always expects a binary string</span>
-        [<span class="ruby-identifier">rawframe</span>.<span class="ruby-identifier">apci_data</span>].<span class="ruby-identifier">pack</span>(<span class="ruby-string">'c'</span>)
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">rawframe</span>.<span class="ruby-identifier">data</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">foo</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">data</span>)
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;update_from_frame: #{foo.class} = #{foo.inspect}&quot;</span>
-    <span class="ruby-identifier">update</span>(<span class="ruby-identifier">foo</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- update_from_frame-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- update_from_frame-method -->
-
-    
-      <div id="method-i-validate_ranges" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">validate_ranges</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>make sure all frame fields are valid (within min,max range) see <a
-href="../AnsibleValue.html#method-i-update">Ansible::AnsibleValue#update</a></p>
-          
-
-          
-          <div class="method-source-code" id="validate_ranges-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 245</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_ranges</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@current_value</span> <span class="ruby-keyword">then</span>  
-        <span class="ruby-ivar">@current_value</span>.<span class="ruby-identifier">validate_ranges</span>
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- validate_ranges-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- validate_ranges-method -->
-
-    
-      <div id="method-i-write_only-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write_only?</span><span
-            class="method-args">()</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>is this <a href="../KNX.html">KNX</a> datapoint write only?</p>
-          
-
-          
-          <div class="method-source-code" id="write_only-3F-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 166</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_only?</span>
-    <span class="ruby-keyword">return</span>((<span class="ruby-keyword">defined?</span> <span class="ruby-ivar">@flags</span>) <span class="ruby-keyword">and</span> (<span class="ruby-ivar">@flags</span>[<span class="ruby-value">:w</span>] <span class="ruby-keyword">and</span> <span class="ruby-keyword">not</span> <span class="ruby-ivar">@flags</span>[<span class="ruby-value">:r</span>]))
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- write_only-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- write_only-3F-method -->
-
-    
-      <div id="method-i-write_value" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">write_value</span><span
-            class="method-args">(new_val)</span>
-          <span class="method-click-advice">click to toggle source</span>
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>write value to the bus argument: new_val according to DPT</p>
-
-<pre class="ruby"><span class="ruby-keyword">if</span> :<span class="ruby-identifier">basic</span>, <span class="ruby-keyword">then</span> <span class="ruby-identifier">new_val</span> <span class="ruby-identifier">is</span> <span class="ruby-identifier">plain</span> <span class="ruby-identifier">data</span> <span class="ruby-identifier">value</span>   
-<span class="ruby-keyword">else</span> (:<span class="ruby-identifier">composite</span>) <span class="ruby-identifier">new_val</span> <span class="ruby-identifier">is</span> <span class="ruby-identifier">a</span> <span class="ruby-identifier">hash</span> <span class="ruby-identifier">of</span> 
-    <span class="ruby-identifier">field_name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">field_value</span> <span class="ruby-identifier">pairs</span>
-<span class="ruby-identifier">all</span> <span class="ruby-identifier">values</span> <span class="ruby-identifier">get</span> <span class="ruby-identifier">mapped</span> <span class="ruby-identifier">using</span> <span class="ruby-identifier">to_protocol_value</span>() <span class="ruby-keyword">in</span> <span class="ruby-constant">AnsibleValue</span><span class="ruby-operator">::</span><span class="ruby-identifier">update</span>()
-</pre>
-
-<p>return true if successful, false otherwise</p>
-          
-
-          
-          <div class="method-source-code" id="write_value-source">
-            <pre><span class="ruby-comment"># File knx/knx_value.rb, line 198</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_value</span>(<span class="ruby-identifier">new_val</span>)
-    <span class="ruby-comment">#write value to primary group address</span>
-    <span class="ruby-identifier">dest</span>, <span class="ruby-identifier">telegram</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-keyword">nil</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword">then</span> 
-        <span class="ruby-identifier">dest</span> = <span class="ruby-ivar">@groups</span>[<span class="ruby-value">0</span>]
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self}: primary group address not set!!!&quot;</span>
-    <span class="ruby-keyword">end</span> 
-    <span class="ruby-keyword">case</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:valuetype</span>]
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:basic</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-comment"># basic value: single 'data' field</span>
-        <span class="ruby-identifier">telegram</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_val</span>)
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:composite</span> <span class="ruby-keyword">then</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">new_val</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span> <span class="ruby-keyword">then</span>
-            <span class="ruby-identifier">telegram</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">new_val</span>)
-        <span class="ruby-keyword">else</span>
-            <span class="ruby-keyword">if</span> <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:assign</span>) <span class="ruby-keyword">then</span>
-                <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;FIXME&quot;</span>
-            <span class="ruby-keyword">else</span>
-                <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self} has a composite DPT, set() expects a hash!&quot;</span>
-            <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self}: Writing new value (#{new_val}) to #{addr2str(dest, true)}&quot;</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">send_apdu_raw</span>(<span class="ruby-identifier">dest</span>, <span class="ruby-identifier">to_apdu</span>(<span class="ruby-identifier">telegram</span>, <span class="ruby-value">0x80</span>)) <span class="ruby-operator">&gt;</span> <span class="ruby-value">-1</span>) <span class="ruby-keyword">then</span>
-        <span class="ruby-identifier">update</span>(<span class="ruby-identifier">telegram</span>)
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">true</span>)
-    <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">return</span>(<span class="ruby-keyword">false</span>)
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- write_value-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- write_value-method -->
-
-    
-    </section><!-- public-instance-method-details -->
-  
-  </section><!-- 5Buntitled-5D -->
-
-</div><!-- documentation -->
-
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 3.11.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
-</footer>
+<p>
+return true if successful, false otherwise
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="write-value-source">
+<pre>
+     <span class="ruby-comment cmt"># File knx/knx_value.rb, line 198</span>
+198:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">write_value</span>(<span class="ruby-identifier">new_val</span>)
+199:                 <span class="ruby-comment cmt">#write value to primary group address</span>
+200:                 <span class="ruby-identifier">dest</span>, <span class="ruby-identifier">telegram</span> = <span class="ruby-keyword kw">nil</span>, <span class="ruby-keyword kw">nil</span>
+201:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@groups</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span> 
+202:                     <span class="ruby-identifier">dest</span> = <span class="ruby-ivar">@groups</span>[<span class="ruby-value">0</span>]
+203:                 <span class="ruby-keyword kw">else</span>
+204:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self}: primary group address not set!!!&quot;</span>
+205:                 <span class="ruby-keyword kw">end</span> 
+206:                 <span class="ruby-keyword kw">case</span> <span class="ruby-ivar">@dpt_mod</span><span class="ruby-operator">::</span><span class="ruby-constant">Basetype</span>[<span class="ruby-value">:valuetype</span>]
+207:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value">:basic</span> <span class="ruby-keyword kw">then</span>
+208:                     <span class="ruby-comment cmt"># basic value: single 'data' field</span>
+209:                     <span class="ruby-identifier">telegram</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">new_val</span>)
+210:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value">:composite</span> <span class="ruby-keyword kw">then</span>
+211:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_val</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">Hash</span> <span class="ruby-keyword kw">then</span>
+212:                         <span class="ruby-identifier">telegram</span> = <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">new_val</span>)
+213:                     <span class="ruby-keyword kw">else</span>
+214:                         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@parserclass</span>.<span class="ruby-identifier">methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:assign</span>) <span class="ruby-keyword kw">then</span>
+215:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;FIXME&quot;</span>
+216:                         <span class="ruby-keyword kw">else</span>
+217:                             <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{self} has a composite DPT, set() expects a hash!&quot;</span>
+218:                         <span class="ruby-keyword kw">end</span>
+219:                     <span class="ruby-keyword kw">end</span>
+220:                 <span class="ruby-keyword kw">end</span>
+221:                 <span class="ruby-comment cmt">#</span>
+222:                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self}: Writing new value (#{new_val}) to #{addr2str(dest, true)}&quot;</span>
+223:                 <span class="ruby-comment cmt">#</span>
+224:                 <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">@@transceiver</span>.<span class="ruby-identifier">send_apdu_raw</span>(<span class="ruby-identifier">dest</span>, <span class="ruby-identifier">to_apdu</span>(<span class="ruby-identifier">telegram</span>, <span class="ruby-value">0x80</span>)) <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>) <span class="ruby-keyword kw">then</span>
+225:                     <span class="ruby-identifier">update</span>(<span class="ruby-identifier">telegram</span>)
+226:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">true</span>)
+227:                 <span class="ruby-keyword kw">else</span>
+228:                     <span class="ruby-keyword kw">return</span>(<span class="ruby-keyword kw">false</span>)
+229:                 <span class="ruby-keyword kw">end</span>
+230:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
 

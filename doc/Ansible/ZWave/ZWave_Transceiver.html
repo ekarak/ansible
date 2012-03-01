@@ -1,0 +1,1692 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+
+	<title>Class: Ansible::ZWave::ZWave_Transceiver</title>
+
+	<link rel="stylesheet" href="../../rdoc.css" type="text/css" media="screen" />
+
+	<script src="../../js/jquery.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/thickbox-compressed.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/quicksearch.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../../js/darkfish.js" type="text/javascript"
+		charset="utf-8"></script>
+
+</head>
+<body class="class">
+
+	<div id="metadata">
+		<div id="home-metadata">
+			<div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../../index.html">Home</a>
+          <a href="../../index.html#classes">Classes</a>
+          <a href="../../index.html#methods">Methods</a>
+        </h3>
+			</div>
+		</div>
+
+		<div id="file-metadata">
+			<div id="file-list-section" class="section">
+				<h3 class="section-header">In Files</h3>
+				<div class="section-body">
+					<ul>
+					
+						<li><a href="../../zwave/zwave_transceiver_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+							class="thickbox" title="zwave/zwave_transceiver.rb">zwave/zwave_transceiver.rb</a></li>
+					
+					</ul>
+				</div>
+			</div>
+
+			
+		</div>
+
+		<div id="class-metadata">
+
+			<!-- Parent Class -->
+			
+			<div id="parent-class-section" class="section">
+				<h3 class="section-header">Parent</h3>
+				
+				<p class="link"><a href="../Transceiver.html">Ansible::Transceiver</a></p>
+				
+			</div>
+			
+
+			<!-- Namespace Contents -->
+			
+
+			<!-- Method Quickref -->
+			
+			<div id="method-list-section" class="section">
+				<h3 class="section-header">Methods</h3>
+				<ul class="link-list">
+					
+					<li><a href="#method-c-new">::new</a></li>
+					
+					<li><a href="#method-i-controller_state">#controller_state</a></li>
+					
+					<li><a href="#method-i-init_stomp">#init_stomp</a></li>
+					
+					<li><a href="#method-i-init_thrift">#init_thrift</a></li>
+					
+					<li><a href="#method-i-manager">#manager</a></li>
+					
+					<li><a href="#method-i-manager_send">#manager_send</a></li>
+					
+					<li><a href="#method-i-notification_AllNodesQueried">#notification_AllNodesQueried</a></li>
+					
+					<li><a href="#method-i-notification_AwakeNodesQueried">#notification_AwakeNodesQueried</a></li>
+					
+					<li><a href="#method-i-notification_DriverFailed">#notification_DriverFailed</a></li>
+					
+					<li><a href="#method-i-notification_DriverReady">#notification_DriverReady</a></li>
+					
+					<li><a href="#method-i-notification_DriverReset">#notification_DriverReset</a></li>
+					
+					<li><a href="#method-i-notification_EssentialNodeQueriesComplete">#notification_EssentialNodeQueriesComplete</a></li>
+					
+					<li><a href="#method-i-notification_Group">#notification_Group</a></li>
+					
+					<li><a href="#method-i-notification_MsgComplete">#notification_MsgComplete</a></li>
+					
+					<li><a href="#method-i-notification_NodeAdded">#notification_NodeAdded</a></li>
+					
+					<li><a href="#method-i-notification_NodeEvent">#notification_NodeEvent</a></li>
+					
+					<li><a href="#method-i-notification_NodeNaming">#notification_NodeNaming</a></li>
+					
+					<li><a href="#method-i-notification_NodeNew">#notification_NodeNew</a></li>
+					
+					<li><a href="#method-i-notification_NodeProtocolInfo">#notification_NodeProtocolInfo</a></li>
+					
+					<li><a href="#method-i-notification_NodeQueriesComplete">#notification_NodeQueriesComplete</a></li>
+					
+					<li><a href="#method-i-notification_NodeRemoved">#notification_NodeRemoved</a></li>
+					
+					<li><a href="#method-i-notification_PollingDisabled">#notification_PollingDisabled</a></li>
+					
+					<li><a href="#method-i-notification_PollingEnabled">#notification_PollingEnabled</a></li>
+					
+					<li><a href="#method-i-notification_ValueAdded">#notification_ValueAdded</a></li>
+					
+					<li><a href="#method-i-notification_ValueChanged">#notification_ValueChanged</a></li>
+					
+					<li><a href="#method-i-notification_ValueRefreshed">#notification_ValueRefreshed</a></li>
+					
+					<li><a href="#method-i-notification_ValueRemoved">#notification_ValueRemoved</a></li>
+					
+					<li><a href="#method-i-run">#run</a></li>
+					
+					<li><a href="#method-i-stomp">#stomp</a></li>
+					
+				</ul>
+			</div>
+			
+
+			<!-- Included Modules -->
+			
+			<div id="includes-section" class="section">
+				<h3 class="section-header">Included Modules</h3>
+				<ul class="link-list">
+				
+				
+					<li><span class="include">AnsibleCallback</span></li>
+				
+				
+				</ul>
+			</div>
+			
+		</div>
+
+		<div id="project-metadata">
+			
+			
+			<div id="fileindex-section" class="section project-section">
+				<h3 class="section-header">Files</h3>
+				<ul>
+				
+					<li class="file"><a href="../../README.html">README</a></li>
+				
+					<li class="file"><a href="../../license/LICENSE.html">LICENSE</a></li>
+				
+					<li class="file"><a href="../../license/gpl_txt.html">gpl.txt</a></li>
+				
+					<li class="file"><a href="../../license/lgpl_txt.html">lgpl.txt</a></li>
+				
+					<li class="file"><a href="../../monit/monitrc-ansible.html">monitrc-ansible</a></li>
+				
+				</ul>
+			</div>
+			
+
+			<div id="classindex-section" class="section project-section">
+				<h3 class="section-header">Class Index
+					<span class="search-toggle"><img src="../../images/find.png"
+						height="16" width="16" alt="[+]"
+						title="show/hide quicksearch" /></span></h3>
+				<form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+				<fieldset>
+					<legend>Quicksearch</legend>
+					<input type="text" name="quicksearch" value=""
+						class="quicksearch-field" />
+				</fieldset>
+				</form>
+
+				<ul class="link-list">
+				
+					<li><a href="../../Ansible.html">Ansible</a></li>
+				
+					<li><a href="../../Ansible/AnsibleCallback.html">Ansible::AnsibleCallback</a></li>
+				
+					<li><a href="../../Ansible/AnsibleValue.html">Ansible::AnsibleValue</a></li>
+				
+					<li><a href="../../Ansible/Device.html">Ansible::Device</a></li>
+				
+					<li><a href="../../Ansible/Dimmer.html">Ansible::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX.html">Ansible::KNX</a></li>
+				
+					<li><a href="../../Ansible/KNX/Canonical_1bit.html">Ansible::KNX::Canonical_1bit</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1.html">Ansible::KNX::DPT1</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10.html">Ansible::KNX::DPT10</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT10/DPT10_Frame.html">Ansible::KNX::DPT10::DPT10_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11.html">Ansible::KNX::DPT11</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT11/DPT11_Frame.html">Ansible::KNX::DPT11::DPT11_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12.html">Ansible::KNX::DPT12</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT12/DPT12_Frame.html">Ansible::KNX::DPT12::DPT12_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13.html">Ansible::KNX::DPT13</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT13/DPT13_Frame.html">Ansible::KNX::DPT13::DPT13_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14.html">Ansible::KNX::DPT14</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Float.html">Ansible::KNX::DPT14::DPT14_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT14/DPT14_Frame.html">Ansible::KNX::DPT14::DPT14_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15.html">Ansible::KNX::DPT15</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT15/DPT15_Frame.html">Ansible::KNX::DPT15::DPT15_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16.html">Ansible::KNX::DPT16</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT16/DPT16_Frame.html">Ansible::KNX::DPT16::DPT16_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17.html">Ansible::KNX::DPT17</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT17/DPT17_Frame.html">Ansible::KNX::DPT17::DPT17_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18.html">Ansible::KNX::DPT18</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT18/DPT18_Frame.html">Ansible::KNX::DPT18::DPT18_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19.html">Ansible::KNX::DPT19</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT19/DPT19_Frame.html">Ansible::KNX::DPT19::DPT19_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT1/DPT1_Frame.html">Ansible::KNX::DPT1::DPT1_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2.html">Ansible::KNX::DPT2</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT2/DPT2_Frame.html">Ansible::KNX::DPT2::DPT2_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3.html">Ansible::KNX::DPT3</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT3/DPT3_Frame.html">Ansible::KNX::DPT3::DPT3_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4.html">Ansible::KNX::DPT4</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT4/DPT4_Frame.html">Ansible::KNX::DPT4::DPT4_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5.html">Ansible::KNX::DPT5</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT5/DPT5_Frame.html">Ansible::KNX::DPT5::DPT5_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6.html">Ansible::KNX::DPT6</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT6/DPT6_Frame.html">Ansible::KNX::DPT6::DPT6_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7.html">Ansible::KNX::DPT7</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT7/DPT7_Frame.html">Ansible::KNX::DPT7::DPT7_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8.html">Ansible::KNX::DPT8</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT8/DPT8_Frame.html">Ansible::KNX::DPT8::DPT8_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9.html">Ansible::KNX::DPT9</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Float.html">Ansible::KNX::DPT9::DPT9_Float</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPT9/DPT9_Frame.html">Ansible::KNX::DPT9::DPT9_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/DPTFrame.html">Ansible::KNX::DPTFrame</a></li>
+				
+					<li><a href="../../Ansible/KNX/Dimmer.html">Ansible::KNX::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/KNX/EISType.html">Ansible::KNX::EISType</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNXValue.html">Ansible::KNX::KNXValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver.html">Ansible::KNX::KNX_Transceiver</a></li>
+				
+					<li><a href="../../Ansible/KNX/KNX_Transceiver/NormalExit.html">Ansible::KNX::KNX_Transceiver::NormalExit</a></li>
+				
+					<li><a href="../../Ansible/KNX/L_DATA_Frame.html">Ansible::KNX::L_DATA_Frame</a></li>
+				
+					<li><a href="../../Ansible/KNX/ScalarValue.html">Ansible::KNX::ScalarValue</a></li>
+				
+					<li><a href="../../Ansible/KNX/Scene.html">Ansible::KNX::Scene</a></li>
+				
+					<li><a href="../../Ansible/KNX/TP_ControlField.html">Ansible::KNX::TP_ControlField</a></li>
+				
+					<li><a href="../../Ansible/PLC.html">Ansible::PLC</a></li>
+				
+					<li><a href="../../Ansible/Switch.html">Ansible::Switch</a></li>
+				
+					<li><a href="../../Ansible/Transceiver.html">Ansible::Transceiver</a></li>
+				
+					<li><a href="../../Ansible/ZWave.html">Ansible::ZWave</a></li>
+				
+					<li><a href="../../Ansible/ZWave/Dimmer.html">Ansible::ZWave::Dimmer</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueID.html">Ansible::ZWave::ValueID</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Bool.html">Ansible::ZWave::ValueType_Bool</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Button.html">Ansible::ZWave::ValueType_Button</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Byte.html">Ansible::ZWave::ValueType_Byte</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Decimal.html">Ansible::ZWave::ValueType_Decimal</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Int.html">Ansible::ZWave::ValueType_Int</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_List.html">Ansible::ZWave::ValueType_List</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_Short.html">Ansible::ZWave::ValueType_Short</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ValueType_String.html">Ansible::ZWave::ValueType_String</a></li>
+				
+					<li><a href="../../Ansible/ZWave/ZWave_Transceiver.html">Ansible::ZWave::ZWave_Transceiver</a></li>
+				
+					<li><a href="../../AutoReload.html">AutoReload</a></li>
+				
+					<li><a href="../../DPT10.html">DPT10</a></li>
+				
+					<li><a href="../../DPT9.html">DPT9</a></li>
+				
+					<li><a href="../../DPT9_Float.html">DPT9_Float</a></li>
+				
+					<li><a href="../../EIBAddr.html">EIBAddr</a></li>
+				
+					<li><a href="../../EIBBuffer.html">EIBBuffer</a></li>
+				
+					<li><a href="../../EIBConnection.html">EIBConnection</a></li>
+				
+					<li><a href="../../EIBInt16.html">EIBInt16</a></li>
+				
+					<li><a href="../../EIBInt32.html">EIBInt32</a></li>
+				
+					<li><a href="../../EIBInt8.html">EIBInt8</a></li>
+				
+					<li><a href="../../OZW_ValueID_id.html">OZW_ValueID_id</a></li>
+				
+					<li><a href="../../OZW_ValueID_id1.html">OZW_ValueID_id1</a></li>
+				
+					<li><a href="../../Object.html">Object</a></li>
+				
+					<li><a href="../../OpenZWave.html">OpenZWave</a></li>
+				
+					<li><a href="../../OrbiterProxy.html">OrbiterProxy</a></li>
+				
+					<li><a href="../../String.html">String</a></li>
+				
+					<li><a href="../../Test.html">Test</a></li>
+				
+				</ul>
+				<div id="no-class-search-results" style="display: none;">No matching classes.</div>
+			</div>
+
+			
+		</div>
+	</div>
+
+	<div id="documentation">
+		<h1 class="class">Ansible::ZWave::ZWave_Transceiver</h1>
+
+		<div id="description">
+			<p>
+the <a href="../ZWave.html">ZWave</a> transceiver is responsible for
+communication with the <a href="../ZWave.html">ZWave</a> network  uses
+ozwd, a Thrift wrapper around the <a
+href="../../OpenZWave.html">OpenZWave</a> library
+</p>
+
+		</div>
+
+		<!-- Constants -->
+		
+		<div id="constants-list" class="section">
+			<h3 class="section-header">Constants</h3>
+			<dl>
+			
+				<dt><a name="ThriftURL_RE">ThriftURL_RE</a></dt>
+				
+				<dd class="description"><p>
+Thrift URL Regexp
+</p></dd>
+				
+			
+			</dl>
+		</div>
+		
+
+		<!-- Attributes -->
+		
+		<div id="attribute-method-details" class="method-section section">
+			<h3 class="section-header">Attributes</h3>
+
+			
+			<div id="stomp--attribute-method" class="method-detail">
+				<a name="stompURL"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">stompURL</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+			<div id="thrift--attribute-method" class="method-detail">
+				<a name="thriftURL"></a>
+				
+				<div class="method-heading attribute-method-heading">
+					<span class="method-name">thriftURL</span><span
+						class="attribute-access-type">[R]</span>
+				</div>
+
+				<div class="method-description">
+				
+				
+				
+				</div>
+			</div>
+			
+		</div>
+		
+
+		<!-- Methods -->
+		
+		<div id="public-class-method-details" class="method-section section">
+			<h3 class="section-header">Public Class Methods</h3>
+
+		
+			<div id="new-method" class="method-detail ">
+				<a name="method-c-new"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">new</span><span
+						class="method-args">(stompURL, thriftURL)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					
+					
+
+					
+					<div class="method-source-code"
+						id="new-source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 47</span>
+47:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">stompURL</span>, <span class="ruby-identifier">thriftURL</span>)
+48:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Already initialized!&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueID</span><span class="ruby-operator">::</span><span class="ruby-identifier">transceiver</span>.<span class="ruby-identifier">nil?</span>
+49:                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{self}: initializing&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+50:                 <span class="ruby-ivar">@stompURL</span>, <span class="ruby-ivar">@thriftURL</span> = <span class="ruby-identifier">stompURL</span>, <span class="ruby-identifier">thriftURL</span>
+51:                 <span class="ruby-comment cmt">#@stompMutex = Mutex.new</span>
+52:                 <span class="ruby-ivar">@thriftMutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+53:                 <span class="ruby-ivar">@stomp_ok</span>, <span class="ruby-ivar">@thrift_ok</span> = <span class="ruby-keyword kw">false</span>, <span class="ruby-keyword kw">false</span>
+54:                 <span class="ruby-ivar">@alive</span> = <span class="ruby-keyword kw">true</span>
+55:                 <span class="ruby-keyword kw">super</span>()
+56:                 <span class="ruby-comment cmt"># store reference to ourselves to the classes that use us</span>
+57:                 <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">transceiver</span> = <span class="ruby-keyword kw">self</span>
+58:                 
+59:                 <span class="ruby-ivar">@ValueMonitors</span> = {}
+60:                 <span class="ruby-ivar">@ValueMonitorMutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+61:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+		<div id="public-instance-method-details" class="method-section section">
+			<h3 class="section-header">Public Instance Methods</h3>
+
+		
+			<div id="controller-state-method" class="method-detail ">
+				<a name="method-i-controller_state"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">controller_state</span><span
+						class="method-args">(idx)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+handle controller state notifications
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="controller-state-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 391</span>
+391:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">controller_state</span>(<span class="ruby-identifier">idx</span>)
+392:                 <span class="ruby-identifier">puts</span> <span class="ruby-constant">OpenZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ControllerStates</span>[<span class="ruby-identifier">idx</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">': '</span>)
+393:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="init-stomp-method" class="method-detail ">
+				<a name="method-i-init_stomp"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">init_stomp</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+initialize connection to STOMP server
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="init-stomp-source">
+<pre>
+    <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 64</span>
+64:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">init_stomp</span>
+65:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@stomp_ok</span>
+66:                     <span class="ruby-keyword kw">begin</span>
+67:                         <span class="ruby-comment cmt">#puts &quot;init_stomp\n-------------\n\t&quot; +  caller.join(&quot;\n\t&quot;) + &quot;\n&quot;</span>
+68:                         <span class="ruby-ivar">@stompserver</span> = <span class="ruby-constant">OnStomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@stompURL</span>)
+69:                         <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">on_connection_died</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">client</span>, <span class="ruby-identifier">con</span><span class="ruby-operator">|</span>
+70:                             <span class="ruby-ivar">@stomp_ok</span> = <span class="ruby-keyword kw">false</span>
+71:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;STOMP connection died!! sleeping for 3 seconds and then retrying...&quot;</span>
+72:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;stack trace: \n\t&quot;</span><span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\t\n&quot;</span>)
+73:                             <span class="ruby-identifier">sleep</span>(<span class="ruby-value">3</span>)
+74:                             <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">connect</span>
+75:                         }
+76:                         <span class="ruby-comment cmt">#</span>
+77:                         <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">on_connection_closed</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">client</span>, <span class="ruby-identifier">con</span><span class="ruby-operator">|</span>
+78:                             <span class="ruby-ivar">@stomp_ok</span> = <span class="ruby-keyword kw">false</span>
+79:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;STOMP connection closed!! sleeping for 10 seconds and then retrying...&quot;</span>
+80:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;stack trace: \n\t&quot;</span><span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">caller</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\t\n&quot;</span>)
+81:                             <span class="ruby-identifier">sleep</span>(<span class="ruby-value">10</span>)
+82:                             <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">connect</span>
+83:                         }
+84:                         <span class="ruby-comment cmt">#</span>
+85:                         <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">on_connection_established</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">client</span>, <span class="ruby-identifier">con</span><span class="ruby-operator">|</span>
+86:                             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;STOMP: Connected to broker using protocol version #{con.version}&quot;</span>
+87:                             <span class="ruby-ivar">@stomp_ok</span> = <span class="ruby-keyword kw">true</span>
+88:                         }
+89:                         <span class="ruby-ivar">@stompserver</span>.<span class="ruby-identifier">connect</span>
+90:                     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ECONNREFUSED</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+91:                         <span class="ruby-ivar">@stomp_ok</span> = <span class="ruby-keyword kw">false</span>
+92:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{e}&quot;</span>
+93:                     <span class="ruby-keyword kw">end</span>
+94:                 <span class="ruby-keyword kw">end</span>
+95:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@stompserver</span>
+96:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="init-thrift-method" class="method-detail ">
+				<a name="method-i-init_thrift"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">init_thrift</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+initialize connection to THRIFT server
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="init-thrift-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 108</span>
+108:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">init_thrift</span>()
+109:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@thrift_ok</span>
+110:                     <span class="ruby-comment cmt"># connect to Thrift server for OpenZWave</span>
+111:                     <span class="ruby-keyword kw">begin</span>
+112:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-constant">ThriftURL_RE</span>.<span class="ruby-identifier">match</span>(<span class="ruby-ivar">@thriftURL</span>) <span class="ruby-keyword kw">then</span>
+113:                             <span class="ruby-identifier">host</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
+114:                             <span class="ruby-identifier">port</span> = <span class="ruby-identifier">md</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">nil?</span><span class="ruby-operator">?</span> <span class="ruby-value">9090</span><span class="ruby-operator">:</span> <span class="ruby-identifier">md</span>[<span class="ruby-value">2</span>].<span class="ruby-identifier">to_i</span>
+115:                             <span class="ruby-comment cmt">#puts &quot;THRIFT host, port = #{host}:#{port}&quot;</span>
+116:                             <span class="ruby-ivar">@thrift_transport</span> = <span class="ruby-constant">Thrift</span><span class="ruby-operator">::</span><span class="ruby-constant">BufferedTransport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">Thrift</span><span class="ruby-operator">::</span><span class="ruby-constant">Socket</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>))
+117:                             <span class="ruby-ivar">@thrift_protocol</span> = <span class="ruby-constant">Thrift</span><span class="ruby-operator">::</span><span class="ruby-constant">BinaryProtocol</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@thrift_transport</span>)
+118:                             <span class="ruby-ivar">@thrift_transport</span>.<span class="ruby-identifier">open</span>()
+119:                             <span class="ruby-ivar">@manager</span> = <span class="ruby-operator">::</span><span class="ruby-constant">OpenZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">RemoteManager</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@thrift_protocol</span>)
+120:                             <span class="ruby-comment cmt"># fetch all known ValueID's from the server</span>
+121:                             <span class="ruby-ivar">@manager</span>.<span class="ruby-constant">SendAllValues</span>
+122:                             <span class="ruby-ivar">@thrift_ok</span> = <span class="ruby-keyword kw">true</span>
+123:                             <span class="ruby-ivar">@thrift_heartbeat</span> = <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span>{
+124:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Thrift: New heartbeat thread, #{Thread.current}&quot;</span>
+125:                                 <span class="ruby-comment cmt"># aargh, ugly heartbeat</span>
+126:                                 <span class="ruby-keyword kw">while</span> (<span class="ruby-ivar">@thrift_ok</span>) <span class="ruby-keyword kw">do</span>
+127:                                     <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
+128:                                     <span class="ruby-comment cmt">#puts 'ping...'</span>
+129:                                     <span class="ruby-identifier">manager_send</span>(<span class="ruby-value">:GetControllerNodeId</span>, <span class="ruby-constant">HomeID</span>)
+130:                                 <span class="ruby-keyword kw">end</span>
+131:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Thrift: heartbeat thread exiting, #{Thread.current}&quot;</span>
+132:                             }
+133:                         <span class="ruby-keyword kw">else</span>
+134:                             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Thrift URL invalid&quot;</span>
+135:                         <span class="ruby-keyword kw">end</span>
+136:                     <span class="ruby-comment cmt">#rescue Thrift::TransportException =&gt; e</span>
+137:                     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+138:                         <span class="ruby-ivar">@thrift_ok</span> = <span class="ruby-keyword kw">false</span>
+139:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{e}&quot;</span>
+140:                     <span class="ruby-keyword kw">end</span>
+141:                 <span class="ruby-keyword kw">end</span>
+142:                 <span class="ruby-keyword kw">return</span> <span class="ruby-ivar">@manager</span>
+143:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="manager-method" class="method-detail ">
+				<a name="method-i-manager"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">manager</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+get handle to OpenZWave::RemoteManager 
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="manager-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 146</span>
+146:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manager</span>
+147:                 <span class="ruby-comment cmt"># TODO: add caller watch here, (check for unsynchronized access)</span>
+148:                 <span class="ruby-ivar">@thrift_ok</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@manager</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">init_thrift</span>() 
+149:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="manager-send-method" class="method-detail ">
+				<a name="method-i-manager_send"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">manager_send</span><span
+						class="method-args">(meth, *args)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+the preferred method to access OpenZWave::Manager methods is via this
+generic call function, which takes care of all the nitty-gritty details
+such as connection monitoring and thread synchronization
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="manager-send-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 154</span>
+154:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">manager_send</span>(<span class="ruby-identifier">meth</span>, *<span class="ruby-identifier">args</span>)
+155:                 <span class="ruby-identifier">result</span> = <span class="ruby-keyword kw">nil</span>
+156:                 <span class="ruby-ivar">@thriftMutex</span>.<span class="ruby-identifier">synchronize</span> {
+157:                     <span class="ruby-keyword kw">begin</span>
+158:                         <span class="ruby-identifier">result</span> = <span class="ruby-identifier">manager</span>.<span class="ruby-identifier">method</span>(<span class="ruby-identifier">meth</span>).<span class="ruby-identifier">call</span>(*<span class="ruby-identifier">args</span>)
+159:                     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Thrift</span><span class="ruby-operator">::</span><span class="ruby-constant">TransportException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+160:                         <span class="ruby-ivar">@thrift_ok</span> = <span class="ruby-keyword kw">false</span>
+161:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Thrift transport exception, in method #{meth.inspect}&quot;</span>
+162:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;--------------------------, callers=\n\t\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">caller</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t\t&quot;</span>)
+163:                         <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
+164:                         <span class="ruby-keyword kw">retry</span>
+165:                      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+166:                         <span class="ruby-ivar">@thrift_ok</span> = <span class="ruby-keyword kw">false</span>
+167:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;OpenZWave exception: #{e}, in method #{meth.inspect}&quot;</span>
+168:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;--------------------, callers=\n\t\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">caller</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">2</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t\t&quot;</span>)
+169:                     <span class="ruby-keyword kw">end</span>
+170:                 }
+171:                 <span class="ruby-keyword kw">return</span>(<span class="ruby-identifier">result</span>)
+172:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ll-odes-ueried-method" class="method-detail ">
+				<a name="method-i-notification_AllNodesQueried"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_AllNodesQueried</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+All nodes have been queried, so client application can  expect complete
+data. 
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ll-odes-ueried-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 382</span>
+382:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_AllNodesQueried</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) <span class="ruby-comment cmt">#</span>
+383:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+384:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-wake-odes-ueried-method" class="method-detail ">
+				<a name="method-i-notification_AwakeNodesQueried"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_AwakeNodesQueried</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+All awake nodes have been queried, so client application can  expected
+complete data for these nodes.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-wake-odes-ueried-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 376</span>
+376:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_AwakeNodesQueried</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+377:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+378:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-river-ailed-method" class="method-detail ">
+				<a name="method-i-notification_DriverFailed"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_DriverFailed</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Driver failed to load */
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-river-ailed-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 335</span>
+335:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_DriverFailed</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+336:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+337:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-river-eady-method" class="method-detail ">
+				<a name="method-i-notification_DriverReady"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_DriverReady</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A driver for a PC Z-Wave controller has been added and is ready  to use. 
+The notification will contain the controller&#8217;s Home ID,  which is
+needed to call most of the Manager methods.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-river-eady-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 330</span>
+330:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_DriverReady</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+331:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+332:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-river-eset-method" class="method-detail ">
+				<a name="method-i-notification_DriverReset"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_DriverReset</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+All nodes and values for this driver have been removed.   This is sent
+instead of potentially hundreds of individual node  and value
+notifications.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-river-eset-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 342</span>
+342:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_DriverReset</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+343:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+344:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ssential-ode-ueries-omplete-method" class="method-detail ">
+				<a name="method-i-notification_EssentialNodeQueriesComplete"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_EssentialNodeQueriesComplete</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The queries on a node that are essential to its operation have  been
+completed. The node can now handle incoming messages.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ssential-ode-ueries-omplete-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 353</span>
+353:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_EssentialNodeQueriesComplete</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+354:                 <span class="ruby-comment cmt">#OpenZWave::RefreshedNodes[nodeId] = true</span>
+355:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-roup-method" class="method-detail ">
+				<a name="method-i-notification_Group"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_Group</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The associations for the node have changed. The application  should rebuild
+any group information it holds about the node.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-roup-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 271</span>
+271:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_Group</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+272:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>  
+273:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-sg-omplete-method" class="method-detail ">
+				<a name="method-i-notification_MsgComplete"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_MsgComplete</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+The last message that was sent is now complete.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-sg-omplete-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 347</span>
+347:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_MsgComplete</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+348:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+349:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-dded-method" class="method-detail ">
+				<a name="method-i-notification_NodeAdded"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeAdded</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A new node has been added to OpenZWave&#8217;s list.  This may be due  to a
+device being added to the Z-Wave network, or because the  application is
+initializing itself.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-dded-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 283</span>
+283:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeAdded</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+284:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+285:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-vent-method" class="method-detail ">
+				<a name="method-i-notification_NodeEvent"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeEvent</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A node has triggered an event.  This is commonly caused when a node  sends
+a Basic_Set command to the controller.  The event value is  stored in the
+notification.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-vent-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 311</span>
+311:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeEvent</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+312:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+313:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-aming-method" class="method-detail ">
+				<a name="method-i-notification_NodeNaming"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeNaming</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+One of the node names has changed (name, manufacturer, product).
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-aming-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 304</span>
+304:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeNaming</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+305:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+306:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-ew-method" class="method-detail ">
+				<a name="method-i-notification_NodeNew"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeNew</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A new node has been found (not already stored in zwcfg*.xml file)
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-ew-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 276</span>
+276:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeNew</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+277:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+278:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-rotocol-nfo-method" class="method-detail ">
+				<a name="method-i-notification_NodeProtocolInfo"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeProtocolInfo</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Basic node information has been receievd, such as whether  the node is a
+listening device, a routing device and its  baud rate and basic, generic
+and specific types. It is  after this notification that you can call
+Manager::GetNodeType  to obtain a label containing the device description.
+*/            
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-rotocol-nfo-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 299</span>
+299:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeProtocolInfo</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+300:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+301:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-ueries-omplete-method" class="method-detail ">
+				<a name="method-i-notification_NodeQueriesComplete"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeQueriesComplete</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+All the initialisation queries on a node have been completed.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-ueries-omplete-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 358</span>
+358:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeQueriesComplete</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>)
+359:                 <span class="ruby-comment cmt"># node monitor phase 2:</span>
+360:                                 @ValueMonitorMutex.synchronize do                    sleep(2)                    AnsibleValue[:_nodeId =&gt; nodeId].each { |val|                            val.get()                    }                    # all values now should be fresh                    @ValueMonitors[nodeId] = false                    fire_callback(:onMonitorStop)                    puts &quot;==&gt; trigger change monitor ENDED&lt;==&quot;                end=end
+361:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-ode-emoved-method" class="method-detail ">
+				<a name="method-i-notification_NodeRemoved"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_NodeRemoved</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A node has been removed from OpenZWave&#8217;s list.  This may be due  to a
+device being removed from the Z-Wave network, or because  the application
+is closing.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-ode-emoved-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 290</span>
+290:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_NodeRemoved</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+291:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>    
+292:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-olling-isabled-method" class="method-detail ">
+				<a name="method-i-notification_PollingDisabled"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_PollingDisabled</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Polling of a node has been successfully turned off by a call  to
+Manager::DisablePoll
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-olling-isabled-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 317</span>
+317:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_PollingDisabled</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+318:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>    
+319:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-olling-nabled-method" class="method-detail ">
+				<a name="method-i-notification_PollingEnabled"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_PollingEnabled</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+Polling of a node has been successfully turned on by a call  to
+Manager::EnablePoll
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-olling-nabled-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 323</span>
+323:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_PollingEnabled</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+324:                 <span class="ruby-identifier">puts</span> <span class="ruby-value str">'TODO'</span>
+325:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-alue-dded-method" class="method-detail ">
+				<a name="method-i-notification_ValueAdded"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_ValueAdded</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+a value has been added to the Z-Wave network
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-alue-dded-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 240</span>
+240:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_ValueAdded</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>)
+241:                     <span class="ruby-comment cmt">#@@Values[homeID].push(value)</span>
+242:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-alue-hanged-method" class="method-detail ">
+				<a name="method-i-notification_ValueChanged"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_ValueChanged</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A node value has been updated from the Z-Wave network.            
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-alue-hanged-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 251</span>
+251:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_ValueChanged</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>)               
+252:                 <span class="ruby-comment cmt"># OpenZWave peculiarity: we got a ValueChanged event, but the value</span>
+253:                 <span class="ruby-comment cmt"># reported by OpenZWave is unchanged. Thus we need to poll the</span>
+254:                 <span class="ruby-comment cmt"># device using :RequestNodeDynamic, wait for NodeQueriesComplete</span>
+255:                 <span class="ruby-comment cmt"># then re-get the value</span>
+256:                 <span class="ruby-comment cmt">#trigger_value_monitor(value)</span>
+257:                 <span class="ruby-comment cmt">#</span>
+258:                 <span class="ruby-comment cmt"># as of r471 ValueChanged behaves correctly</span>
+259:                 <span class="ruby-constant">AnsibleValue</span>[<span class="ruby-value">:_nodeId</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">nodeId</span>, <span class="ruby-value">:_gerne</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+260:                     <span class="ruby-identifier">v</span>.<span class="ruby-identifier">get</span>
+261:                 }
+262:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-alue-efreshed-method" class="method-detail ">
+				<a name="method-i-notification_ValueRefreshed"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_ValueRefreshed</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+A node value has been refreshed from the Z-Wave network.
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-alue-efreshed-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 265</span>
+265:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_ValueRefreshed</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) 
+266:                 <span class="ruby-comment cmt">#value.get unless value.nil?</span>
+267:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="notification-alue-emoved-method" class="method-detail ">
+				<a name="method-i-notification_ValueRemoved"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">notification_ValueRemoved</span><span
+						class="method-args">(nodeId, byte, value)</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+a value has been removed from the Z-Wave network
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="notification-alue-emoved-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 245</span>
+245:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">notification_ValueRemoved</span>(<span class="ruby-identifier">nodeId</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>)            
+246:                     <span class="ruby-comment cmt">#  A node value has been removed from OpenZWave's list.  This only occurs when a node is removed. </span>
+247:                     <span class="ruby-comment cmt">#@@Values[homeID].delete(value)</span>
+248:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="run-method" class="method-detail ">
+				<a name="method-i-run"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">run</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+transceiver main loop, runs in its own Ruby thread
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="run-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 177</span>
+177:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>
+178:                 <span class="ruby-comment cmt"># 1) subscribe to zwave's notification channel </span>
+179:                 <span class="ruby-identifier">stomp</span>.<span class="ruby-identifier">subscribe</span> <span class="ruby-value str">'/queue/zwave/monitor'</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">msg</span><span class="ruby-operator">|</span>
+180:                     <span class="ruby-comment cmt"># Invoked every time the broker delivers a MESSAGE frame for the</span>
+181:                     <span class="ruby-comment cmt"># SUBSCRIBE frame generated by this method call.</span>
+182:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;\n------ ZWAVE MESSAGE (#{Time.now}) ------&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">$DEBUG</span>
+183:                     <span class="ruby-keyword kw">begin</span>
+184:                         <span class="ruby-identifier">value</span> = <span class="ruby-keyword kw">nil</span>
+185:                         <span class="ruby-comment cmt"># lookup or create ValueID related to Notification</span>
+186:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;HomeID&quot;</span>] <span class="ruby-keyword kw">and</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;ValueID&quot;</span>] <span class="ruby-keyword kw">then</span> 
+187:                             <span class="ruby-identifier">homeID</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;HomeID&quot;</span>]
+188:                             <span class="ruby-identifier">valueID</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;ValueID&quot;</span>]
+189:                             <span class="ruby-comment cmt"># sync current HomeID</span>
+190:                             <span class="ruby-identifier">h</span> = <span class="ruby-identifier">homeID</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+191:                             <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-value">:HomeID</span>) <span class="ruby-keyword kw">then</span>
+192:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">h</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-keyword kw">then</span>
+193:                                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;------ SETTING HOME ID: #{homeID}&quot;</span>
+194:                                     <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span>.<span class="ruby-identifier">const_set</span>(<span class="ruby-value str">&quot;HomeID&quot;</span>, <span class="ruby-identifier">h</span>) 
+195:                                 <span class="ruby-keyword kw">end</span>
+196:                             <span class="ruby-keyword kw">end</span>
+197:                             <span class="ruby-comment cmt"># get or create ValueID object</span>
+198:                             <span class="ruby-identifier">value</span> = <span class="ruby-constant">Ansible</span><span class="ruby-operator">::</span><span class="ruby-constant">ZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">ValueID</span>.<span class="ruby-identifier">get_or_create</span>(<span class="ruby-identifier">homeID</span>, <span class="ruby-identifier">valueID</span>)
+199:                         <span class="ruby-keyword kw">end</span>
+200:                         <span class="ruby-comment cmt"># bind other notification parameters</span>
+201:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;NotificationType&quot;</span>] <span class="ruby-keyword kw">then</span>
+202:                             <span class="ruby-identifier">node</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;NotificationNodeId&quot;</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+203:                             <span class="ruby-identifier">byte</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;NotificationByte&quot;</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+204:                             <span class="ruby-identifier">notif_type</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;NotificationType&quot;</span>].<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>)
+205:                             <span class="ruby-identifier">name</span>, <span class="ruby-identifier">desc</span> = <span class="ruby-constant">OpenZWave</span><span class="ruby-operator">::</span><span class="ruby-constant">NotificationTypes</span>[<span class="ruby-identifier">notif_type</span>]
+206:                             <span class="ruby-comment cmt"># dynamic notification handler dispatch mechanism</span>
+207:                             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">md</span> = <span class="ruby-regexp re">/Type_(.*)/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">name</span>) <span class="ruby-keyword kw">then</span>
+208:                                 <span class="ruby-identifier">handler</span> = <span class="ruby-value str">&quot;notification_&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">md</span>[<span class="ruby-value">1</span>]
+209:                                 <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#{handler} (n:#{node}) (b:#{byte}) (#{value})&quot;</span>
+210:                                 <span class="ruby-identifier">__send__</span>(<span class="ruby-identifier">handler</span>, <span class="ruby-identifier">node</span>, <span class="ruby-identifier">byte</span>, <span class="ruby-identifier">value</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">handler</span>)
+211:                                 <span class="ruby-comment cmt"># fire all notification-related callbacks for the value, if any</span>
+212:                                 <span class="ruby-comment cmt"># e.g. onValueChanged, onValueRefreshed etc.</span>
+213:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">is_a?</span><span class="ruby-constant">AnsibleValue</span> <span class="ruby-keyword kw">then</span>
+214:                                     <span class="ruby-identifier">value</span>.<span class="ruby-identifier">fire_callback</span>(<span class="ruby-node">&quot;on#{md[1]}&quot;</span>.<span class="ruby-identifier">to_sym</span>)
+215:                                 <span class="ruby-keyword kw">end</span>
+216:                             <span class="ruby-keyword kw">end</span>
+217:                         <span class="ruby-keyword kw">end</span>
+218:                         <span class="ruby-comment cmt"># controller state change notification mechanism</span>
+219:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ctrl_state</span> = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-value str">&quot;ControllerState&quot;</span>] <span class="ruby-keyword kw">then</span>
+220:                             <span class="ruby-identifier">controller_state</span>(<span class="ruby-identifier">ctrl_state</span>.<span class="ruby-identifier">to_i</span>(<span class="ruby-value">16</span>))
+221:                         <span class="ruby-keyword kw">end</span>
+222:                     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+223:                         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;ZWaveTransceiver::decode_monitor() exception: #{e}&quot;</span>
+224:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;\t&quot;</span><span class="ruby-operator">+</span><span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span><span class="ruby-value">3</span>].<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t&quot;</span>)
+225:                     <span class="ruby-keyword kw">end</span>
+226:                 <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># do subscribe</span>
+227:                 <span class="ruby-comment cmt"># 2) Sleep forever (how pretty)</span>
+228:                 <span class="ruby-keyword kw">while</span> <span class="ruby-keyword kw">true</span> <span class="ruby-comment cmt">#@alive #FIXME</span>
+229:                     <span class="ruby-identifier">sleep</span>(<span class="ruby-value">1</span>)
+230:                 <span class="ruby-keyword kw">end</span>
+231:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+			<div id="stomp-method" class="method-detail ">
+				<a name="method-i-stomp"></a>
+
+				<div class="method-heading">
+				
+					<span class="method-name">stomp</span><span
+						class="method-args">()</span>
+					<span class="method-click-advice">click to toggle source</span>
+				
+				</div>
+
+				<div class="method-description">
+					
+					<p>
+get handle to stomp server, connect unless already connected caller must
+unlock @stompMutex when done with stomp
+</p>
+					
+
+					
+					<div class="method-source-code"
+						id="stomp-source">
+<pre>
+     <span class="ruby-comment cmt"># File zwave/zwave_transceiver.rb, line 100</span>
+100:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">stomp</span>
+101:                 <span class="ruby-ivar">@stomp_ok</span> <span class="ruby-operator">?</span> <span class="ruby-ivar">@stompserver</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">init_stomp</span>()
+102:             <span class="ruby-keyword kw">end</span></pre>
+					</div>
+					
+				</div>
+
+				
+
+				
+			</div>
+
+		
+		</div>
+	
+
+	</div>
+
+
+	<div id="rdoc-debugging-section-dump" class="debugging-section">
+	
+		<p>Disabled; run with --debug to generate this.</p>
+	
+	</div>
+
+	<div id="validator-badges">
+		<p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+		<p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+			Rdoc Generator</a> 1.1.6</small>.</p>
+	</div>
+
+</body>
+</html>
+
