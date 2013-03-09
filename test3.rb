@@ -64,7 +64,7 @@ begin
         :_nodeId => 2,  
         :_genre => OpenZWave::RemoteValueGenre::ValueGenre_Basic][0]
     ZWDimmer = AnsibleValue[ 
-         :_nodeId => 5,  
+         :_nodeId => 3,  
          :_genre => OpenZWave::RemoteValueGenre::ValueGenre_User,
          :_commandClassId => 38, #SWITCH_MULTILEVEL
          :_valueIndex => 0][0]
@@ -85,12 +85,12 @@ begin
     
     # map my ACT HomePro Lamp module to KNX
     DIMMER = Dimmer.new(
-        :master_control => ZWDimmer,
-        :switch         => KNXValue.new("1.001", "1/0/40"), 
-        :switch_status  => KNXValue.new("1.001", "1/0/41"),
-        :dimming        => KNXValue.new('5.001', "1/0/42"), 
-        :dimming_status => KNXValue.new('5.001', "1/0/43"),
-        :scene          => KNXValue.new('18.001', "1/0/44")
+        :master_control => ZWDimmer, # ZWave node 3
+        :switch         => KNXValue.new("1.001", "1/0/30"), 
+        :switch_status  => KNXValue.new("1.001", "1/0/31"),
+        :dimming        => KNXValue.new('5.001', "1/0/32"), 
+        :dimming_status => KNXValue.new('5.001', "1/0/33"),
+        :scene          => KNXValue.new('18.001', "1/0/34")
     )
     
     # map my garden lights to ZWave

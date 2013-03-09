@@ -39,6 +39,7 @@ ZWT.manager.SendAllValues
 sleep(3)
 
 S = AnsibleValue[:_nodeId => 2, :_genre => 1]
+AD = AnsibleValue[:_nodeId => 3, :_genre => 1]
 D = AnsibleValue[:_nodeId => 5, :_genre => 1]
 K = AnsibleValue[:_nodeId => 6, :_genre => 1]
 

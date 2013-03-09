@@ -31,7 +31,7 @@ require 'knx_tools'
 
 require 'config'
 
-KNX = Ansible::KNX::KNX_Transceiver.new(Ansible::KNX_URL)
+KNX = Ansible::KNX::KNX_Transceiver.new(Ansible::KNX::KNX_URL)
 # monitor all KNX activity
 KNX.add_callback(:onKNXtelegram) { | sender, cb, frame |
     if frame.dst_addr < 4048 then

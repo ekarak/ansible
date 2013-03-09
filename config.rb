@@ -92,3 +92,11 @@ module OpenZWave
     $:.push("/home/ekarak/ozw/Thrift4OZW/gen-rb")
 
 end
+
+# from  http://snippets.dzone.com/posts/show/2785
+module Kernel
+private
+    def this_method_name
+      caller[0] =~ /`([^']*)'/ and $1
+    end
+end

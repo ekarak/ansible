@@ -33,17 +33,30 @@ module Ansible
     
     include AnsibleCallback
     
+    # every AnsibleValue has a previous and a current value. Note that previous_value
+    # is nil until the second call to set()  
     attr_reader :previous_value, :current_value
+    
+    # timestamp of last value update
     attr_reader :last_update
+    
+    # generic hash of flags
     attr_reader :flags
     
-    # return true if a value's instance variable (whose symbol is iv_symbol) matches a filter value (as a regexp)
-    # e.g. value.matches?(:name => /elias/, :telephone => /210/)
-    def matches?(hash)
-        raise "#{self.class}: AnsibleValue.match? single argument must be a hash.." unless hash.is_a?Hash
+    # returns true if a value's internal state matches using a hashmap, where each
+    #   - key: is a symbol (the name of an instance variable)
+    #   - value: is a Regexp (instance varriable matches regexp)
+    #           OR an Array (instance var is contained in array)
+    #           OR a Range (instance var in included in the range)
+    #           OR a plain object (instance var == object)
+    # e.g. value.matches?(:name => /son$/, :age => 21..30)
+    #           return true if a value's :name ends in son (Ericsson) and is aged between 21 and 30
+    # it is used to implement a simplistic O(n) AnsibleValue searching facility
+    def matches?(filtermap)
+        raise "#{self.class}: AnsibleValue.match? single argument must be a Hash!" unless filtermap.is_a?Hash
         result = true 
-        hash.each { |iv_symbol, filter|
-            raise "#{self.class}: AnsibleValue.match?(hash)'s keys must be Symbols.." unless iv_symbol.is_a?Symbol
+        filtermap.each { |iv_symbol, filter|
+            raise "#{self.class}: Keys of AnsibleValue.match?(filtermap) must be Symbols!" unless iv_symbol.is_a?Symbol
             if respond_to?(iv_symbol) and (val = instance_eval(iv_symbol.to_s)) then
                 #puts "match.val(#{iv_symbol}) == #{val.inspect}" if $DEBUG
                 result = result & case filter
@@ -51,6 +64,9 @@ module Ansible
                 when Regexp then filter.match(val.to_s)
                 # if the filter is an array, use set intersection
                 when Array then (filter & val).length > 0
+                # if the filter is a Range, use range inclusion
+                when Range then (filter === val)
+                # otherwise use plain equality
                 else filter == val
                 end
             else

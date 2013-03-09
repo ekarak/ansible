@@ -32,30 +32,41 @@ module Ansible
             
             # define type-specific OZW::Manager API calls
             def read_operation
-                raise 'FIXME'
-                return :GetValueListItems
+                init_value_list 
+                return :GetValueListSelection_Int32
             end
             
             def write_operation
-                raise 'FIXME'
+                init_value_list 
                 return :SetValueListSelection
             end
             
             #
             def as_canonical_value()
-                puts 'TODO'
+              init_value_list 
+              selection_index = manager_send(:GetValueListSelection, self)
+              selection = @value_list[selection_index] 
+              raise "Selection index #{selection} out of bounds" unless selection.is_a?String
             end
             
-            #
+            # convert string to value list index
             def to_protocol_value(new_val)
-                result = nil
-                if [TrueClass, FalseClass].include?(new_val.class)
-                    result = new_val ? 1 : 0
-                end
+              init_value_list 
+              raise "ValueType_List: string '#{new_val}' not found in ValueListItems!"
+              return @value_list.index(new_val)
             end 
             
             # return a human-readable representation of a ZWave frame
             def explain
+              init_value_list 
+              @value_list[@current_value] 
+            end
+            
+            # initialize value list array
+            def init_value_list 
+              unless @value_list.nil?
+                @value_list = manager_send(:GetValueListItems, self)
+              end
             end
         end
         

@@ -57,7 +57,9 @@ module Ansible
         def stop()
             @thread.stop
         end
-                
+             
+        attr_reader :all_devices
+   
     end
     
 end        

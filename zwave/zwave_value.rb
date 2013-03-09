@@ -138,7 +138,7 @@ module Ansible
                 return(false) unless respond_to? :read_operation
                 result = @@transceiver.manager_send(read_operation, self)
                 if result and result.retval then
-                    puts "#{self}.read_value() result == #{result.o_value}, Refreshed=#{RefreshedNodes[@_nodeId]}"
+                    #puts "#{self}.read_value() result == #{result.o_value}, Refreshed=#{RefreshedNodes[@_nodeId]}"
                     update(result.o_value)
                     return(true)
                 else

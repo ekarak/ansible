@@ -108,7 +108,7 @@ module Ansible
             if defined?(@callbacks) and @callbacks.is_a?Hash then
                 [@callbacks[event],  @callbacks[:default]].each { |hsh|
                     if hsh.is_a?Hash then
-                        puts "#{self}.fire_callback, event #{event}: about to fire: #{hsh.inspect}"
+                        #puts "#{self}.fire_callback, event #{event}: about to fire: #{hsh.inspect}"
                         if target.nil? then 
                             # add all targets to the list of procs to call
                             # including the default 
@@ -124,7 +124,7 @@ module Ansible
             # time to fire callbacks 
             cb_procs.flatten.compact.each { |cb_proc|
                 raise "ooops, found a #{cb_proc.class} stored as a callback!" unless cb_proc.is_a?Proc                    
-                puts "firing #{event} callback, args: #{args.inspect}" 
+                # puts "firing #{event} callback, args: #{args.inspect}" 
                 cb_proc.call(self, event.to_s, *args)                    
             }
         end
