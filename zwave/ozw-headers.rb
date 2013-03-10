@@ -70,6 +70,7 @@ module OpenZWave
     NotificationTypes = parse_ozw_headers( File.join(OZW_SRC, "Notification.h"), "NotificationType" )
     ControllerCommands = parse_ozw_headers( File.join(OZW_SRC, "Driver.h"), "ControllerCommand" )
     ControllerStates = parse_ozw_headers( File.join(OZW_SRC, "Driver.h"), "ControllerState" )
+    ControllerErrors = parse_ozw_headers( File.join(OZW_SRC, "Driver.h"), "ControllerError" )
     ValueGenres = parse_ozw_headers( File.join(OZW_SRC, "value_classes", "ValueID.h"), "ValueGenre" )
     ValueTypes = parse_ozw_headers( File.join(OZW_SRC, "value_classes", "ValueID.h"), "ValueType" )
     
