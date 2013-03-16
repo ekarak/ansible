@@ -66,6 +66,10 @@ module Ansible
                 puts "cv = #{@current_value}"
                 return(@current_value? "ON":"OFF")
             end
+            
+            # probably very useful
+            def on; set true; end
+            def off; set false; end
         end
         
     end

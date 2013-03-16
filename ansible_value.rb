@@ -117,7 +117,7 @@ module Ansible
     
     #
     # get a value's current state
-    # returns: the value, if found in eibd's cache or nil otherwise
+    # returns: the value, if found in cache or nil otherwise
     def get
         return if write_only?
         #

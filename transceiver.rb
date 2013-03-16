@@ -25,6 +25,8 @@ http://en.wikipedia.org/wiki/GNU_Lesser_General_Public_License
 require 'rubygems'
 require 'onstomp'
 
+require 'ansible_utils'
+
 module Ansible
     
     # Generic Ansible tranceiver

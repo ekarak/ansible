@@ -34,7 +34,7 @@ require 'transceiver'
 module Ansible
 
     module ZWave
-        
+                
         # the ZWave transceiver is responsible for communication with the ZWave network 
         # uses ozwd, a Thrift wrapper around the OpenZWave library
         class ZWave_Transceiver < Transceiver
@@ -69,7 +69,7 @@ module Ansible
             end
             
             def init_stomp
-                unless @stomp_ok
+                unless @stomp_ok 
                     begin
                         # initialize connection to STOMP server
                         @stompserver = OnStomp::Client.new(@stompURL)
@@ -82,7 +82,7 @@ module Ansible
                         @stompserver.connect
                     rescue Errno::ECONNREFUSED => e
                         @stomp_ok = false
-                        puts "#{e}"
+                        dump_trace(e, "STOMP", "init_stomp")
                     end
                 end
                 return @stompserver
@@ -111,8 +111,8 @@ module Ansible
                             @thrift_transport.open()
                             @manager = ::OpenZWave::RemoteManager::Client.new(@thrift_protocol)
                             @thrift_ok = true
-                            # the heartbeat thread sends a controller node query every 2 seconds 
-                            @thrift_heartbeat = thriftHeartbeat()
+                            # the heartbeat thread sends a controller node query every 10 seconds 
+                            @thrift_heartbeat = thriftHeartbeat(10)
                             # fetch all known ValueID's from the server
                             @manager.SendAllValues
                         else
@@ -120,24 +120,22 @@ module Ansible
                         end
                     rescue Exception => e
                         @thrift_ok = false
-                        puts "#{e}"
+                        dump_trace(e, "THRIFT", "init_thrift")
                     end
                 end
               return @manager
             end
             
-            def thriftHeartbeat
+            def thriftHeartbeat(period)
                 return Thread.new {
                     puts "Thrift: New heartbeat thread, #{Thread.current}"
                     while (@thrift_ok) do
-                        sleep(2)
+                        sleep(period)
                         @thriftMutex.synchronize {
                             begin
-                              #print 'ping...'
-                              @manager.ping()
-                              #puts 'pong!'  
+                              @manager.ping()  
                             rescue Exception => e
-                              puts e
+                              dump_trace("Thrift heartbeat", e, "ping")
                               @thrift_ok = false
                             end
                         }
@@ -163,18 +161,18 @@ module Ansible
                     rescue Thrift::TransportException => e
                         # mark connection as not OK so as to reconnect at next call
                         @thrift_ok = false
-                        puts "Thrift transport exception, in method #{meth.inspect}"
-                        puts "--------------------------, callers=\n\t\t" + caller[0..4].join("\n\t\t")
+                        dump_trace(e, "Thrift transport exception", meth.inspect)
                         sleep(1)
                         retry
                      rescue Exception => e
-                        puts "OpenZWave exception: #{e}, in method #{meth.inspect}"
-                        puts "--------------------, callers=\n\t\t" + caller[0..4].join("\n\t\t")
+                        dump_trace(e, "Other exception", meth.inspect)
                     end
                 }
                 return(result)
             end
-    
+
+
+            
             #
             # transceiver main loop, runs in its own Ruby thread
             #
@@ -187,10 +185,9 @@ module Ansible
                     begin
                         value = getValueFrom(msg)
                     rescue Exception => e
-                        puts "ZWaveTransceiver::decode_monitor() exception: #{e}"
-                        puts "\t"+e.backtrace[0..3].join("\n\t")
+                        dump_trace("ZWaveTransceiver",e, "decode_monitor")
                     end
-                end # do subscribe
+                end
                 # 2) Sleep forever (how pretty)
                 while true #@alive #FIXME
                     sleep(1)
@@ -210,10 +207,15 @@ module Ansible
                     h = homeID.to_i(16)
                     if Ansible::ZWave.const_defined?(:HomeID) then
                         raise "HomeID changed from 0x#{Ansible::ZWave::HomeID.to_s(16)} to #{homeID}" unless h == Ansible::ZWave::HomeID
-                    elsif h > 0 then
-                        puts "------ SETTING HOME ID: #{homeID}"
-                        Ansible::ZWave.const_set("HomeID", h) 
-                    end
+		    else 
+			# ZWave homeID not yet set
+			if h > 0 then
+				puts "------ SETTING HOME ID: #{homeID}"
+				Ansible::ZWave.const_set("HomeID", h) 
+			else
+				raise "HomeID not set by controller - This shouldn't happen since all controllers come with the HomeID set in firmware"
+			end
+		    end
                     # get or create ValueID object
                     value = Ansible::ZWave::ValueID.get_or_create(homeID, valueID)
                 end
@@ -284,8 +286,8 @@ module Ansible
             #  A node value has been updated from the Z-Wave network.            
             def notification_ValueChanged(nodeId, byte, value)
               # node monitor phase 2:
-              if value.get 
-              @ValueMonitorMutex.synchronize do
+              #if value.get 
+              @ValueMonitorMutex.synchronize {
                   sleep(2)
                   AnsibleValue[:_nodeId => nodeId].each { |val|    
                       val.get()
@@ -294,7 +296,7 @@ module Ansible
                   @ValueMonitors[nodeId] = false
                   fire_callback(:onMonitorStop)
                   puts "==> trigger change monitor ENDED<=="
-              end
+              }
             end
             
             #  A node value has been refreshed from the Z-Wave network.
@@ -412,7 +414,7 @@ ControllerState_Completed: The command has completed successfully.
 =end
 
             def trigger_node_monitor(nodeId) 
-                @ValueMonitorMutex.synchronize do
+                @ValueMonitorMutex.synchronize {
                     # define a node monitor proc then spawn a new thread to run it
                     unless @ValueMonitors[nodeId] then
                         puts "==> spawning trigger change monitor thread for #{nodeId}<=="
@@ -425,10 +427,8 @@ ControllerState_Completed: The command has completed successfully.
                         # then declare the handler to run upon NodeQueriesComplete notification
                         @ValueMonitors[nodeId] = true
                         # node monitor phase 2: see notification_NodeQueriesComplete
-		   end # unless 
-		
-		end # do
-	
+                    end # unless 
+                }
             end #def
     
         end #class
@@ -437,4 +437,3 @@ ControllerState_Completed: The command has completed successfully.
 
 end # module Ansible
 
-end

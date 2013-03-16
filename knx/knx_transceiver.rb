@@ -42,10 +42,12 @@ module Ansible
         class KNX_Transceiver < Transceiver
             include AnsibleCallback
             
+            
             # a special exception to break the knx tranceiver loop
             class NormalExit < Exception; end
                 
             attr_reader :stomp
+            
             
             # initialize a KNXTranceiver
             #
@@ -62,7 +64,13 @@ module Ansible
                 # store reference to ourselves to the classes that use us
                 Ansible::KNX::KNXValue.transceiver = self
                 # register default handler for KNX frames
-                add_callback(:onKNXtelegram) { | sender, cb, frame |
+                add_default_callback
+            end
+            
+            # the default callback to be called on each KNX telegram.
+            # Needless to say this proc shouldn't take much long...            
+            def add_default_callback
+                add_callback(:onKNXtelegram) { | sender, cb, frame|
                     puts(frame_inspect(frame)) if $DEBUG
                     case frame.apci.value
                     when 0 then # A_GroupValue_Read
@@ -73,21 +81,16 @@ module Ansible
                                 send_apdu_raw(frame.dst_addr, v.to_apdu(0x40))
                             end
                         }
-                    when 1 then # A_GroupValue_Response
+                    when 1..2 then # A_GroupValue_Response, A_GroupValue_Write
                         puts "response frame by #{addr2str(frame.src_addr)} for knx address #{addr2str(frame.dst_addr, frame.daf)}"
                         AnsibleValue[:groups => [frame.dst_addr]].each { |v|
                             v.update_from_frame(frame)
                             puts "synchronized knx value #{v} from frame #{frame.inspect}" if $DEBUG
                         }
-                    when 2 then # A_GroupValue_Write
-                        AnsibleValue[:groups => [frame.dst_addr]].each { |v|
-                            v.update_from_frame(frame)
-                            puts "updated knx value #{v} from frame #{frame.inspect}" if $DEBUG
-                        }
                     end
                 }
             end
-            
+
             # initialize eibd connection
             def init_eibd(conn_symbol, conn_ok_symbol)
                 unless instance_variable_get(conn_ok_symbol)
@@ -138,24 +141,7 @@ module Ansible
                     # end
                     ##### part 3: monitor KNX bus, post all activity to /knx/monitor
                     vbm = monitor_conn.EIBOpenVBusmonitor()
-                    loop do
-                        len = monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
-                        #puts "knxbuffer=="+@knxbuf.buffer.inspect
-                        frame = L_DATA_Frame.read(@knxbuf.buffer.pack('c*'))
-                        #puts "frame:\n\t"
-                        headers = {}
-                        frame.field_names.each { |fieldname|
-                            field = frame.send(fieldname)
-                            #puts "\t#{fieldname} == #{field.value}"
-                            headers[fieldname] = CGI.escape(field.value.to_s)
-                        }
-                        @stomp.send(KNX_MONITOR_TOPIC, "KNX Activity", headers)
-                        #puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
-                        #  addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
-                        #  "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
-                        fire_callback(:onKNXtelegram, frame.dst_addr, frame)
-                        # 
-                    end
+                    knx2stomp_monitor
                 rescue Errno::ECONNRESET => e
                     @monitor_conn_ok = false
                     puts("EIBD disconnected! retrying in 10 seconds..")
@@ -164,9 +150,8 @@ module Ansible
                 rescue NormalExit => e
                     puts("KNX transceiver terminating gracefully...")
                 rescue Exception => e
-                    puts("Exception in KNX server thread: #{e}")
-                    puts("backtrace:\n  " << e.backtrace.join("\n  "))
-                    sleep(3)
+                    dump_trace(e, "KNXTransceiver", "run")
+                    sleep(3) 
                     retry
 #                ensure
                     #puts "Closing EIB connection..."
@@ -176,6 +161,27 @@ module Ansible
                 end
             end #def run()
         
+            def knx2stomp_monitor
+                loop do
+                    len = monitor_conn.EIBGetBusmonitorPacket(@knxbuf)
+                    #puts "knxbuffer=="+@knxbuf.buffer.inspect
+                    frame = L_DATA_Frame.read(@knxbuf.buffer.pack('c*'))
+                    #puts "frame:\n\t"
+                    headers = {}
+                    frame.field_names.each { |fieldname|
+                        field = frame.send(fieldname)
+                        #puts "\t#{fieldname} == #{field.value}"
+                        headers[fieldname] = CGI.escape(field.value.to_s)
+                    }
+                    @stomp.send(KNX_MONITOR_TOPIC, "KNX Activity", headers)
+                    #puts Ansible::KNX::APCICODES[frame.apci] + " packet from " + 
+                    #  addr2str(frame.src_addr) + " to " + addr2str(frame.dst_addr, frame.daf) + 
+                    #  "  priority=" + Ansible::KNX::PRIOCLASSES[frame.prio_class]
+                    fire_callback(:onKNXtelegram, frame.dst_addr, frame)
+                    # 
+                end
+            end
+            
             # send a raw APDU to the KNX bus.
             #
             # * Arguments: 
