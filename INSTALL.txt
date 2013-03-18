@@ -1,0 +1,1 @@
+sudo gem1.9.1 install onstomp bindata

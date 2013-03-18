@@ -220,11 +220,12 @@ module Ansible
                     value = Ansible::ZWave::ValueID.get_or_create(homeID, valueID)
                 end
                 doNotifications(msg,value)
+                doControllerState(msg)
                 return value
             end
 
             #
-            # process notifications in STOMP message,
+            # process value notifications in STOMP message,
             # also firing any notification-related callbacks bound to this ValueID
             #
             def doNotifications(msg,value)
@@ -247,22 +248,20 @@ module Ansible
                     end
                 end
             end
-            
-            def doControllerState(msg)
-                # controller state change notification mechanism
-                if ctrl_state = msg.headers["ControllerState"] then
-                    if idx = ctrl_state.to_i then
-                        puts OpenZWave::ControllerStates[idx].join(': ')
-                    end
-                end
-                if ctrl_error = msg.headers["ControllerError"] then
-                    if idx = ctrl_error.to_i then
-                        puts OpenZWave::ControllerErrors[idx].join(': ')
-                    end
-                end
 
+            #
+            # process controller state+error notifications in STOMP message,
+            # also firing any controller state+error callbacks
+            #
+            def doControllerState(msg)
+                # controller state and error change notification mechanism
+                %w{ControllerState ControllerError}.each { | key |
+                    if (data = msg.headers[key]) and (idx = data.to_i(16)) then
+                        puts eval("OpenZWave::#{key}s[idx].join(': ')")
+                        fire_callback("on#{key}".to_sym, idx)
+                    end                    
+                }
             end
-                 
             
             #
             #
@@ -270,18 +269,11 @@ module Ansible
             #
             
             # a value has been added to the Z-Wave network
-            def notification_ValueAdded(nodeId, byte, value)
-                puts "Value #{value} ADDED"
-                #@@Values[homeID].push(value)
-            end
-            
+            def notification_ValueAdded(nodeId, byte, value); end            
             
             # A node value has been removed from OpenZWave's list.  
             # This only occurs when a node is removed.
-            def notification_ValueRemoved(nodeId, byte, value)            
-                puts "Value #{value} REMOVED"       
-                #@@Values[homeID].delete(value)
-            end
+            def notification_ValueRemoved(nodeId, byte, value); end
                 
             #  A node value has been updated from the Z-Wave network.            
             def notification_ValueChanged(nodeId, byte, value)

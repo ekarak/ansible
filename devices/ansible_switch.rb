@@ -36,7 +36,7 @@ module Ansible
                 raise "#{self}.link: must supply AnsibleValues for :master_control and :switch!"
             end
             # map switch value updates to master_control 
-            switch.add_callback(:onUpdate, self) { |sender, cb, args| 
+            switch.(:onUpdate, self) { |sender, cb, args| 
                 puts "   (#{sender.class}) #{sender} input value updated! args=#{args}"
                 # convert value domains 
                 cv = sender.as_canonical_value
@@ -47,7 +47,7 @@ module Ansible
             # also update status value, if defined
             if status.is_a?AnsibleValue then
                 puts "...also adding status feedback command #{status}"
-                master.add_callback(:onUpdate, self) { |sender, cb, args|
+                master.(:onUpdate, self) { |sender, cb, args|
                     # convert value domains 
                     cv = sender.as_canonical_value
                     newval = master.to_protocol_value(cv)

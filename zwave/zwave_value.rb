@@ -182,6 +182,17 @@ module Ansible
 })
             end
             
+            #
+            # CALLBACKS
+            #
+            def onValueAdded
+                puts "Added: #{to_s}"
+            end
+            
+            def onValueRemoved
+                puts "Removed: #{to_s}"
+            end
+            
         end # class
         
         #
